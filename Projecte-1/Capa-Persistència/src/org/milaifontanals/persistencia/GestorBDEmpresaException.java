@@ -1,0 +1,17 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package org.milaifontanals.persistencia;
+
+/**
+ *
+ * @author gerar
+ */
+public class GestorBDEmpresaException extends Exception{
+    
+     public GestorBDEmpresaException(String message) {
+        super(message);
+        
+    }
+}
