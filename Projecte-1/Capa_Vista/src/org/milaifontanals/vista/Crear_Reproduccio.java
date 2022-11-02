@@ -240,12 +240,8 @@ public class Crear_Reproduccio extends javax.swing.JDialog {
              cBD.afegirReproducció(nou);
              
              
-             //Comprovacions de que el insert ha sigut exitos
-            try {
-                cBD.LlistaReproducció();
-            } catch (ParseException ex) {
-                Logger.getLogger(Crear_Reproduccio.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            //Comprovacions de que el insert ha sigut exitos
+            cBD.LlistaReproducció();
             
         } catch (GestorBDEmpresaException ex) {
             Logger.getLogger(Crear_Reproduccio.class.getName()).log(Level.SEVERE, null, ex);

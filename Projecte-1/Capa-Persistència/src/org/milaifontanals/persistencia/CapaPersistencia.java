@@ -199,11 +199,10 @@ public class CapaPersistencia  {
    
    //Comprovar estat  reproduccions
    
-   public  void LlistaReproducció() throws GestorBDEmpresaException, ParseException{
+   public  void LlistaReproducció() throws GestorBDEmpresaException{
        List<Reproducció> rep = new ArrayList<Reproducció>();
        Client entrada = null;
-       String datastring=null;
-       Date data = null;
+
        
        
        Statement q = null;
@@ -211,10 +210,9 @@ public class CapaPersistencia  {
             q= conn.createStatement();
             ResultSet rs = q.executeQuery("SELECT rep_idclients,rep_mt from reproduccio");
             while(rs.next()){
-                datastring=rs.getString("rep_mt");
-                data = new SimpleDateFormat("dd/MM/yyy").parse(datastring);
+                
                 entrada = new Client(rs.getLong("rep_idclients"));
-                rep.add(new Reproducció(data,entrada));
+                rep.add(new Reproducció(rs.getDate("rep_mt"),entrada));
             }
             rs.close();
         }catch(SQLException ex){
@@ -237,11 +235,12 @@ public class CapaPersistencia  {
        
    }
    
+   
+   //omple la taula amb totes les reproduccions que tenim
    public List <Reproducció>  contingutTaula() throws GestorBDEmpresaException, ParseException{
        List<Reproducció> rep = new ArrayList<Reproducció>();
        Client entrada = null;
-       String datastring=null;
-       Date data = null;
+       
        
        
        Statement q = null;
@@ -250,10 +249,9 @@ public class CapaPersistencia  {
             ResultSet rs = q.executeQuery("select rep_idclients,rep_mt,cli_nom from reproduccio join clients on rep_idclients= clients.cli_id");
 
             while(rs.next()){
-                datastring=rs.getString("rep_mt");
-                data = new SimpleDateFormat("dd/MM/yyy").parse(datastring);
+                
                 entrada = new Client(rs.getLong("rep_idclients"),rs.getString("cli_nom"));
-                rep.add(new Reproducció(data,entrada));
+                rep.add(new Reproducció(rs.getDate("rep_mt"),entrada));
             }
             
             rs.close();
@@ -306,21 +304,20 @@ public class CapaPersistencia  {
    }
    */
    
+   //Obtenim la reproduccio o reproduccions del filtre
    public List<Reproducció> getReproducció(Reproducció r) throws GestorBDEmpresaException, ParseException{
         List<Reproducció> llrep = new ArrayList<Reproducció>();
         Client entrada = null;
-        String datastring=null;
-        Date data = null;
+       
         
         Statement q = null;
         try{
             q= conn.createStatement();
             ResultSet rs = q.executeQuery("SELECT rep_idclients,rep_mt,cli_nom from reproduccio join clients on rep_idclients = clients.cli_id  and rep_mt = '"+r.getRep_mt()+"' and clients.cli_nom = '"+r.getIdClient().getNom()+"'");
             while(rs.next()){
-                datastring=rs.getString("rep_mt");
-                data = new SimpleDateFormat("dd/MM/yyy").parse(datastring);
+                
                 entrada = new Client(rs.getLong("rep_idclients"),rs.getString("cli_nom"));
-                llrep.add(new Reproducció(data,entrada));
+                llrep.add(new Reproducció(rs.getDate("rep_mt"),entrada));
             }
             rs.close();
         }catch(SQLException ex){

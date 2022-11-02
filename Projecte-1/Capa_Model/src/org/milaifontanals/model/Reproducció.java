@@ -44,6 +44,8 @@ public class Reproducció{
     
     public String getRep_mt() {
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+
+        
         String resultat=null;
         
         resultat=df.format(rep_mt);

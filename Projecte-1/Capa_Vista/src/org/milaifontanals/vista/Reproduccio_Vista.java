@@ -350,11 +350,11 @@ public class Reproduccio_Vista extends javax.swing.JDialog {
                 
               
                   for(int i =0; i<rep.size();i++){
-                        //System.out.println(rep.get(i).getIdClient().getId());
+                        
 
                         data[i][0]=rep.get(i).getIdClient().getNom();
                         data[i][1]=rep.get(i).getRep_mt();
-                        //data[i][2]=rep.get(i).getIdClient().getNom();
+                        //data[i][2]=rep.get(i).getIdClient().getNom();//Productes que encara haig de veure com implementar
                     }
                 
                 
@@ -399,6 +399,8 @@ public class Reproduccio_Vista extends javax.swing.JDialog {
        Eliminar_Reproduccio dialog = new Eliminar_Reproduccio (new javax.swing.JFrame(), true);
        dialog.setConnexio(cBD);
        dialog.setVisible(true);
+       
+       
     }//GEN-LAST:event_Eliminar_Reproduccio
 
     private void Filtrar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Filtrar
