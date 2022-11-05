@@ -7,6 +7,7 @@ package org.milaifontanals.vista;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import org.milaifontanals.persistencia.BDEstil;
 import org.milaifontanals.persistencia.CapaPersistencia;
 import org.milaifontanals.persistencia.GestorBDEmpresaException;
@@ -130,7 +131,8 @@ public class Menu_Inici extends javax.swing.JFrame {
           cp = new CapaPersistencia("empresaJDBC.properties");
                
       } catch (GestorBDEmpresaException ex) {
-            Logger.getLogger(Menu_Inici.class.getName()).log(Level.SEVERE, null, ex);
+           JOptionPane.showMessageDialog(null, ex.getMessage(),"Ups, ha hagut un error!", JOptionPane.ERROR_MESSAGE);
+            
         }
     }//GEN-LAST:event_formWindowOpened
 

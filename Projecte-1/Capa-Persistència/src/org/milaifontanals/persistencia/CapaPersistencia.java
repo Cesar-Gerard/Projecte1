@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
+import javax.swing.JOptionPane;
 import org.milaifontanals.model.Client;
 import org.milaifontanals.model.Estil;
 import org.milaifontanals.model.Producte;
@@ -176,7 +177,7 @@ public class CapaPersistencia  {
             q= conn.createStatement();
             
             ResultSet rs2 = q.executeQuery("insert into reproduccio (rep_idclients,rep_mt) values ("+r.getIdClient().getId()+",'"+r.getRep_mt()+"')");
-
+            rs2=q.executeQuery("commit");
             rs2.close();
         }catch(SQLException ex){
             throw new GestorBDEmpresaException("Error en intentar inserir la nova reproduccio.\n" + ex.getMessage());
@@ -273,20 +274,25 @@ public class CapaPersistencia  {
    }
    
    
-   
-   /*public void eliminarReproduccio(Reproducció r) throws GestorBDEmpresaException{
+   //Elimina la reproduccio que li passem
+   public void eliminarReproduccio(Reproducció r) throws GestorBDEmpresaException{
        
        
        Statement q = null;
+       long id=0;
       
         try{
             q= conn.createStatement();
+            ResultSet rs2 = q.executeQuery("select cli_id from clients where cli_nom = '"+r.getIdClient().getNom()+"'");
+            while(rs2.next()){
+                id = rs2.getLong("cli_id");
+            }
             
-            ResultSet rs2 = q.executeQuery("insert into reproduccio (rep_idclients,rep_mt) values ("+r.getIdClient().getId()+",'"+r.getRep_mt()+"')");
-
+            rs2=q.executeQuery("delete from reproduccio where rep_idclients ="+id+" and rep_mt='"+r.getRep_mt()+"'");
+            rs2=q.executeQuery("commit");
             rs2.close();
         }catch(SQLException ex){
-            throw new GestorBDEmpresaException("Error en intentar inserir la nova reproduccio.\n" + ex.getMessage());
+            throw new GestorBDEmpresaException("Error en intentar eliminar la reproduccio.\n" + ex.getMessage());
         }finally {
             if (q != null) {
                 try {
@@ -302,7 +308,7 @@ public class CapaPersistencia  {
        
        
    }
-   */
+   
    
    //Obtenim la reproduccio o reproduccions del filtre
    public List<Reproducció> getReproducció(Reproducció r) throws GestorBDEmpresaException, ParseException{
@@ -337,7 +343,9 @@ public class CapaPersistencia  {
     }
    
    
-   
+   public void editarReproduccio(Reproducció r) throws GestorBDEmpresaException{
+         
+   }
    
    
     

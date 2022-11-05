@@ -4,12 +4,15 @@
  */
 package org.milaifontanals.vista;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.text.ParseException;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import org.milaifontanals.model.Client;
 import org.milaifontanals.model.Estil;
 import org.milaifontanals.model.Reproducció;
@@ -113,6 +116,12 @@ public class Reproduccio_Vista extends javax.swing.JDialog {
 
         jLabel3.setText("Data reproducció:");
 
+        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(0, 0, 31, 1));
+
+        jSpinner2.setModel(new javax.swing.SpinnerNumberModel(0, 0, 12, 1));
+
+        jSpinner3.setModel(new javax.swing.SpinnerNumberModel(2000, 1900, 3000, 1));
+
         jButton4.setText("Filtrar");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -126,38 +135,42 @@ public class Reproduccio_Vista extends javax.swing.JDialog {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(32, 32, 32)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jLabel2)
+                                .addGap(39, 39, 39)
+                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jButton4)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton4)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addGap(18, 18, 18)
-                                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel1)
+                        .addGap(26, 26, 26)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(34, 34, 34)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -293,7 +306,7 @@ public class Reproduccio_Vista extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(36, 36, 36)
+                .addGap(28, 28, 28)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -325,7 +338,7 @@ public class Reproduccio_Vista extends javax.swing.JDialog {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         List<Client> est = new ArrayList<Client>();
-       List<Reproducció> rep = new ArrayList<Reproducció>();
+
           
         //Omplim el comboBox de la pantalla amb els clients que tenim a la BD
         try {
@@ -335,49 +348,44 @@ public class Reproduccio_Vista extends javax.swing.JDialog {
             }
    
         } catch (GestorBDEmpresaException ex) {
-            Logger.getLogger(Reproduccio_Vista.class.getName()).log(Level.SEVERE, null, ex);
+           JOptionPane.showMessageDialog(null, ex.getMessage(),"Ups, ha hagut un error!", JOptionPane.ERROR_MESSAGE);
         }
         
-         
-        //Omplim la taula amb les reproduccions actuals
-        try{
-            try {
-                rep = cBD.contingutTaula();
-                String columnNames []={"Client","Moment_temporal","Producte"};
-                String data[][]= new String [rep.size()][3];
-                
-                
-                
-              
-                  for(int i =0; i<rep.size();i++){
-                        
-
-                        data[i][0]=rep.get(i).getIdClient().getNom();
-                        data[i][1]=rep.get(i).getRep_mt();
-                        //data[i][2]=rep.get(i).getIdClient().getNom();//Productes que encara haig de veure com implementar
-                    }
-                
-                
-             jTable1.setModel(new DefaultTableModel(data,columnNames));   
-                
-            } catch (ParseException ex) {
-                Logger.getLogger(Reproduccio_Vista.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }catch (GestorBDEmpresaException ex) {
-            Logger.getLogger(Reproduccio_Vista.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-        
-       
-        
-        
-        
-        
-        
-        
-        
+         //Omplim la taula
+        DadesTaula();
+           
     }//GEN-LAST:event_formWindowOpened
+
+    private void DadesTaula() {
+        //Omplim la taula amb les reproduccions actuals
+        List<Reproducció> rep = new ArrayList<Reproducció>();
+        try{
+            
+            rep = cBD.contingutTaula();
+            String columnNames []={"Client","Moment_temporal","Producte"};
+            String data[][]= new String [rep.size()][3];
+            
+            
+            
+            
+            for(int i =0; i<rep.size();i++){
+                
+                
+                data[i][0]=rep.get(i).getIdClient().getNom();
+                data[i][1]=rep.get(i).getRep_mt();
+                //data[i][2]=rep.get(i).getIdClient().getNom();//Productes que encara haig de veure com implementar
+            }
+            
+            
+            jTable1.setModel(new DefaultTableModel(data,columnNames));
+            
+        } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(),"Ups, ha hagut un error!", JOptionPane.ERROR_MESSAGE);
+            
+        }catch (GestorBDEmpresaException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(),"Ups, ha hagut un error!", JOptionPane.ERROR_MESSAGE);
+        }
+    }
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
@@ -387,21 +395,59 @@ public class Reproduccio_Vista extends javax.swing.JDialog {
        Crear_Reproduccio dialog = new Crear_Reproduccio (new javax.swing.JFrame(), true);
        dialog.setConnexio(cBD);
        dialog.setVisible(true);
+       
+       dialog.addWindowListener(new WindowAdapter(){
+           @Override
+           public void windowClosed(WindowEvent e) {
+              //Actualitzem la taula
+               DadesTaula();
+           }
+           
+           
+       });
     }//GEN-LAST:event_AfegirReproduccio
 
     private void EditarReproduccio(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarReproduccio
+       Reproducció rep_seleccionat =AgafarReproduccio();       
+        
+        
        Editar_Reproduccio dialog = new Editar_Reproduccio (new javax.swing.JFrame(), true);
-       dialog.setConnexio(cBD);
+       dialog.setConnexio(cBD);     
        dialog.setVisible(true);
+       
     }//GEN-LAST:event_EditarReproduccio
 
     private void Eliminar_Reproduccio(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Eliminar_Reproduccio
+        Reproducció rep_seleccionat =AgafarReproduccio();       
+        
+        
        Eliminar_Reproduccio dialog = new Eliminar_Reproduccio (new javax.swing.JFrame(), true);
        dialog.setConnexio(cBD);
+       dialog.setReproduccio(rep_seleccionat);
        dialog.setVisible(true);
+       
+       dialog.addWindowListener(new WindowAdapter(){
+           @Override
+           public void windowClosed(WindowEvent e) {
+              //Actualitzem la taula
+               DadesTaula();
+           }
+           
+           
+       });
        
        
     }//GEN-LAST:event_Eliminar_Reproduccio
+
+    private Reproducció AgafarReproduccio() {
+        //Seleccioanem el client y la reproduccio amb la que volem treballar
+        int i =jTable1.getSelectedColumn();
+        int j = jTable1.getSelectedRow();
+        Client seleccionat = new Client((String)jTable1.getValueAt(j, i));
+        Date dt_seleccionat = new Date ((String)jTable1.getValueAt(j, i+1));
+        Reproducció rep_seleccionat = new Reproducció(dt_seleccionat,seleccionat);
+        return rep_seleccionat;
+    }
 
     private void Filtrar(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Filtrar
         
@@ -451,11 +497,13 @@ public class Reproduccio_Vista extends javax.swing.JDialog {
                 
              jTable1.setModel(new DefaultTableModel(data,columnNames)); 
              
+             
+             
             
         }catch (GestorBDEmpresaException ex) {
-            Logger.getLogger(Crear_Reproduccio.class.getName()).log(Level.SEVERE, null, ex);
+           JOptionPane.showMessageDialog(null, ex.getMessage(),"Ups, ha hagut un error!", JOptionPane.ERROR_MESSAGE);
         } catch (ParseException ex) {
-            Logger.getLogger(Reproduccio_Vista.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex.getMessage(),"Ups, ha hagut un error!", JOptionPane.ERROR_MESSAGE);
         }
             
             

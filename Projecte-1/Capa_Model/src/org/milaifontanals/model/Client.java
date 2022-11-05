@@ -47,6 +47,12 @@ public class Client {
         this.id = id;
     }
 
+    public Client(String nom) {//Proba seleccio client taula reproduccio
+        this.nom = nom;
+    }
+    
+    
+
     public Client(long id, String nom) {//Constructor Proba Afegir reproduccio
         this.id = id;
         this.nom = nom;

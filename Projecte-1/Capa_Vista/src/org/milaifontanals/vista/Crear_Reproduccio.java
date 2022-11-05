@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.milaifontanals.model.Client;
 import org.milaifontanals.model.Reproducció;
@@ -244,12 +245,13 @@ public class Crear_Reproduccio extends javax.swing.JDialog {
             cBD.LlistaReproducció();
             
         } catch (GestorBDEmpresaException ex) {
-            Logger.getLogger(Crear_Reproduccio.class.getName()).log(Level.SEVERE, null, ex);
+           JOptionPane.showMessageDialog(null, ex.getMessage(),"Ups, ha hagut un error!", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_ConfirmarCreacio
 
     private void CancelarCreacio(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarCreacio
         this.dispose();
+        
     }//GEN-LAST:event_CancelarCreacio
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
@@ -263,7 +265,7 @@ public class Crear_Reproduccio extends javax.swing.JDialog {
                 jComboBox1.addItem(est.get(i).getNom());
             }
         } catch (GestorBDEmpresaException ex) {
-            Logger.getLogger(Reproduccio_Vista.class.getName()).log(Level.SEVERE, null, ex);
+           JOptionPane.showMessageDialog(null, ex.getMessage(),"Ups, ha hagut un error!", JOptionPane.ERROR_MESSAGE);
         }
             
         
