@@ -15,9 +15,26 @@ public abstract class Producte {
 
     public Producte() {
     }
-    
-    
 
+    public Producte(long id, String titol) {//Constructor per poder recuperar les dades de la BD per a la vista reproduccio
+        this.id = id;
+        this.titol = titol;
+    }
+
+    public Producte(String titol) {//Constructor necessari a la hora de fer la creació de una nova reproduccio
+        this.titol = titol;
+    }
+
+    public Producte(long id) {//Constructor per el filtre de reproduccions
+        this.id = id;
+    }
+
+    
+    
+    
+    
+    
+    
 
     public Producte(long id, String titol, boolean actiu) {
         this.id = id;

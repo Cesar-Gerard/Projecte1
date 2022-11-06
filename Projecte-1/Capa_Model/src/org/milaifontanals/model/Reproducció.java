@@ -12,7 +12,7 @@ import java.util.Date;
  * @author gerar
  */
 public class Reproducció{
-
+    private int id_reproduccio;
     private Date rep_mt; 
     private Client idClient;
     private Producte idProducte; 
@@ -22,6 +22,15 @@ public class Reproducció{
         this.idClient = idClient;
         this.idProducte = idProducte;
     }
+
+    public Reproducció(int id_reproduccio, Date rep_mt, Client idClient, Producte idProducte) {//Constructor per editar les reproduccions, ja que necessitem el id de reproduccio
+        this.id_reproduccio = id_reproduccio;
+        this.rep_mt = rep_mt;
+        this.idClient = idClient;
+        this.idProducte = idProducte;
+    }
+    
+    
 
     public Reproducció(Client idClient, Producte idProducte) {
         this.idClient = idClient;
@@ -71,6 +80,14 @@ public class Reproducció{
 
     public void setIdProducte(Producte idProducte) {
         this.idProducte = idProducte;
+    }
+
+    public int getId_reproduccio() {
+        return id_reproduccio;
+    }
+
+    public void setId_reproduccio(int id_reproduccio) {
+        this.id_reproduccio = id_reproduccio;
     }
     
     

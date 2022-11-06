@@ -21,7 +21,7 @@ import java.util.Properties;
 import javax.swing.JOptionPane;
 import org.milaifontanals.model.Client;
 import org.milaifontanals.model.Estil;
-import org.milaifontanals.model.Producte;
+import org.milaifontanals.model.Prod_Rep;
 import org.milaifontanals.model.Reproducció;
 /**
  *
@@ -172,13 +172,18 @@ public class CapaPersistencia  {
        
        
        Statement q = null;
-      
+      long id_producte=0;
         try{
             q= conn.createStatement();
-            
-            ResultSet rs2 = q.executeQuery("insert into reproduccio (rep_idclients,rep_mt) values ("+r.getIdClient().getId()+",'"+r.getRep_mt()+"')");
+            ResultSet rs = q.executeQuery("select cat_id from cataleg where cat_titol = '"+r.getIdProducte().getTitol()+"'");
+            while(rs.next()){
+                id_producte=rs.getLong("cat_id");
+            }
+            //No fa falta fer una consulta per trobar el id dels clients ja que en el comboBox ja esta guardada aquesta informacio
+            ResultSet rs2 = q.executeQuery("insert into reproduccio (rep_idclients,rep_mt,rep_idcataleg) values ("+r.getIdClient().getId()+",'"+r.getRep_mt()+"',"+id_producte+")");
             rs2=q.executeQuery("commit");
             rs2.close();
+            rs.close();
         }catch(SQLException ex){
             throw new GestorBDEmpresaException("Error en intentar inserir la nova reproduccio.\n" + ex.getMessage());
         }finally {
@@ -241,18 +246,23 @@ public class CapaPersistencia  {
    public List <Reproducció>  contingutTaula() throws GestorBDEmpresaException, ParseException{
        List<Reproducció> rep = new ArrayList<Reproducció>();
        Client entrada = null;
+       Prod_Rep prod = null;
+       int id_rep = 0;
        
        
        
        Statement q = null;
        try{
             q= conn.createStatement();
-            ResultSet rs = q.executeQuery("select rep_idclients,rep_mt,cli_nom from reproduccio join clients on rep_idclients= clients.cli_id");
+            ResultSet rs = q.executeQuery("select rep_idclients,rep_mt,rep_idcataleg,cli_nom,cat_titol,cat_tipus,rep_id from clients join reproduccio on rep_idclients= clients.cli_id join cataleg on rep_idcataleg=cat_id order by rep_mt DESC,rep_idclients ASC");
 
             while(rs.next()){
                 
+                id_rep=rs.getInt("rep_id");
+               prod= new Prod_Rep(rs.getLong("rep_idcataleg"),rs.getString("cat_titol"));
                 entrada = new Client(rs.getLong("rep_idclients"),rs.getString("cli_nom"));
-                rep.add(new Reproducció(rs.getDate("rep_mt"),entrada));
+                
+                rep.add(new Reproducció(id_rep,rs.getDate("rep_mt"),entrada,prod));
             }
             
             rs.close();
@@ -314,18 +324,22 @@ public class CapaPersistencia  {
    public List<Reproducció> getReproducció(Reproducció r) throws GestorBDEmpresaException, ParseException{
         List<Reproducció> llrep = new ArrayList<Reproducció>();
         Client entrada = null;
-       
+        Prod_Rep prod=null;
+       long id_producte=0;
         
         Statement q = null;
         try{
             q= conn.createStatement();
-            ResultSet rs = q.executeQuery("SELECT rep_idclients,rep_mt,cli_nom from reproduccio join clients on rep_idclients = clients.cli_id  and rep_mt = '"+r.getRep_mt()+"' and clients.cli_nom = '"+r.getIdClient().getNom()+"'");
-            while(rs.next()){
+                                  
+            ResultSet rs = q.executeQuery("select cli_nom,rep_idclients,rep_mt,cat_titol,rep_idcataleg from clients join reproduccio on cli_nom = '"+r.getIdClient().getNom()+"' and rep_idclients = cli_id join cataleg on cat_titol='"+r.getIdProducte().getTitol()+"' and rep_mt='"+r.getRep_mt()+"'");
+                while(rs.next()){
+                    prod = new Prod_Rep(rs.getLong("rep_idcataleg"),rs.getString("cat_titol"));
+                    entrada = new Client(rs.getLong("rep_idclients"),rs.getString("cli_nom"));
+                    llrep.add(new Reproducció(rs.getDate("rep_mt"),entrada,prod));
+                }
                 
-                entrada = new Client(rs.getLong("rep_idclients"),rs.getString("cli_nom"));
-                llrep.add(new Reproducció(rs.getDate("rep_mt"),entrada));
-            }
-            rs.close();
+            rs.close();    
+ 
         }catch(SQLException ex){
             throw new GestorBDEmpresaException("Error en intentar recuperar la llista de clients.\n" + ex.getMessage());
         }finally {
@@ -342,8 +356,59 @@ public class CapaPersistencia  {
         return llrep;
     }
    
-   
-   public void editarReproduccio(Reproducció r) throws GestorBDEmpresaException{
+   //Editem la reproduccio que li passem per parametre
+   public void editarReproduccio(Reproducció nova, Reproducció vella) throws GestorBDEmpresaException{
+       
+       Statement q = null;
+       long id_client=0;
+       long id_producte=0;
+       int id_rep=0;
+      
+        try{
+            q= conn.createStatement();
+            ResultSet rs2 = q.executeQuery("select rep_id,cli_id,cat_id from clients join reproduccio on  cli_id=rep_idclients and cli_nom='"+vella.getIdClient().getNom()+"' join cataleg on cat_titol='"+vella.getIdProducte().getTitol()+"' and rep_mt ='"+vella.getRep_mt()+"'");
+            
+            while(rs2.next()){
+                
+                id_rep=rs2.getInt("rep_id");
+     
+            }
+            rs2.close();
+            
+            ResultSet rs3 = q.executeQuery("select cli_id,cat_id from clients join reproduccio on cli_nom='"+nova.getIdClient().getNom()+"' join cataleg on cat_titol='"+nova.getIdProducte().getTitol()+"'");
+            
+            
+            while(rs3.next()){
+                id_producte=rs3.getLong("cat_id");
+                id_client=rs3.getLong("cli_id");
+             }
+                rs3.close();
+                
+           
+                
+            ResultSet rs=q.executeQuery("update reproduccio set rep_mt='"+nova.getRep_mt()+"', rep_idclients ='"+id_client+"',rep_idcataleg='"+id_producte+"' where rep_id ='"+id_rep+"'");
+            rs=q.executeQuery("commit");
+            rs.close();
+                
+         
+            
+            
+            
+            
+            
+        }catch(SQLException ex){
+            throw new GestorBDEmpresaException("Error en intentar eliminar la reproduccio.\n" + ex.getMessage());
+        }finally {
+            if (q != null) {
+                try {
+                    q.close();
+                } catch (SQLException ex) {
+                    throw new GestorBDEmpresaException("Error en intentar tancar la sentència que ha inserit la nova reproduccio.\n" + ex.getMessage());
+                }
+            }
+        }
+       
+       
          
    }
    

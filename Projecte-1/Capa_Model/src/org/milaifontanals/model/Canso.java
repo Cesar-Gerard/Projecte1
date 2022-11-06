@@ -18,6 +18,14 @@ public class Canso extends Producte{
         this.durada = durada;
     }
 
+    public Canso(long id, String titol) {
+        super(id, titol);
+    }
+
+    
+    
+    
+
     @Override
     public int getDuracio() {
         return super.getDuracio(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody

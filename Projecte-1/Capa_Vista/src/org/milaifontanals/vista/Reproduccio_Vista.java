@@ -20,6 +20,8 @@ import org.milaifontanals.persistencia.BDEstil;
 import org.milaifontanals.persistencia.CapaPersistencia;
 import org.milaifontanals.persistencia.GestorBDEmpresaException;
 import javax.swing.table.*;
+import org.milaifontanals.model.Prod_Rep;
+import org.milaifontanals.model.Producte;
 
 /**
  *
@@ -60,8 +62,8 @@ public class Reproduccio_Vista extends javax.swing.JDialog {
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
+        NomClient = new javax.swing.JTextField();
+        NomProducte = new javax.swing.JTextField();
         jComboBox1 = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jSpinner1 = new javax.swing.JSpinner();
@@ -95,15 +97,15 @@ public class Reproduccio_Vista extends javax.swing.JDialog {
 
         jLabel2.setText("Producte:");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        NomClient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                NomClientActionPerformed(evt);
             }
         });
 
-        jTextField3.addActionListener(new java.awt.event.ActionListener() {
+        NomProducte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField3ActionPerformed(evt);
+                NomProducteActionPerformed(evt);
             }
         });
 
@@ -141,7 +143,7 @@ public class Reproduccio_Vista extends javax.swing.JDialog {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addGap(39, 39, 39)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(NomProducte, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jButton4)
@@ -159,7 +161,7 @@ public class Reproduccio_Vista extends javax.swing.JDialog {
                         .addGap(26, 26, 26)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(34, 34, 34)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(NomClient, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
         );
         jPanel1Layout.setVerticalGroup(
@@ -170,11 +172,11 @@ public class Reproduccio_Vista extends javax.swing.JDialog {
                     .addComponent(jLabel1)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(NomClient, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(NomProducte, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -326,13 +328,13 @@ public class Reproduccio_Vista extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void NomProducteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NomProducteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_NomProducteActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
        
-       jTextField1.setText(jComboBox1.getSelectedItem().toString());
+       NomClient.setText(jComboBox1.getSelectedItem().toString());
     
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
@@ -357,6 +359,8 @@ public class Reproduccio_Vista extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowOpened
 
     private void DadesTaula() {
+        
+        jTable1.removeAll();
         //Omplim la taula amb les reproduccions actuals
         List<Reproducció> rep = new ArrayList<Reproducció>();
         try{
@@ -373,7 +377,7 @@ public class Reproduccio_Vista extends javax.swing.JDialog {
                 
                 data[i][0]=rep.get(i).getIdClient().getNom();
                 data[i][1]=rep.get(i).getRep_mt();
-                //data[i][2]=rep.get(i).getIdClient().getNom();//Productes que encara haig de veure com implementar
+                data[i][2]=rep.get(i).getIdProducte().getTitol();//Productes que encara haig de veure com implementar
             }
             
             
@@ -387,9 +391,9 @@ public class Reproduccio_Vista extends javax.swing.JDialog {
         }
     }
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void NomClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NomClientActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_NomClientActionPerformed
 
     private void AfegirReproduccio(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AfegirReproduccio
        Crear_Reproduccio dialog = new Crear_Reproduccio (new javax.swing.JFrame(), true);
@@ -412,14 +416,25 @@ public class Reproduccio_Vista extends javax.swing.JDialog {
         
         
        Editar_Reproduccio dialog = new Editar_Reproduccio (new javax.swing.JFrame(), true);
-       dialog.setConnexio(cBD);     
+       dialog.setConnexio(cBD);
+       dialog.setReproduccio(rep_seleccionat);
        dialog.setVisible(true);
+       
+       dialog.addWindowListener(new WindowAdapter(){
+           @Override
+           public void windowClosed(WindowEvent e) {
+              //Actualitzem la taula
+               DadesTaula();
+           }
+           
+           
+       });
        
     }//GEN-LAST:event_EditarReproduccio
 
     private void Eliminar_Reproduccio(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Eliminar_Reproduccio
         Reproducció rep_seleccionat =AgafarReproduccio();       
-        
+        System.out.println(rep_seleccionat.getRep_mt());
         
        Eliminar_Reproduccio dialog = new Eliminar_Reproduccio (new javax.swing.JFrame(), true);
        dialog.setConnexio(cBD);
@@ -440,12 +455,28 @@ public class Reproduccio_Vista extends javax.swing.JDialog {
     }//GEN-LAST:event_Eliminar_Reproduccio
 
     private Reproducció AgafarReproduccio() {
-        //Seleccioanem el client y la reproduccio amb la que volem treballar
+        //Seleccioanem el client, la data i el producte amb la que volem treballar
+
+        
         int i =jTable1.getSelectedColumn();
         int j = jTable1.getSelectedRow();
+        
+        String data = (String)jTable1.getValueAt(j, i+1);
+        
+        int dia = Integer.parseInt(data.substring(0,2));
+        int mes = Integer.parseInt(data.substring(3,5))-1;
+        int any = Integer.parseInt(data.substring(6,10))-1900;
+        
+        Date dt_seleccionat = new Date (any,mes,dia);
+        
+        
+        Prod_Rep prod_editar = new Prod_Rep((String)jTable1.getValueAt(j, i+2));
+        
+        
         Client seleccionat = new Client((String)jTable1.getValueAt(j, i));
-        Date dt_seleccionat = new Date ((String)jTable1.getValueAt(j, i+1));
-        Reproducció rep_seleccionat = new Reproducció(dt_seleccionat,seleccionat);
+        
+   
+        Reproducció rep_seleccionat = new Reproducció(dt_seleccionat,seleccionat,prod_editar);
         return rep_seleccionat;
     }
 
@@ -467,10 +498,12 @@ public class Reproduccio_Vista extends javax.swing.JDialog {
             Date d_rep = null;
             d_rep= new Date(any,mes,dia);
             
+            //Agafem el producte indicat
             
+            Prod_Rep prod_filtre = new Prod_Rep(NomProducte.getText());
             
             //Cridem al constructor de Prova per poder crear la nova reproduccio
-            Reproducció nou = new Reproducció(d_rep,cli_nou);
+            Reproducció nou = new Reproducció(d_rep,cli_nou,prod_filtre);
             
             
             
@@ -491,7 +524,7 @@ public class Reproduccio_Vista extends javax.swing.JDialog {
 
                         data[i][0]=rep_filtre.get(i).getIdClient().getNom();
                         data[i][1]=rep_filtre.get(i).getRep_mt();
-                        //data[i][2]=rep.get(i).getIdClient().getNom();
+                        data[i][2]=rep_filtre.get(i).getIdProducte().getTitol();
                     }
                 
                 
@@ -563,6 +596,8 @@ public class Reproduccio_Vista extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField NomClient;
+    private javax.swing.JTextField NomProducte;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -582,7 +617,5 @@ public class Reproduccio_Vista extends javax.swing.JDialog {
     private javax.swing.JSpinner jSpinner2;
     private javax.swing.JSpinner jSpinner3;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField3;
     // End of variables declaration//GEN-END:variables
 }
