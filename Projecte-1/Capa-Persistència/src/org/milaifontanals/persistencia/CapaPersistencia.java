@@ -203,9 +203,9 @@ public class CapaPersistencia  {
    }
    
    
-   //Comprovar estat  reproduccions
+   //Comprovar estat  reproduccions(Fet servir durant les proves)
    
-   public  void LlistaReproducció() throws GestorBDEmpresaException{
+   /*public  void LlistaReproducció() throws GestorBDEmpresaException{
        List<Reproducció> rep = new ArrayList<Reproducció>();
        Client entrada = null;
 
@@ -240,7 +240,7 @@ public class CapaPersistencia  {
        
        
    }
-   
+   */
    
    //omple la taula amb totes les reproduccions que tenim
    public List <Reproducció>  contingutTaula() throws GestorBDEmpresaException, ParseException{

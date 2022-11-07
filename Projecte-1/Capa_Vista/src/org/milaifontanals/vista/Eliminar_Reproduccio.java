@@ -113,6 +113,8 @@ public class Eliminar_Reproduccio extends javax.swing.JDialog {
          } catch (GestorBDEmpresaException ex) {
              JOptionPane.showMessageDialog(null, ex.getMessage(),"Ups, ha hagut un error!", JOptionPane.ERROR_MESSAGE);
          }
+         
+         this.dispose();
     }//GEN-LAST:event_ConfirmarEliminacio
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

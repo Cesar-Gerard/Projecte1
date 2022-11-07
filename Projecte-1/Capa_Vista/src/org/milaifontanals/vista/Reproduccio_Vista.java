@@ -70,6 +70,7 @@ public class Reproduccio_Vista extends javax.swing.JDialog {
         jSpinner2 = new javax.swing.JSpinner();
         jSpinner3 = new javax.swing.JSpinner();
         jButton4 = new javax.swing.JButton();
+        Netejar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -97,6 +98,7 @@ public class Reproduccio_Vista extends javax.swing.JDialog {
 
         jLabel2.setText("Producte:");
 
+        NomClient.setEditable(false);
         NomClient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NomClientActionPerformed(evt);
@@ -131,6 +133,14 @@ public class Reproduccio_Vista extends javax.swing.JDialog {
             }
         });
 
+        Netejar.setIcon(new javax.swing.ImageIcon("C:\\Users\\isard\\Desktop\\T7\\SpotyMila\\Projecte-1\\Imatges\\restart.png")); // NOI18N
+        Netejar.setText("Netejar");
+        Netejar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NetejarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -145,12 +155,9 @@ public class Reproduccio_Vista extends javax.swing.JDialog {
                                 .addGap(39, 39, 39)
                                 .addComponent(NomProducte, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jButton4)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jLabel3)
+                                .addGap(18, 18, 18)
+                                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -163,6 +170,12 @@ public class Reproduccio_Vista extends javax.swing.JDialog {
                         .addGap(34, 34, 34)
                         .addComponent(NomClient, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addComponent(Netejar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton4)
+                .addGap(38, 38, 38))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,9 +196,11 @@ public class Reproduccio_Vista extends javax.swing.JDialog {
                     .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSpinner2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(56, 56, 56)
-                .addComponent(jButton4)
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addGap(63, 63, 63)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Netejar, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(220, 197, 192));
@@ -217,16 +232,14 @@ public class Reproduccio_Vista extends javax.swing.JDialog {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addComponent(jScrollPane1)
+                .addContainerGap())
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 102, 102));
@@ -234,21 +247,21 @@ public class Reproduccio_Vista extends javax.swing.JDialog {
         jPanel3.setToolTipText("");
         jPanel3.setName(""); // NOI18N
 
-        jButton1.setText("jButton1");
+        jButton1.setIcon(new javax.swing.ImageIcon("C:\\Users\\isard\\Desktop\\T7\\SpotyMila\\Projecte-1\\Imatges\\icons8-add-file-16.png")); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AfegirReproduccio(evt);
             }
         });
 
-        jButton2.setText("jButton2");
+        jButton2.setIcon(new javax.swing.ImageIcon("C:\\Users\\isard\\Desktop\\T7\\SpotyMila\\Projecte-1\\Imatges\\icons8-edit-16.png")); // NOI18N
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EditarReproduccio(evt);
             }
         });
 
-        jButton3.setText("jButton3");
+        jButton3.setIcon(new javax.swing.ImageIcon("C:\\Users\\isard\\Desktop\\T7\\SpotyMila\\Projecte-1\\Imatges\\icons8-trash-16.png")); // NOI18N
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Eliminar_Reproduccio(evt);
@@ -307,22 +320,25 @@ public class Reproduccio_Vista extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(44, Short.MAX_VALUE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         pack();
@@ -414,7 +430,9 @@ public class Reproduccio_Vista extends javax.swing.JDialog {
     private void EditarReproduccio(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditarReproduccio
        Reproducció rep_seleccionat =AgafarReproduccio();       
         
-        
+         if(rep_seleccionat==null){
+            JOptionPane.showMessageDialog(this, "Hem de seleccionar un client de la taula de reproduccions");
+        }else{
        Editar_Reproduccio dialog = new Editar_Reproduccio (new javax.swing.JFrame(), true);
        dialog.setConnexio(cBD);
        dialog.setReproduccio(rep_seleccionat);
@@ -429,12 +447,16 @@ public class Reproduccio_Vista extends javax.swing.JDialog {
            
            
        });
-       
+         }
     }//GEN-LAST:event_EditarReproduccio
 
     private void Eliminar_Reproduccio(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Eliminar_Reproduccio
         Reproducció rep_seleccionat =AgafarReproduccio();       
-        System.out.println(rep_seleccionat.getRep_mt());
+        
+        
+        if(rep_seleccionat==null){
+            JOptionPane.showMessageDialog(this, "Hem de seleccionar un client de la taula de reproduccions");
+        }else{
         
        Eliminar_Reproduccio dialog = new Eliminar_Reproduccio (new javax.swing.JFrame(), true);
        dialog.setConnexio(cBD);
@@ -451,7 +473,7 @@ public class Reproduccio_Vista extends javax.swing.JDialog {
            
        });
        
-       
+        }
     }//GEN-LAST:event_Eliminar_Reproduccio
 
     private Reproducció AgafarReproduccio() {
@@ -461,6 +483,10 @@ public class Reproduccio_Vista extends javax.swing.JDialog {
         int i =jTable1.getSelectedColumn();
         int j = jTable1.getSelectedRow();
         
+        if(j==-1){
+            return null;
+        }
+        //Agafem la data de la taula
         String data = (String)jTable1.getValueAt(j, i+1);
         
         int dia = Integer.parseInt(data.substring(0,2));
@@ -469,13 +495,17 @@ public class Reproduccio_Vista extends javax.swing.JDialog {
         
         Date dt_seleccionat = new Date (any,mes,dia);
         
-        
+        //Agafem el producte de la taula
         Prod_Rep prod_editar = new Prod_Rep((String)jTable1.getValueAt(j, i+2));
         
-        
+        //Agafem el client de  la taula
         Client seleccionat = new Client((String)jTable1.getValueAt(j, i));
         
-   
+        
+        
+        
+        
+        //Creem la reproduccio amb la que treballarem
         Reproducció rep_seleccionat = new Reproducció(dt_seleccionat,seleccionat,prod_editar);
         return rep_seleccionat;
     }
@@ -543,6 +573,11 @@ public class Reproduccio_Vista extends javax.swing.JDialog {
         
     }//GEN-LAST:event_Filtrar
 
+    private void NetejarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NetejarActionPerformed
+        //Netegem el filtre
+        DadesTaula();
+    }//GEN-LAST:event_NetejarActionPerformed
+
     
     
     
@@ -596,6 +631,7 @@ public class Reproduccio_Vista extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Netejar;
     private javax.swing.JTextField NomClient;
     private javax.swing.JTextField NomProducte;
     private javax.swing.JButton jButton1;

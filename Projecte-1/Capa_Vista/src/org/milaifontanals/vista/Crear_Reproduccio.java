@@ -217,6 +217,10 @@ public class Crear_Reproduccio extends javax.swing.JDialog {
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void ConfirmarCreacio(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ConfirmarCreacio
+        int dia=0;
+        int mes=0;
+        int any=0;
+        boolean ok=false;
         try {
             
             //Agafem el client seleccionat
@@ -226,28 +230,36 @@ public class Crear_Reproduccio extends javax.swing.JDialog {
             
             //Agafem la data seleccioanada
             
-            int dia=(Integer)jSpinner1.getValue();
-            int mes=(Integer)jSpinner2.getValue()-1;
-            int any=(Integer)jSpinner3.getValue()-1900;
+            dia=(Integer)jSpinner1.getValue();
+            mes=(Integer)jSpinner2.getValue()-1;
+            any=(Integer)jSpinner3.getValue()-1900;
             
-            Date d_rep = null;
-            d_rep= new Date(any,mes,dia);
+
+             Date d_rep = null;
+            if(dia >=1 && mes >=1 && any >=1500){
+                
+                 d_rep= new Date(any,mes,dia);
+                 
+                 //Agafem el producte que el client ha escrit en el jTextField3
             
-            //Agafem el producte que el client ha escrit en el jTextField3
+                 Prod_Rep prod_crear= new Prod_Rep(jTextField3.getText());
             
-            Prod_Rep prod_crear= new Prod_Rep(jTextField3.getText());
-            
-            //Cridem al constructor de Prova per poder crear la nova reproduccio
-            Reproducció nou = new Reproducció(d_rep,cli_nou,prod_crear);
+                //Cridem al constructor de Prova per poder crear la nova reproduccio
+                Reproducció nou = new Reproducció(d_rep,cli_nou,prod_crear);
             
             
             
-            //Cridem al metode de la capa de persistencia que ens fa el insert
-             cBD.afegirReproducció(nou);
+                //Cridem al metode de la capa de persistencia que ens fa el insert
+                cBD.afegirReproducció(nou);
+                 
+            }else 
+            
+            JOptionPane.showMessageDialog(this, "El dia i el mes han de ser major o igual a 1 i el any major o igual a 1500");
+            
              
              
             //Comprovacions de que el insert ha sigut exitos
-            cBD.LlistaReproducció();
+            //cBD.LlistaReproducció();
             
         } catch (GestorBDEmpresaException ex) {
            JOptionPane.showMessageDialog(null, ex.getMessage(),"Ups, ha hagut un error!", JOptionPane.ERROR_MESSAGE);
