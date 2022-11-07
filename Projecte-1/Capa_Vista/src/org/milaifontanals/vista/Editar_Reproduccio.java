@@ -262,7 +262,7 @@ public class Editar_Reproduccio extends javax.swing.JDialog {
 
             Date d_rep = null;
             
-            if(dia_nou >=1 && mes_nou >=1 && any_nou >=1500){
+            
             d_rep= new Date(any_nou,mes_nou,dia_nou);
             
             //Agafem el producte indicat
@@ -275,9 +275,7 @@ public class Editar_Reproduccio extends javax.swing.JDialog {
             
             //Cridem al metode de la capa de persistencia que ens fa el update
             cBD.editarReproduccio(nou,editar);
-            }else{
-                JOptionPane.showMessageDialog(this, "El dia i el mes han de ser major o igual a 1 i el any major o igual a 1500");
-            }
+            
             
         } catch (GestorBDEmpresaException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(),"Ups, ha hagut un error!", JOptionPane.ERROR_MESSAGE);

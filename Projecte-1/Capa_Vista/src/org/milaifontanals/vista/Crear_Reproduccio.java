@@ -236,7 +236,7 @@ public class Crear_Reproduccio extends javax.swing.JDialog {
             
 
              Date d_rep = null;
-            if(dia >=1 && mes >=1 && any >=1500){
+            
                 
                  d_rep= new Date(any,mes,dia);
                  
@@ -252,9 +252,6 @@ public class Crear_Reproduccio extends javax.swing.JDialog {
                 //Cridem al metode de la capa de persistencia que ens fa el insert
                 cBD.afegirReproducció(nou);
                  
-            }else 
-            
-            JOptionPane.showMessageDialog(this, "El dia i el mes han de ser major o igual a 1 i el any major o igual a 1500");
             
              
              
