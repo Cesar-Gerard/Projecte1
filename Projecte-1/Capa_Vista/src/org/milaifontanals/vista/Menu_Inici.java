@@ -121,7 +121,7 @@ public class Menu_Inici extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
            try{
            
-          cp = new CapaPersistencia("C:\\Users\\isard\\Desktop\\T7\\SpotyMila\\Projecte-1\\Capa_Vista\\empresaJDBC.properties");
+          cp = new CapaPersistencia("empresaJDBC.properties");
                
       } catch (GestorBDEmpresaException ex) {
            JOptionPane.showMessageDialog(null, ex.getMessage(),"Ups, ha hagut un error!", JOptionPane.ERROR_MESSAGE);
