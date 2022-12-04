@@ -28,6 +28,24 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Cat&#xe0;leg"/>
           </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="Estil_Pantalla">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Estil"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Estil_PantallaActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="Productes_Pantalla">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Productes"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Productes_PantallaActionPerformed"/>
+              </Events>
+            </MenuItem>
+          </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="jMenu3">
           <Properties>

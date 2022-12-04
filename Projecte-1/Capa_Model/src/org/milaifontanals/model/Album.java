@@ -13,22 +13,22 @@ public class Album extends Producte{
     private int anyCreacio;
     private long durada;
 
-    public Album(int anyCreacio, long durada) {
+    public Album(long id, String titol, boolean actiu, Estil estil, String tp) {
+        super(id, titol, actiu, estil, tp);
+    }
+
+    public Album(int anyCreacio, long durada, long id, String titol, boolean actiu, Estil estil, String tp) {
+        super(id, titol, actiu, estil, tp);
         this.anyCreacio = anyCreacio;
         this.durada = durada;
     }
 
-    public Album(long id, String titol) {
-        super(id, titol);
-    }
+    
 
+   
     
     
-    
-    
-    
-    
-    
+
     
     public int getAnyCreacio() {
         return anyCreacio;

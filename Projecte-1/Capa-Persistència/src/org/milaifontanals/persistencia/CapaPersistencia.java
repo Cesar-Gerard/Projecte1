@@ -19,10 +19,15 @@ import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import javax.swing.JOptionPane;
+import org.milaifontanals.model.Album;
+import org.milaifontanals.model.Canso;
 import org.milaifontanals.model.Client;
 import org.milaifontanals.model.Estil;
+import org.milaifontanals.model.Llista;
 import org.milaifontanals.model.Prod_Rep;
+import org.milaifontanals.model.Producte;
 import org.milaifontanals.model.Reproducció;
+import org.milaifontanals.model.Tipus_Producte;
 /**
  *
  * @author gerar
@@ -132,7 +137,7 @@ public class CapaPersistencia  {
     }
     
     
-   
+    
   
 
     
@@ -203,44 +208,7 @@ public class CapaPersistencia  {
    }
    
    
-   //Comprovar estat  reproduccions(Fet servir durant les proves)
-   
-   /*public  void LlistaReproducció() throws GestorBDEmpresaException{
-       List<Reproducció> rep = new ArrayList<Reproducció>();
-       Client entrada = null;
-
-       
-       
-       Statement q = null;
-       try{
-            q= conn.createStatement();
-            ResultSet rs = q.executeQuery("SELECT rep_idclients,rep_mt from reproduccio");
-            while(rs.next()){
-                
-                entrada = new Client(rs.getLong("rep_idclients"));
-                rep.add(new Reproducció(rs.getDate("rep_mt"),entrada));
-            }
-            rs.close();
-        }catch(SQLException ex){
-            throw new GestorBDEmpresaException("Error en intentar recuperar la llista de reproduccions.\n" + ex.getMessage());
-        }finally {
-            if (q != null) {
-                try {
-                    q.close();
-                } catch (SQLException ex) {
-                    throw new GestorBDEmpresaException("Error en intentar tancar la sentència que ha recuperat la llista de reproduccions.\n" + ex.getMessage());
-                }
-            }
-        }
-        
-        for(int i =0; i<rep.size();i++){
-            System.out.println(rep.get(i).getIdClient().getId()+"-------"+rep.get(i).getRep_mt());
-        }
-       
-       
-       
-   }
-   */
+  
    
    //omple la taula amb totes les reproduccions que tenim
    public List <Reproducció>  contingutTaula() throws GestorBDEmpresaException, ParseException{
@@ -283,6 +251,74 @@ public class CapaPersistencia  {
    
    }
    
+   
+   public List<Producte> Omplir_Taula_Productes() throws GestorBDEmpresaException{
+       List<Producte> prod = new ArrayList<Producte>();
+       
+       Canso song = null;
+       Album alb = null;
+       Llista list = null;
+       boolean estat;
+      
+       Estil est = null;
+       
+       
+       
+       Statement q = null;
+       try{
+            q= conn.createStatement();
+            ResultSet rs = q.executeQuery("select cat_id, cat_titol,cat_actiu,cat_estil,cat_tipus from cataleg");
+
+            while(rs.next()){
+                
+                if(rs.getString("cat_actiu").equals("Actiu")){
+                    estat=true;
+                }else{
+                    estat=false;
+                }
+                
+                est = new Estil(rs.getString("cat_estil"));
+                
+             switch(rs.getString("cat_tipus")){
+                 case ("C"):
+                 
+                 song = new Canso(rs.getInt("cat_id"),rs.getString("cat_titol"),estat,est,rs.getString("rs.cat_tipus"));
+                 prod.add(song);
+                 break;
+                 
+                 case ("A"):
+                 alb = new Album(rs.getInt("cat_id"),rs.getString("cat_titol"),estat,est,rs.getString("rs.cat_tipus"));
+                prod.add(alb);
+                 break;
+                 
+                 case ("L"):
+                 list = new Llista(rs.getInt("cat_id"),rs.getString("cat_titol"),estat,est,rs.getString("rs.cat_tipus"));
+                prod.add(list);
+                 break;
+                 
+             }
+              
+                
+            }
+            
+            rs.close();
+            
+        }catch(SQLException ex){
+            throw new GestorBDEmpresaException("Error en intentar recuperar la llista de productes.\n" + ex.getMessage());
+        }finally {
+            if (q != null) {
+                try {
+                    q.close();
+                } catch (SQLException ex) {
+                    throw new GestorBDEmpresaException("Error en intentar tancar la sentència que ha recuperat la llista de reproduccions.\n" + ex.getMessage());
+                }
+            }
+        }
+       
+       return prod;
+       
+       
+   }
    
    //Elimina la reproduccio que li passem
    public void eliminarReproduccio(Reproducció r) throws GestorBDEmpresaException{

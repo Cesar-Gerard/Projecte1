@@ -40,6 +40,8 @@ public class Menu_Inici extends javax.swing.JFrame {
         barra_menu = new javax.swing.JMenuBar();
         jMenu2 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
+        Estil_Pantalla = new javax.swing.JMenuItem();
+        Productes_Pantalla = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -68,6 +70,23 @@ public class Menu_Inici extends javax.swing.JFrame {
         barra_menu.add(jMenu2);
 
         jMenu4.setText("Catàleg");
+
+        Estil_Pantalla.setText("Estil");
+        Estil_Pantalla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Estil_PantallaActionPerformed(evt);
+            }
+        });
+        jMenu4.add(Estil_Pantalla);
+
+        Productes_Pantalla.setText("Productes");
+        Productes_Pantalla.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Productes_PantallaActionPerformed(evt);
+            }
+        });
+        jMenu4.add(Productes_Pantalla);
+
         barra_menu.add(jMenu4);
 
         jMenu3.setText("Clients");
@@ -129,6 +148,17 @@ public class Menu_Inici extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_formWindowOpened
 
+    private void Estil_PantallaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Estil_PantallaActionPerformed
+        JOptionPane.showMessageDialog(null, "Contingut en construcció, disculpi les molesties","Ups, ha hagut un error!", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_Estil_PantallaActionPerformed
+
+    private void Productes_PantallaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Productes_PantallaActionPerformed
+       Productes dialog = new Productes(new javax.swing.JFrame(), true);
+       dialog.setConnexio(cp);
+       dialog.setVisible(true);
+      
+    }//GEN-LAST:event_Productes_PantallaActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -166,6 +196,8 @@ public class Menu_Inici extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem Estil_Pantalla;
+    private javax.swing.JMenuItem Productes_Pantalla;
     private javax.swing.JMenuBar barra_menu;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JMenu jMenu1;

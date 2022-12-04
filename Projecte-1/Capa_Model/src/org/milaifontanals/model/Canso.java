@@ -12,15 +12,21 @@ public class Canso extends Producte{
     private int anyCreacio;
     private long durada;
 
-    public Canso(int anyCreacio, long durada) {
-        super();
+    public Canso(int anyCreacio, long durada, long id, String titol, boolean actiu, Estil estil, String tp) {
+        super(id, titol, actiu, estil, tp);
         this.anyCreacio = anyCreacio;
         this.durada = durada;
     }
 
-    public Canso(long id, String titol) {
-        super(id, titol);
+    public Canso(long id, String titol, boolean actiu, Estil estil, String tp) {
+        super(id, titol, actiu, estil, tp);
     }
+
+    
+
+    
+
+    
 
     
     

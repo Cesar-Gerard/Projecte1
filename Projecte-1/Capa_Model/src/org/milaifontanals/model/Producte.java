@@ -12,6 +12,8 @@ public abstract class Producte {
     private long id;
     private String titol;
     private boolean actiu;
+    private Estil estil;
+    private String tp;
 
     public Producte() {
     }
@@ -29,18 +31,35 @@ public abstract class Producte {
         this.id = id;
     }
 
-    
-    
-    
-    
-    
-    
-
-    public Producte(long id, String titol, boolean actiu) {
+    public Producte(long id, String titol, boolean actiu, Estil estil, String tp) {
         this.id = id;
         this.titol = titol;
         this.actiu = actiu;
+        this.estil = estil;
+        this.tp = tp;
     }
+
+    public Estil getEstil() {
+        return estil;
+    }
+
+    public void setEstil(Estil estil) {
+        this.estil = estil;
+    }
+
+    public String getTp() {
+        return tp;
+    }
+
+    public void setTp(String tp) {
+        this.tp = tp;
+    }
+
+    
+
+    
+
+  
 
     public long getId() {
         return id;

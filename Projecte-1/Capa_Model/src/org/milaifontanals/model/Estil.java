@@ -17,6 +17,10 @@ public class Estil {
         this.nom = nom;
     }
 
+    public Estil(String nom) {
+        this.nom = nom;
+    }
+
     
     
     

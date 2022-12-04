@@ -9,7 +9,7 @@ package org.milaifontanals.model;
  * @author gerar
  */
 public enum Tipus_Producte {
-    Canso,
-    Album,
-    Llista_rep
+    C,
+    A,
+    L
 }
