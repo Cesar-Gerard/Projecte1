@@ -252,6 +252,9 @@ public class CapaPersistencia  {
    }
    
    
+   
+   
+   
    public List<Producte> Omplir_Taula_Productes() throws GestorBDEmpresaException{
        List<Producte> prod = new ArrayList<Producte>();
        
@@ -264,11 +267,13 @@ public class CapaPersistencia  {
        
        
        
-       Statement q = null;
+       PreparedStatement q = null;
        try{
-            q= conn.createStatement();
-            ResultSet rs = q.executeQuery("select cat_id, cat_titol,cat_actiu,cat_estil,cat_tipus from cataleg");
-
+            q= conn.prepareStatement("select cat_id, cat_titol,cat_actiu,cat_estil,cat_tipus from cataleg where cat_actiu=?");
+            q.setString(1, "Actiu");
+            
+            ResultSet rs = q.executeQuery();
+            
             while(rs.next()){
                 
                 if(rs.getString("cat_actiu").equals("Actiu")){
@@ -282,17 +287,17 @@ public class CapaPersistencia  {
              switch(rs.getString("cat_tipus")){
                  case ("C"):
                  
-                 song = new Canso(rs.getInt("cat_id"),rs.getString("cat_titol"),estat,est,rs.getString("rs.cat_tipus"));
+                 song = new Canso(rs.getInt("cat_id"),rs.getString("cat_titol"),estat,est,rs.getString("cat_tipus"));
                  prod.add(song);
                  break;
                  
                  case ("A"):
-                 alb = new Album(rs.getInt("cat_id"),rs.getString("cat_titol"),estat,est,rs.getString("rs.cat_tipus"));
+                 alb = new Album(rs.getInt("cat_id"),rs.getString("cat_titol"),estat,est,rs.getString("cat_tipus"));
                 prod.add(alb);
                  break;
                  
                  case ("L"):
-                 list = new Llista(rs.getInt("cat_id"),rs.getString("cat_titol"),estat,est,rs.getString("rs.cat_tipus"));
+                 list = new Llista(rs.getInt("cat_id"),rs.getString("cat_titol"),estat,est,rs.getString("cat_tipus"));
                 prod.add(list);
                  break;
                  
@@ -318,6 +323,81 @@ public class CapaPersistencia  {
        return prod;
        
        
+   }
+   
+   public List<Producte> getProductes(Long id, String titol,String state,String estil) throws GestorBDEmpresaException{
+       List<Producte> filtre = new ArrayList<Producte>();
+       Canso song = null;
+       Album alb = null;
+       Llista list = null;
+       boolean estat;
+      
+       Estil est = null;
+       
+       
+       
+       PreparedStatement q = null;
+       try{
+            q= conn.prepareStatement("select cat_id, cat_titol,cat_actiu,cat_estil,cat_tipus from cataleg where cat_id = ? and cat_titol like '%?% and cat_actiu=? and cat_estil= ? ");
+            
+            q.setLong(1, 0);
+            q.setString(2, titol);
+            q.setString(3,state);
+            q.setString(4, estil);
+            
+            ResultSet rs = q.executeQuery();
+            
+            while(rs.next()){
+                
+                if(rs.getString("cat_actiu").equals("Actiu")){
+                    estat=true;
+                }else{
+                    estat=false;
+                }
+                
+                est = new Estil(rs.getString("cat_estil"));
+                
+             switch(rs.getString("cat_tipus")){
+                 case ("C"):
+                 
+                 song = new Canso(rs.getInt("cat_id"),rs.getString("cat_titol"),estat,est,rs.getString("cat_tipus"));
+                 filtre.add(song);
+                 break;
+                 
+                 case ("A"):
+                 alb = new Album(rs.getInt("cat_id"),rs.getString("cat_titol"),estat,est,rs.getString("cat_tipus"));
+                filtre.add(alb);
+                 break;
+                 
+                 case ("L"):
+                 list = new Llista(rs.getInt("cat_id"),rs.getString("cat_titol"),estat,est,rs.getString("cat_tipus"));
+                filtre.add(list);
+                 break;
+                 
+             }
+              
+                
+            }
+            
+            rs.close();
+            
+        }catch(SQLException ex){
+            throw new GestorBDEmpresaException("Error en intentar recuperar la llista de productes.\n" + ex.getMessage());
+        }finally {
+            if (q != null) {
+                try {
+                    q.close();
+                } catch (SQLException ex) {
+                    throw new GestorBDEmpresaException("Error en intentar tancar la sentència que ha recuperat la llista de reproduccions.\n" + ex.getMessage());
+                }
+            }
+        }
+       
+       
+       
+       
+       
+       return filtre;
    }
    
    //Elimina la reproduccio que li passem

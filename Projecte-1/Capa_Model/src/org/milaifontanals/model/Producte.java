@@ -38,6 +38,14 @@ public abstract class Producte {
         this.estil = estil;
         this.tp = tp;
     }
+    
+    
+    
+    public String getIdString(){
+        String resultat = Long.toString(id);
+        
+        return resultat;
+    }
 
     public Estil getEstil() {
         return estil;
@@ -77,8 +85,12 @@ public abstract class Producte {
         this.titol = titol;
     }
 
-    public boolean isActiu() {
-        return actiu;
+    public String isActiu() {
+        if(actiu == true){
+            return "actiu";
+        }else{
+            return "inactiu";
+        }
     }
 
     public void setActiu(boolean actiu) {

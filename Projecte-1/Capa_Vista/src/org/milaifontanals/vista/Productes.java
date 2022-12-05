@@ -5,11 +5,18 @@
  */
 package org.milaifontanals.vista;
 
+import java.awt.CheckboxGroup;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import org.milaifontanals.model.Estil;
+import org.milaifontanals.model.Producte;
+import org.milaifontanals.model.Tipus_Producte;
 import org.milaifontanals.persistencia.CapaPersistencia;
 import org.milaifontanals.persistencia.GestorBDEmpresaException;
 
@@ -20,6 +27,9 @@ import org.milaifontanals.persistencia.GestorBDEmpresaException;
 public class Productes extends javax.swing.JDialog {
 
     private CapaPersistencia cBD = null;
+    
+     ButtonGroup bG = new ButtonGroup();
+     CheckboxGroup cbg = new CheckboxGroup();
     /**
      * Creates new form Productes
      */
@@ -47,7 +57,6 @@ public class Productes extends javax.swing.JDialog {
         Titol_etiqueta = new javax.swing.JLabel();
         Estat_etiqueta = new javax.swing.JLabel();
         Tipus_etiqueta = new javax.swing.JLabel();
-        Durada_etiqueta = new javax.swing.JLabel();
         ID_field = new javax.swing.JTextField();
         Titol_field = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -58,6 +67,8 @@ public class Productes extends javax.swing.JDialog {
         Canso_CH = new javax.swing.JCheckBox();
         Album_CH = new javax.swing.JCheckBox();
         Llista_CH = new javax.swing.JCheckBox();
+        Filtre_BT = new javax.swing.JToggleButton();
+        Netejar_BT = new javax.swing.JToggleButton();
         Gestio_Panel = new javax.swing.JPanel();
         Afegir_BT = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -83,7 +94,7 @@ public class Productes extends javax.swing.JDialog {
         });
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Informació del producte", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Informació del producte/Filtre", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP));
         jPanel1.setForeground(new java.awt.Color(0, 153, 255));
 
         ID_etiqueta.setText("ID: ");
@@ -93,8 +104,6 @@ public class Productes extends javax.swing.JDialog {
         Estat_etiqueta.setText("Estat: ");
 
         Tipus_etiqueta.setText("Tipus: ");
-
-        Durada_etiqueta.setText("Durada: ");
 
         ID_field.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -160,41 +169,54 @@ public class Productes extends javax.swing.JDialog {
             }
         });
 
+        Filtre_BT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/Imatges/icons8-search-32.png"))); // NOI18N
+        Filtre_BT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Filtre_BTActionPerformed(evt);
+            }
+        });
+
+        Netejar_BT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/Imatges/icons8-erase-32.png"))); // NOI18N
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(ID_etiqueta)
-                        .addGap(18, 18, 18)
-                        .addComponent(ID_field, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(Titol_etiqueta)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Titol_field))
-                    .addComponent(Durada_etiqueta)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(ID_etiqueta)
+                            .addGap(18, 18, 18)
+                            .addComponent(ID_field, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(Titol_etiqueta)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(Titol_field))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(Estat_etiqueta)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(Inactiu_RB)
+                                .addComponent(Actiu_RB)
+                                .addComponent(Tots_RB))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Estil_combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(Estat_etiqueta)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Inactiu_RB)
-                            .addComponent(Actiu_RB)
-                            .addComponent(Tots_RB)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(Tipus_etiqueta)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Album_CH)
                             .addComponent(Canso_CH)
-                            .addComponent(Llista_CH))))
-                .addContainerGap(37, Short.MAX_VALUE))
+                            .addComponent(Llista_CH)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(Filtre_BT, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addComponent(Netejar_BT, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,11 +237,11 @@ public class Productes extends javax.swing.JDialog {
                 .addComponent(Inactiu_RB)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Tots_RB)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(Estil_combo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(32, 32, 32)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(Estil_combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(75, 75, 75)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Tipus_etiqueta)
                     .addComponent(Canso_CH))
@@ -227,9 +249,14 @@ public class Productes extends javax.swing.JDialog {
                 .addComponent(Album_CH)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Llista_CH)
-                .addGap(20, 20, 20)
-                .addComponent(Durada_etiqueta)
-                .addGap(26, 26, 26))
+                .addGap(38, 38, 38)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(Netejar_BT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(92, 92, 92))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(Filtre_BT)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         Gestio_Panel.setBackground(new java.awt.Color(51, 204, 255));
@@ -357,6 +384,7 @@ public class Productes extends javax.swing.JDialog {
         jPanel4.setBackground(new java.awt.Color(51, 204, 255));
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Resultat de la Recerca"));
 
+        jTable1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -406,17 +434,21 @@ public class Productes extends javax.swing.JDialog {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(Gestio_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 449, Short.MAX_VALUE))
-                .addContainerGap(17, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(Gestio_Panel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 449, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -460,11 +492,17 @@ public class Productes extends javax.swing.JDialog {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         //Afegim a un grup de botons els nostres radio buttons
-        
+        DadesTaula();
         Configurar_Butons();
         Omplir_Estils();
         
     }//GEN-LAST:event_formWindowOpened
+
+    private void Filtre_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Filtre_BTActionPerformed
+        
+        
+        
+    }//GEN-LAST:event_Filtre_BTActionPerformed
 
     
     
@@ -489,7 +527,7 @@ public class Productes extends javax.swing.JDialog {
     
     public void Configurar_Butons(){
         
-    ButtonGroup bG = new ButtonGroup();
+   
         bG.add(Actiu_RB);
         bG.add(Inactiu_RB);
         bG.add(Tots_RB);
@@ -500,10 +538,58 @@ public class Productes extends javax.swing.JDialog {
          
          //De base tots els tipus han d'estar seleccionats
          
+         
+         
+         
          Canso_CH.setSelected(true);
          Album_CH.setSelected(true);
          Llista_CH.setSelected(true);
     }
+    
+    
+    private void DadesTaula() {
+        
+        jTable1.removeAll();
+        //Omplim la taula amb les reproduccions actuals
+        List<Producte> rep = new ArrayList<Producte>();
+        try{
+            
+            rep = cBD.Omplir_Taula_Productes();
+            
+            
+            ContingutTaula(rep);
+            
+            
+            
+            
+        }catch (GestorBDEmpresaException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(),"Ups, ha hagut un error!", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    
+     private void ContingutTaula(List<Producte> rep) {
+         
+         String columnNames []={"ID","Títol","Estil","Tipus","Estat"};
+            String data[][]= new String [rep.size()][5];
+         
+         
+        for(int i =0; i<rep.size();i++){
+                
+                
+                data[i][0]=rep.get(i).getIdString();
+                data[i][1]=rep.get(i).getTitol();
+                data[i][2]=rep.get(i).getEstil().getNom();
+                data[i][3]=rep.get(i).getTp();
+                data[i][4]=rep.get(i).isActiu();
+            }
+            
+            
+            jTable1.setModel(new DefaultTableModel(data,columnNames));
+    }
+   
+    
+    
     
     /**
      * @param args the command line arguments
@@ -553,11 +639,11 @@ public class Productes extends javax.swing.JDialog {
     private javax.swing.JCheckBox Album_CH;
     private javax.swing.JCheckBox Canso_CH;
     private javax.swing.JButton Content_BT;
-    private javax.swing.JLabel Durada_etiqueta;
     private javax.swing.JButton Editar_BT;
     private javax.swing.JButton Eliminar_BT;
     private javax.swing.JLabel Estat_etiqueta;
     private javax.swing.JComboBox<String> Estil_combo;
+    private javax.swing.JToggleButton Filtre_BT;
     private javax.swing.JPanel Gestio_Panel;
     private javax.swing.JLabel ID_etiqueta;
     private javax.swing.JTextField ID_field;
@@ -565,6 +651,7 @@ public class Productes extends javax.swing.JDialog {
     private javax.swing.JButton Informe_BT;
     private javax.swing.JLabel Informe_etiqueta;
     private javax.swing.JCheckBox Llista_CH;
+    private javax.swing.JToggleButton Netejar_BT;
     private javax.swing.JLabel Tipus_etiqueta;
     private javax.swing.JLabel Titol_etiqueta;
     private javax.swing.JTextField Titol_field;
@@ -581,4 +668,8 @@ public class Productes extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+
+   
+
+    
 }
