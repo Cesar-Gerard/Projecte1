@@ -47,7 +47,7 @@
               <Group type="103" groupAlignment="1" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jPanel1" min="-2" pref="488" max="-2" attributes="0"/>
+                      <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="50" max="-2" attributes="0"/>
@@ -90,6 +90,11 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="Filtre_BT" min="-2" pref="49" max="-2" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="Netejar_BT" min="-2" pref="53" max="-2" attributes="0"/>
+                      </Group>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="ID_etiqueta" min="-2" max="-2" attributes="0"/>
@@ -124,11 +129,6 @@
                               <Component id="Canso_CH" min="-2" max="-2" attributes="0"/>
                               <Component id="Llista_CH" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                      </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="Filtre_BT" min="-2" pref="51" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                          <Component id="Netejar_BT" min="-2" pref="46" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -171,17 +171,12 @@
                   <Component id="Album_CH" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="Llista_CH" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
+                  <EmptySpace pref="45" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <Component id="Netejar_BT" max="32767" attributes="0"/>
-                          <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <Component id="Filtre_BT" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                      </Group>
+                      <Component id="Filtre_BT" min="-2" max="-2" attributes="0"/>
+                      <Component id="Netejar_BT" min="-2" pref="41" max="-2" attributes="0"/>
                   </Group>
+                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -286,7 +281,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Llista_CHActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JToggleButton" name="Filtre_BT">
+        <Component class="javax.swing.JButton" name="Filtre_BT">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/org/milaifontanals/Imatges/icons8-search-32.png"/>
@@ -296,7 +291,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Filtre_BTActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JToggleButton" name="Netejar_BT">
+        <Component class="javax.swing.JButton" name="Netejar_BT">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/org/milaifontanals/Imatges/icons8-erase-32.png"/>

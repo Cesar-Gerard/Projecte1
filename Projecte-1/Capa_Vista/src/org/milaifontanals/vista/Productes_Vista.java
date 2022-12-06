@@ -24,7 +24,7 @@ import org.milaifontanals.persistencia.GestorBDEmpresaException;
  *
  * @author isard
  */
-public class Productes extends javax.swing.JDialog {
+public class Productes_Vista extends javax.swing.JDialog {
 
     private CapaPersistencia cBD = null;
     
@@ -33,7 +33,7 @@ public class Productes extends javax.swing.JDialog {
     /**
      * Creates new form Productes
      */
-    public Productes(java.awt.Frame parent, boolean modal) {
+    public Productes_Vista(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
     }
@@ -67,8 +67,8 @@ public class Productes extends javax.swing.JDialog {
         Canso_CH = new javax.swing.JCheckBox();
         Album_CH = new javax.swing.JCheckBox();
         Llista_CH = new javax.swing.JCheckBox();
-        Filtre_BT = new javax.swing.JToggleButton();
-        Netejar_BT = new javax.swing.JToggleButton();
+        Filtre_BT = new javax.swing.JButton();
+        Netejar_BT = new javax.swing.JButton();
         Gestio_Panel = new javax.swing.JPanel();
         Afegir_BT = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
@@ -185,6 +185,10 @@ public class Productes extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(Filtre_BT, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(Netejar_BT, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addGroup(jPanel1Layout.createSequentialGroup()
                             .addComponent(ID_etiqueta)
@@ -211,11 +215,7 @@ public class Productes extends javax.swing.JDialog {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Album_CH)
                             .addComponent(Canso_CH)
-                            .addComponent(Llista_CH)))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(Filtre_BT, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(27, 27, 27)
-                        .addComponent(Netejar_BT, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(Llista_CH))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -249,14 +249,11 @@ public class Productes extends javax.swing.JDialog {
                 .addComponent(Album_CH)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Llista_CH)
-                .addGap(38, 38, 38)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(Netejar_BT, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(92, 92, 92))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(Filtre_BT)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addComponent(Filtre_BT)
+                    .addComponent(Netejar_BT, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33))
         );
 
         Gestio_Panel.setBackground(new java.awt.Color(51, 204, 255));
@@ -437,7 +434,7 @@ public class Productes extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 488, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -499,9 +496,68 @@ public class Productes extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowOpened
 
     private void Filtre_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Filtre_BTActionPerformed
+       
+        List<Producte> filtre = new ArrayList<Producte> ();
+         String estil=null;
         
-        
-        
+       String id_text= ID_field.getText();
+       if(id_text.equals("")){
+           id_text="0";
+       }
+       Long id=Long.parseLong(id_text);
+       String titol= Titol_field.getText();
+       if(titol.equals("")){
+           titol=null;
+       }
+       String estat = null;
+       
+       if(Actiu_RB.isSelected()){
+           estat="Actiu";
+       }else if (Inactiu_RB.isSelected()){
+           estat = "Inactiu";
+           
+       }else if(Tots_RB.isSelected()){
+           estat = null;
+       }
+       
+       if(Estil_combo.getSelectedIndex()==0){
+           estil=null;
+       }else{
+        estil= Estil_combo.getSelectedItem().toString();
+       }
+       
+       List<Tipus_Producte> tp = new ArrayList<Tipus_Producte>();
+       int i=0;
+       
+       if(Canso_CH.isSelected()){
+           tp.add(Tipus_Producte.C);
+       }
+       if(Album_CH.isSelected()){
+           tp.add(Tipus_Producte.A);
+       }
+       if(Llista_CH.isSelected()){
+           tp.add(Tipus_Producte.L);
+       }
+       
+       if(tp.size()==3){
+           tp.clear();
+           
+           
+       }
+       
+       
+       
+       
+       
+        try {
+            filtre=cBD.getProductes(id, titol, estat, estil,tp);
+        } catch (GestorBDEmpresaException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(),"Ups, ha hagut un error!", JOptionPane.ERROR_MESSAGE);
+        }
+       
+       
+       
+       
     }//GEN-LAST:event_Filtre_BTActionPerformed
 
     
@@ -608,20 +664,21 @@ public class Productes extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Productes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Productes_Vista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Productes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Productes_Vista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Productes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Productes_Vista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Productes.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Productes_Vista.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                Productes dialog = new Productes(new javax.swing.JFrame(), true);
+                Productes_Vista dialog = new Productes_Vista(new javax.swing.JFrame(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -643,7 +700,7 @@ public class Productes extends javax.swing.JDialog {
     private javax.swing.JButton Eliminar_BT;
     private javax.swing.JLabel Estat_etiqueta;
     private javax.swing.JComboBox<String> Estil_combo;
-    private javax.swing.JToggleButton Filtre_BT;
+    private javax.swing.JButton Filtre_BT;
     private javax.swing.JPanel Gestio_Panel;
     private javax.swing.JLabel ID_etiqueta;
     private javax.swing.JTextField ID_field;
@@ -651,7 +708,7 @@ public class Productes extends javax.swing.JDialog {
     private javax.swing.JButton Informe_BT;
     private javax.swing.JLabel Informe_etiqueta;
     private javax.swing.JCheckBox Llista_CH;
-    private javax.swing.JToggleButton Netejar_BT;
+    private javax.swing.JButton Netejar_BT;
     private javax.swing.JLabel Tipus_etiqueta;
     private javax.swing.JLabel Titol_etiqueta;
     private javax.swing.JTextField Titol_field;

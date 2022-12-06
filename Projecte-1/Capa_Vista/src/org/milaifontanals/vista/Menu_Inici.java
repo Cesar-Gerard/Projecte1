@@ -153,7 +153,7 @@ public class Menu_Inici extends javax.swing.JFrame {
     }//GEN-LAST:event_Estil_PantallaActionPerformed
 
     private void Productes_PantallaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Productes_PantallaActionPerformed
-       Productes dialog = new Productes(new javax.swing.JFrame(), true);
+       Productes_Vista dialog = new Productes_Vista(new javax.swing.JFrame(), true);
        dialog.setConnexio(cp);
        dialog.setVisible(true);
       

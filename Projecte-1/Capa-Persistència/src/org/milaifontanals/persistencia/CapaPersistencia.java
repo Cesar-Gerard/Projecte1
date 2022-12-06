@@ -325,7 +325,7 @@ public class CapaPersistencia  {
        
    }
    
-   public List<Producte> getProductes(Long id, String titol,String state,String estil) throws GestorBDEmpresaException{
+   public List<Producte> getProductes(Long id, String titol,String state,String estil,List<Tipus_Producte> tp) throws GestorBDEmpresaException{
        List<Producte> filtre = new ArrayList<Producte>();
        Canso song = null;
        Album alb = null;
@@ -336,7 +336,7 @@ public class CapaPersistencia  {
        
        
        
-       PreparedStatement q = null;
+       /*PreparedStatement q = null;
        try{
             q= conn.prepareStatement("select cat_id, cat_titol,cat_actiu,cat_estil,cat_tipus from cataleg where cat_id = ? and cat_titol like '%?% and cat_actiu=? and cat_estil= ? ");
             
@@ -378,6 +378,7 @@ public class CapaPersistencia  {
               
                 
             }
+
             
             rs.close();
             
@@ -393,6 +394,17 @@ public class CapaPersistencia  {
             }
         }
        
+       */
+       
+       
+       System.out.println(id);
+       System.out.println(titol);
+       System.out.println(state);
+       System.out.println(estil);
+       
+       for(int i=0; i<tp.size();i++){
+           System.out.println(tp.get(i).toString());
+       }
        
        
        
