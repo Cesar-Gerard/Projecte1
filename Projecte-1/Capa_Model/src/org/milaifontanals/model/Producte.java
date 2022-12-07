@@ -38,6 +38,15 @@ public abstract class Producte {
         this.estil = estil;
         this.tp = tp;
     }
+
+    public Producte(String titol, boolean actiu, Estil estil, String tp) {
+        this.titol = titol;
+        this.actiu = actiu;
+        this.estil = estil;
+        this.tp = tp;
+    }
+    
+    
     
     
     

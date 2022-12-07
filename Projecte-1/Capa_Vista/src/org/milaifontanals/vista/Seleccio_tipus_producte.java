@@ -5,6 +5,8 @@
  */
 package org.milaifontanals.vista;
 
+import org.milaifontanals.persistencia.CapaPersistencia;
+
 /**
  *
  * @author isard
@@ -14,6 +16,8 @@ public class Seleccio_tipus_producte extends javax.swing.JDialog {
     /**
      * Creates new form Seleccio_tipus_producte
      */
+    
+    private CapaPersistencia cBD = null;
     public Seleccio_tipus_producte(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -41,10 +45,25 @@ public class Seleccio_tipus_producte extends javax.swing.JDialog {
         jLabel1.setText("Selecciona el nou tipus de producte que es vol crear:");
 
         Canso_BT.setText("Canço");
+        Canso_BT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Canso_BTActionPerformed(evt);
+            }
+        });
 
         Album_BT.setText("Àlbum");
+        Album_BT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Album_BTActionPerformed(evt);
+            }
+        });
 
         Llista_BT.setText("Llista");
+        Llista_BT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Llista_BTActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -89,6 +108,20 @@ public class Seleccio_tipus_producte extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void Canso_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Canso_BTActionPerformed
+        Creacio_Canso dialog = new Creacio_Canso (new javax.swing.JFrame(), true);
+        dialog.setConnexio(cBD);
+        dialog.setVisible(true);
+    }//GEN-LAST:event_Canso_BTActionPerformed
+
+    private void Album_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Album_BTActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Album_BTActionPerformed
+
+    private void Llista_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Llista_BTActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Llista_BTActionPerformed
 
     /**
      * @param args the command line arguments
@@ -139,4 +172,8 @@ public class Seleccio_tipus_producte extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
+
+    void setConnexio(CapaPersistencia con) {
+        cBD=con; 
+    }
 }

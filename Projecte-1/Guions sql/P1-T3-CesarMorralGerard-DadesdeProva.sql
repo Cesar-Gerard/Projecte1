@@ -295,8 +295,9 @@ insert into cataleg(cat_titol,cat_actiu,cat_estil,cat_tipus) values ('New Line',
 
 insert into cataleg(cat_titol,cat_actiu,cat_estil,cat_tipus) values ('1984','Actiu','Pop','A');
 insert into cataleg(cat_titol,cat_actiu,cat_estil,cat_tipus) values ('Classics','Actiu','Rock','A');
-insert into cataleg(cat_titol,cat_actiu,cat_estil,cat_tipus) values ('Nightcore','Actiu','Mixte','L');
+insert into cataleg(cat_titol,cat_actiu,cat_estil,cat_tipus) values ('Mightcore','Actiu','Mixte','L');
 insert into cataleg(cat_titol,cat_actiu,cat_estil,cat_tipus) values ('Cotxe','Actiu','Mixte','L');
+insert into cataleg(cat_titol,cat_actiu,cat_estil,cat_tipus) values ('MM','Inactiu','Mixte','L');
 
 /*-------------------Canço----------------*/
 insert into canço (can_id,can_any_creacio,can_interpret,can_durada) values ('1','2022','SIA','20');

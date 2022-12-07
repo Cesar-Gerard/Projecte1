@@ -11,5 +11,6 @@ package org.milaifontanals.model;
 public enum Tipus_Producte {
     C,
     A,
-    L
+    L,
+    N;
 }

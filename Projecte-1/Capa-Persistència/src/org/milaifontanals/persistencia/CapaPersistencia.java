@@ -325,7 +325,7 @@ public class CapaPersistencia  {
        
    }
    
-   public List<Producte> getProductes(Long id, String titol,String state,String estil,List<Tipus_Producte> tp) throws GestorBDEmpresaException{
+   public List<Producte> getProductes(String titol,String state, String estil, List<Tipus_Producte>tp) throws GestorBDEmpresaException{
        List<Producte> filtre = new ArrayList<Producte>();
        Canso song = null;
        Album alb = null;
@@ -336,15 +336,32 @@ public class CapaPersistencia  {
        
        
        
-       /*PreparedStatement q = null;
+       PreparedStatement q = null;
        try{
-            q= conn.prepareStatement("select cat_id, cat_titol,cat_actiu,cat_estil,cat_tipus from cataleg where cat_id = ? and cat_titol like '%?% and cat_actiu=? and cat_estil= ? ");
-            
-            q.setLong(1, 0);
-            q.setString(2, titol);
-            q.setString(3,state);
-            q.setString(4, estil);
-            
+           
+           
+           q= conn.prepareStatement("select cat_id, cat_titol,cat_actiu,cat_estil,cat_tipus from cataleg where cat_titol like ? and REGEXP_LIKE(cat_actiu, ?) and cat_estil like ? and REGEXP_LIKE(cat_tipus, ?)");
+           
+           q.setString(1, "%" + titol + "%");
+              
+           if(state == null){
+            String tipus = "Actiu"+"|"+"Inactiu";
+               q.setString(2, tipus );
+           }else{
+               q.setString(2, state );
+           }
+           
+           q.setString(3,estil);
+           
+           
+           
+           
+           
+           String tipus = tp.get(0).toString()+"|"+tp.get(1).toString()+"|"+tp.get(2).toString();
+           q.setString(4, tipus);
+         
+           
+             
             ResultSet rs = q.executeQuery();
             
             while(rs.next()){
@@ -354,9 +371,8 @@ public class CapaPersistencia  {
                 }else{
                     estat=false;
                 }
-                
                 est = new Estil(rs.getString("cat_estil"));
-                
+              
              switch(rs.getString("cat_tipus")){
                  case ("C"):
                  
@@ -378,7 +394,7 @@ public class CapaPersistencia  {
               
                 
             }
-
+           
             
             rs.close();
             
@@ -393,19 +409,6 @@ public class CapaPersistencia  {
                 }
             }
         }
-       
-       */
-       
-       
-       System.out.println(id);
-       System.out.println(titol);
-       System.out.println(state);
-       System.out.println(estil);
-       
-       for(int i=0; i<tp.size();i++){
-           System.out.println(tp.get(i).toString());
-       }
-       
        
        
        

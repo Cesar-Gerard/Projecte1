@@ -87,16 +87,25 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Can&#xe7;o"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Canso_BTActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="Album_BT">
           <Properties>
             <Property name="text" type="java.lang.String" value="&#xc0;lbum"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Album_BTActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="Llista_BT">
           <Properties>
             <Property name="text" type="java.lang.String" value="Llista"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Llista_BTActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

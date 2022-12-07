@@ -6,6 +6,8 @@
 package org.milaifontanals.vista;
 
 import java.awt.CheckboxGroup;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +31,7 @@ public class Productes_Vista extends javax.swing.JDialog {
     private CapaPersistencia cBD = null;
     
      ButtonGroup bG = new ButtonGroup();
-     CheckboxGroup cbg = new CheckboxGroup();
+     
     /**
      * Creates new form Productes
      */
@@ -53,11 +55,9 @@ public class Productes_Vista extends javax.swing.JDialog {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        ID_etiqueta = new javax.swing.JLabel();
         Titol_etiqueta = new javax.swing.JLabel();
         Estat_etiqueta = new javax.swing.JLabel();
         Tipus_etiqueta = new javax.swing.JLabel();
-        ID_field = new javax.swing.JTextField();
         Titol_field = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         Estil_combo = new javax.swing.JComboBox<>();
@@ -97,19 +97,11 @@ public class Productes_Vista extends javax.swing.JDialog {
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Informació del producte/Filtre", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP));
         jPanel1.setForeground(new java.awt.Color(0, 153, 255));
 
-        ID_etiqueta.setText("ID: ");
-
         Titol_etiqueta.setText("Títol: ");
 
         Estat_etiqueta.setText("Estat: ");
 
         Tipus_etiqueta.setText("Tipus: ");
-
-        ID_field.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ID_fieldActionPerformed(evt);
-            }
-        });
 
         Titol_field.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,7 +112,7 @@ public class Productes_Vista extends javax.swing.JDialog {
         jLabel1.setText("Estil: ");
 
         Estil_combo.setMaximumRowCount(100);
-        Estil_combo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" }));
+        Estil_combo.setToolTipText("");
         Estil_combo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Estil_comboActionPerformed(evt);
@@ -177,6 +169,11 @@ public class Productes_Vista extends javax.swing.JDialog {
         });
 
         Netejar_BT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/Imatges/icons8-erase-32.png"))); // NOI18N
+        Netejar_BT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Netejar_BTActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -189,22 +186,17 @@ public class Productes_Vista extends javax.swing.JDialog {
                         .addComponent(Filtre_BT, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(Netejar_BT, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(ID_etiqueta)
-                            .addGap(18, 18, 18)
-                            .addComponent(ID_field, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(Titol_etiqueta)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(Titol_field))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(Estat_etiqueta)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(Inactiu_RB)
-                                .addComponent(Actiu_RB)
-                                .addComponent(Tots_RB))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(Titol_etiqueta)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Titol_field, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(Estat_etiqueta)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Inactiu_RB)
+                            .addComponent(Actiu_RB)
+                            .addComponent(Tots_RB)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -221,11 +213,7 @@ public class Productes_Vista extends javax.swing.JDialog {
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(ID_etiqueta)
-                    .addComponent(ID_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(59, 59, 59)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Titol_etiqueta)
                     .addComponent(Titol_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -260,6 +248,11 @@ public class Productes_Vista extends javax.swing.JDialog {
         Gestio_Panel.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestió de Productes"));
 
         Afegir_BT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/Imatges/icons8-add-file-16.png"))); // NOI18N
+        Afegir_BT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Afegir_BTActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Afegir Nou Producte");
 
@@ -451,10 +444,6 @@ public class Productes_Vista extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ID_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ID_fieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ID_fieldActionPerformed
-
     private void Titol_fieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Titol_fieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Titol_fieldActionPerformed
@@ -499,12 +488,10 @@ public class Productes_Vista extends javax.swing.JDialog {
        
         List<Producte> filtre = new ArrayList<Producte> ();
          String estil=null;
-        
-       String id_text= ID_field.getText();
-       if(id_text.equals("")){
-           id_text="0";
-       }
-       Long id=Long.parseLong(id_text);
+       
+       try{
+           
+            
        String titol= Titol_field.getText();
        if(titol.equals("")){
            titol=null;
@@ -520,14 +507,15 @@ public class Productes_Vista extends javax.swing.JDialog {
            estat = null;
        }
        
-       if(Estil_combo.getSelectedIndex()==0){
-           estil=null;
-       }else{
+       
         estil= Estil_combo.getSelectedItem().toString();
+        
+        if(estil.equals("Tots")){
+           estil=null;
        }
        
        List<Tipus_Producte> tp = new ArrayList<Tipus_Producte>();
-       int i=0;
+       
        
        if(Canso_CH.isSelected()){
            tp.add(Tipus_Producte.C);
@@ -539,26 +527,52 @@ public class Productes_Vista extends javax.swing.JDialog {
            tp.add(Tipus_Producte.L);
        }
        
-       if(tp.size()==3){
-           tp.clear();
-           
-           
+       if(tp.size()<3){
+           for(int i =tp.size();i<3;i++ ){
+               tp.add(Tipus_Producte.N);
+           }
        }
        
-       
-       
-       
-       
-        try {
-            filtre=cBD.getProductes(id, titol, estat, estil,tp);
-        } catch (GestorBDEmpresaException ex) {
-            JOptionPane.showMessageDialog(null, ex.getMessage(),"Ups, ha hagut un error!", JOptionPane.ERROR_MESSAGE);
+            filtre=cBD.getProductes(titol,estat,estil,tp);
+            ContingutTaula(filtre);
+           
+       }catch (GestorBDEmpresaException ex) {
+           JOptionPane.showMessageDialog(null, ex.getMessage(),"Ups, ha hagut un error!", JOptionPane.ERROR_MESSAGE);
         }
        
-       
-       
-       
     }//GEN-LAST:event_Filtre_BTActionPerformed
+
+    private void Netejar_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Netejar_BTActionPerformed
+        DadesTaula();
+        Titol_field.setText("");
+        Canso_CH.setSelected(true);
+        Album_CH.setSelected(true);
+        Llista_CH.setSelected(true);
+        
+         Actiu_RB.setSelected(true);
+         Estil_combo.setSelectedIndex(0);
+    }//GEN-LAST:event_Netejar_BTActionPerformed
+
+    private void Afegir_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Afegir_BTActionPerformed
+         Seleccio_tipus_producte dialog = new Seleccio_tipus_producte (new javax.swing.JFrame(), true);
+       dialog.setConnexio(cBD);
+       dialog.setVisible(true);
+       
+ 
+       
+       dialog.addWindowListener(new WindowAdapter(){
+           @Override
+           public void windowClosed(WindowEvent e) {
+              //Actualitzem la taula
+               DadesTaula();
+           }
+           
+           
+       });
+        
+        
+        
+    }//GEN-LAST:event_Afegir_BTActionPerformed
 
     
     
@@ -569,6 +583,7 @@ public class Productes_Vista extends javax.swing.JDialog {
         
         try {
             estils = cBD.getEstils();
+                Estil_combo.addItem("Tots");
             for(int i =0; i<estils.size();i++){
                 Estil_combo.addItem(estils.get(i).getNom());
             }
@@ -605,19 +620,11 @@ public class Productes_Vista extends javax.swing.JDialog {
     
     private void DadesTaula() {
         
-        jTable1.removeAll();
         //Omplim la taula amb les reproduccions actuals
         List<Producte> rep = new ArrayList<Producte>();
         try{
-            
             rep = cBD.Omplir_Taula_Productes();
-            
-            
             ContingutTaula(rep);
-            
-            
-            
-            
         }catch (GestorBDEmpresaException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(),"Ups, ha hagut un error!", JOptionPane.ERROR_MESSAGE);
         }
@@ -625,19 +632,17 @@ public class Productes_Vista extends javax.swing.JDialog {
     
     
      private void ContingutTaula(List<Producte> rep) {
-         
-         String columnNames []={"ID","Títol","Estil","Tipus","Estat"};
+          jTable1.removeAll();
+         String columnNames []={"Títol","Estil","Tipus","Estat"};
             String data[][]= new String [rep.size()][5];
          
          
         for(int i =0; i<rep.size();i++){
                 
-                
-                data[i][0]=rep.get(i).getIdString();
-                data[i][1]=rep.get(i).getTitol();
-                data[i][2]=rep.get(i).getEstil().getNom();
-                data[i][3]=rep.get(i).getTp();
-                data[i][4]=rep.get(i).isActiu();
+                data[i][0]=rep.get(i).getTitol();
+                data[i][1]=rep.get(i).getEstil().getNom();
+                data[i][2]=rep.get(i).getTp();
+                data[i][3]=rep.get(i).isActiu();
             }
             
             
@@ -702,8 +707,6 @@ public class Productes_Vista extends javax.swing.JDialog {
     private javax.swing.JComboBox<String> Estil_combo;
     private javax.swing.JButton Filtre_BT;
     private javax.swing.JPanel Gestio_Panel;
-    private javax.swing.JLabel ID_etiqueta;
-    private javax.swing.JTextField ID_field;
     private javax.swing.JRadioButton Inactiu_RB;
     private javax.swing.JButton Informe_BT;
     private javax.swing.JLabel Informe_etiqueta;

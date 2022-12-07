@@ -358,6 +358,11 @@ org.milaifontanals.vista.Productes$11$1
 java.awt.event.WindowAdapter
 java.lang.System
 org.milaifontanals.vista.Productes$11
+||:org.milaifontanals.vista.Productes_Vista$11$1
+org.milaifontanals.vista.Productes_Vista$11
+java.awt.event.WindowAdapter
+java.lang.System
+org.milaifontanals.vista.Productes_Vista$11$1
 ||:org.milaifontanals.vista.Productes$10$1
 java.awt.event.WindowAdapter
 java.lang.System
@@ -743,7 +748,6 @@ javax.swing.border.TitledBorder
 javax.swing.GroupLayout
 org.milaifontanals.model.Producte
 java.lang.Object
-java.lang.Long
 [Ljava.lang.String;
 javax.swing.GroupLayout$Alignment
 javax.swing.JTextField
@@ -752,16 +756,15 @@ javax.swing.WindowConstants
 javax.swing.JOptionPane
 javax.swing.GroupLayout$ParallelGroup
 javax.swing.JButton
-javax.swing.DefaultComboBoxModel
 java.awt.Color
 [Ljavax.swing.UIManager$LookAndFeelInfo;
-java.awt.CheckboxGroup
 java.lang.InstantiationException
 org.milaifontanals.vista.Productes_Vista$9
 javax.swing.JScrollPane
 org.milaifontanals.vista.Productes_Vista$8
 org.milaifontanals.vista.Productes_Vista$7
 org.milaifontanals.vista.Productes_Vista$6
+java.awt.event.ActionEvent
 org.milaifontanals.vista.Productes_Vista$5
 [Ljava.lang.Object;
 org.milaifontanals.vista.Productes_Vista$4
