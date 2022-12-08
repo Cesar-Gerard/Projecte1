@@ -76,7 +76,7 @@ public class Seleccio_tipus_producte extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(Canso_BT)
-                .addGap(56, 56, 56)
+                .addGap(73, 73, 73)
                 .addComponent(Album_BT)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(Llista_BT)

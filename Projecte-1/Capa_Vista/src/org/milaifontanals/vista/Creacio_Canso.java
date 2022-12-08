@@ -5,7 +5,19 @@
  */
 package org.milaifontanals.vista;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ButtonGroup;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import org.milaifontanals.model.Artista;
+import org.milaifontanals.model.Estil;
+import org.milaifontanals.model.Pais;
+import org.milaifontanals.model.Producte;
 import org.milaifontanals.persistencia.CapaPersistencia;
+import org.milaifontanals.persistencia.GestorBDEmpresaException;
 
 /**
  *
@@ -13,6 +25,8 @@ import org.milaifontanals.persistencia.CapaPersistencia;
  */
 public class Creacio_Canso extends javax.swing.JDialog {
 
+    private CapaPersistencia cBD = null;
+    ButtonGroup bG = new ButtonGroup();
     /**
      * Creates new form Creació_Canso
      */
@@ -61,15 +75,20 @@ public class Creacio_Canso extends javax.swing.JDialog {
         jLabel8 = new javax.swing.JLabel();
         Interpret_field = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
+        Ind_CH = new javax.swing.JRadioButton();
+        Grup_CH = new javax.swing.JRadioButton();
+        Tots_CH = new javax.swing.JRadioButton();
         InterpretFiltre_BT = new javax.swing.JButton();
         Netejar_Interpret_BT = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         Taula_Interpret = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         Crear_BT.setText("Crear");
 
@@ -88,6 +107,10 @@ public class Creacio_Canso extends javax.swing.JDialog {
         jLabel10.setText("Autoria: ");
 
         jLabel11.setText("Interpret: ");
+
+        Autor_field.setEditable(false);
+
+        In_field.setEditable(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -109,7 +132,7 @@ public class Creacio_Canso extends javax.swing.JDialog {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(Estil_combo, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(Estil_combo, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel11)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -171,7 +194,7 @@ public class Creacio_Canso extends javax.swing.JDialog {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addGap(18, 18, 18)
-                        .addComponent(Nacionalitat_combo, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(Nacionalitat_combo, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -247,11 +270,11 @@ public class Creacio_Canso extends javax.swing.JDialog {
 
         jLabel9.setText("Tipus: ");
 
-        jRadioButton1.setText("Individual");
+        Ind_CH.setText("Individual");
 
-        jRadioButton2.setText("Grupal");
+        Grup_CH.setText("Grupal");
 
-        jRadioButton3.setText("Tots");
+        Tots_CH.setText("Tots");
 
         InterpretFiltre_BT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/Imatges/icons8-search-32.png"))); // NOI18N
 
@@ -267,26 +290,28 @@ public class Creacio_Canso extends javax.swing.JDialog {
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addGap(18, 18, 18)
-                        .addComponent(Interpret_combo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(Interpret_combo, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(InterpretFiltre_BT))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel8)
-                            .addComponent(jLabel9))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jRadioButton2)
-                                    .addComponent(jRadioButton3))
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Ind_CH)))
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jRadioButton1)
-                                    .addComponent(Interpret_field, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                                .addComponent(Netejar_Interpret_BT)))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Interpret_field, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
+                                .addComponent(Netejar_Interpret_BT))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGap(13, 13, 13)
+                                .addComponent(Grup_CH)
+                                .addGap(18, 18, 18)
+                                .addComponent(Tots_CH)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -301,21 +326,17 @@ public class Creacio_Canso extends javax.swing.JDialog {
                         .addComponent(InterpretFiltre_BT)))
                 .addGap(13, 13, 13)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(Interpret_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9)
-                            .addComponent(jRadioButton1)))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(Netejar_Interpret_BT)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addComponent(jRadioButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jRadioButton3)
-                .addGap(54, 54, 54))
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel8)
+                        .addComponent(Interpret_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Netejar_Interpret_BT))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(Tots_CH)
+                    .addComponent(Grup_CH)
+                    .addComponent(Ind_CH))
+                .addGap(58, 58, 58))
         );
 
         Taula_Interpret.setModel(new javax.swing.table.DefaultTableModel(
@@ -337,10 +358,10 @@ public class Creacio_Canso extends javax.swing.JDialog {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -362,7 +383,7 @@ public class Creacio_Canso extends javax.swing.JDialog {
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Crear_BT)
                     .addComponent(Cancelar_BT))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -381,13 +402,16 @@ public class Creacio_Canso extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Cancelar_BT)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        DadesBase();
+    }//GEN-LAST:event_formWindowOpened
 
     /**
      * @param args the command line arguments
@@ -440,7 +464,9 @@ public class Creacio_Canso extends javax.swing.JDialog {
     private javax.swing.JButton Cancelar_BT;
     private javax.swing.JButton Crear_BT;
     private javax.swing.JComboBox<String> Estil_combo;
+    private javax.swing.JRadioButton Grup_CH;
     private javax.swing.JTextField In_field;
+    private javax.swing.JRadioButton Ind_CH;
     private javax.swing.JButton InterpretFiltre_BT;
     private javax.swing.JComboBox<String> Interpret_combo;
     private javax.swing.JTextField Interpret_field;
@@ -450,6 +476,7 @@ public class Creacio_Canso extends javax.swing.JDialog {
     private javax.swing.JTable Taula_Autor;
     private javax.swing.JTable Taula_Interpret;
     private javax.swing.JTextField Titol_field;
+    private javax.swing.JRadioButton Tots_CH;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -466,14 +493,114 @@ public class Creacio_Canso extends javax.swing.JDialog {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 
-    void setConnexio(CapaPersistencia cBD) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    void setConnexio(CapaPersistencia conn) {
+        cBD=conn;
+    }
+
+    private void DadesBase() {
+        //Carreguem la informació dels combo box y les taules 
+        
+        List<Estil> est = new ArrayList<Estil> ();
+        List<Pais> pa = new ArrayList<Pais>();
+        try {
+            est = cBD.getEstils();
+            pa = cBD.getPaisos();
+            
+            for(int i=0; i<est.size();i++){
+                Estil_combo.addItem(est.get(i).getNom());
+            }
+            
+            for(int i=0; i<pa.size();i++){
+                Nacionalitat_combo.addItem(pa.get(i).getNom());
+                Interpret_combo.addItem(pa.get(i).getNom());
+            }
+            
+            
+            
+            
+            //Ara configurar els checkbox
+            
+            
+            
+            bG.add(Ind_CH);
+            bG.add(Grup_CH);
+            bG.add(Tots_CH);
+            Tots_CH.setSelected(true);
+            
+            //Configurem les dades de les taules
+            
+            DadesTaules();
+            
+            
+            
+        } catch (GestorBDEmpresaException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(),"Ups, ha hagut un error!", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        
+    }
+
+    private void DadesTaules() {
+    
+        List<Artista> inter = new ArrayList<Artista>();
+        List<Artista> art = new ArrayList<Artista>();
+        try{
+            inter = cBD.TaulaInterpret();
+            art = cBD.TaulaAutor();
+            ContingutTaulaInterpret(inter);
+            ContingutTaulaArtista(art);
+        }catch (GestorBDEmpresaException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage(),"Ups, ha hagut un error!", JOptionPane.ERROR_MESSAGE);
+        }
+    
+    }
+
+    private void ContingutTaulaInterpret(List<Artista> art) {
+         Taula_Interpret.removeAll();
+         String columnNames []={"ID","NOM","TIPUS"};
+            String data[][]= new String [art.size()][3];
+         
+         
+        for(int i =0; i<art.size();i++){
+                
+                data[i][0]=art.get(i).getIdString();
+                data[i][1]=art.get(i).getNom();
+                data[i][2]=art.get(i).getTp().toString();
+             
+            }
+            
+            
+            Taula_Interpret.setModel(new DefaultTableModel(data,columnNames));
+            
+            
+            
+            
+            
+    }
+
+    private void ContingutTaulaArtista(List<Artista> art) {
+    
+    //Taula Autoria
+            
+            Taula_Autor.removeAll();
+         String columnNames2 []={"ID","NOM"};
+            String data2[][]= new String [art.size()][2];
+         
+         
+        for(int i =0; i<art.size();i++){
+                
+                data2[i][0]=art.get(i).getIdString();
+                data2[i][1]=art.get(i).getNom();
+                
+             
+            }
+            
+            
+            Taula_Autor.setModel(new DefaultTableModel(data2,columnNames2));
+    
     }
 }

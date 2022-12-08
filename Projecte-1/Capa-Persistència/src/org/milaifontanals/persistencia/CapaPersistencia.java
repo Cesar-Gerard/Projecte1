@@ -20,13 +20,18 @@ import java.util.List;
 import java.util.Properties;
 import javax.swing.JOptionPane;
 import org.milaifontanals.model.Album;
+import org.milaifontanals.model.Artista;
+import org.milaifontanals.model.ArtistaGrupal;
+import org.milaifontanals.model.ArtistaIndividual;
 import org.milaifontanals.model.Canso;
 import org.milaifontanals.model.Client;
 import org.milaifontanals.model.Estil;
 import org.milaifontanals.model.Llista;
+import org.milaifontanals.model.Pais;
 import org.milaifontanals.model.Prod_Rep;
 import org.milaifontanals.model.Producte;
 import org.milaifontanals.model.Reproducció;
+import org.milaifontanals.model.TipusArtista;
 import org.milaifontanals.model.Tipus_Producte;
 /**
  *
@@ -287,7 +292,7 @@ public class CapaPersistencia  {
              switch(rs.getString("cat_tipus")){
                  case ("C"):
                  
-                 song = new Canso(rs.getInt("cat_id"),rs.getString("cat_titol"),estat,est,rs.getString("cat_tipus"));
+                 song = new Canso(rs.getLong("cat_id"),rs.getString("cat_titol"),estat,est,rs.getString("cat_tipus"));
                  prod.add(song);
                  break;
                  
@@ -297,7 +302,7 @@ public class CapaPersistencia  {
                  break;
                  
                  case ("L"):
-                 list = new Llista(rs.getInt("cat_id"),rs.getString("cat_titol"),estat,est,rs.getString("cat_tipus"));
+                 list = new Llista(rs.getLong("cat_id"),rs.getString("cat_titol"),estat,est,rs.getString("cat_tipus"));
                 prod.add(list);
                  break;
                  
@@ -449,6 +454,153 @@ public class CapaPersistencia  {
        
        
    }
+   
+   
+   //Obtenim un llistat dels paisos registrats
+   public List<Pais> getPaisos() throws GestorBDEmpresaException{
+       List<Pais> resultat = new ArrayList<Pais>();
+       
+       Statement q = null;
+       
+       Pais p =null;
+     
+        try{
+            q= conn.createStatement();
+                                  
+            ResultSet rs = q.executeQuery("select pas_iso, pas_nom from pais");
+                while(rs.next()){
+                     p = new Pais(rs.getString("pas_iso"),rs.getString("pas_nom"));
+                    
+                    resultat.add(p);
+                }
+                
+            rs.close();    
+ 
+        }catch(SQLException ex){
+            throw new GestorBDEmpresaException("Error en intentar recuperar la llista de paisos.\n" + ex.getMessage());
+        }finally {
+            if (q != null) {
+                try {
+                    q.close();
+                } catch (SQLException ex) {
+                    throw new GestorBDEmpresaException("Error en intentar tancar la sentència que ha recuperat la llista de paisos.\n" + ex.getMessage());
+                }
+            }
+        }
+        
+       
+        return resultat;
+   }
+   
+   
+   
+   
+   public List<Artista> TaulaAutor() throws GestorBDEmpresaException{
+       List<Artista> resultat = new ArrayList<Artista>();
+       
+       Statement q = null;
+       TipusArtista tp=null;
+       
+       Pais p =null;
+     
+        try{
+            q= conn.createStatement();
+                                  
+            ResultSet rs = q.executeQuery("select art_id,art_nom,art_tipus from artista where art_tipus like 'Individual'");
+                while(rs.next()){
+                    
+                   
+                       
+                        tp=TipusArtista.Individual;
+                        
+                        ArtistaIndividual ind = new ArtistaIndividual(rs.getLong("art_id"),rs.getString("art_nom"),tp);
+                        resultat.add(ind);
+                       
+                    
+                }
+                
+            rs.close();    
+ 
+        }catch(SQLException ex){
+            throw new GestorBDEmpresaException("Error en intentar recuperar la llista de artistes per la Taula Interpret.\n" + ex.getMessage());
+        }finally {
+            if (q != null) {
+                try {
+                    q.close();
+                } catch (SQLException ex) {
+                    throw new GestorBDEmpresaException("Error en intentar tancar la sentència que ha recuperat la llista de artistes per la Taula Interpret.\n" + ex.getMessage());
+                }
+            }
+        }
+        
+       
+        return resultat;
+   }
+   
+   public List<Artista> TaulaInterpret() throws GestorBDEmpresaException{
+       List<Artista> resultat = new ArrayList<Artista>();
+       
+       Statement q = null;
+       TipusArtista tp=null;
+       
+       Pais p =null;
+     
+        try{
+            q= conn.createStatement();
+                                  
+            ResultSet rs = q.executeQuery("select art_id,art_nom,art_tipus from artista");
+                while(rs.next()){
+                    
+                   switch(rs.getString("art_tipus")){
+                       case("Individual"):
+                            tp=TipusArtista.Individual;
+                        
+                        ArtistaIndividual ind = new ArtistaIndividual(rs.getLong("art_id"),rs.getString("art_nom"),tp);
+                        resultat.add(ind);
+                           
+                        break;
+                        
+                        
+                       case ("Grupal"):
+                            tp=TipusArtista.Grupal;
+                        
+                        ArtistaGrupal gr = new ArtistaGrupal(rs.getLong("art_id"),rs.getString("art_nom"),tp);
+                        resultat.add(gr);
+                           
+                        break;
+                       
+                   }
+                       
+                       
+                       
+                    
+                }
+                
+            rs.close();    
+ 
+        }catch(SQLException ex){
+            throw new GestorBDEmpresaException("Error en intentar recuperar la llista de paisos.\n" + ex.getMessage());
+        }finally {
+            if (q != null) {
+                try {
+                    q.close();
+                } catch (SQLException ex) {
+                    throw new GestorBDEmpresaException("Error en intentar tancar la sentència que ha recuperat la llista de paisos.\n" + ex.getMessage());
+                }
+            }
+        }
+        
+       
+        return resultat;
+   }
+
+
+   
+       
+   
+   
+   
+   
    
    
    //Obtenim la reproduccio o reproduccions del filtre

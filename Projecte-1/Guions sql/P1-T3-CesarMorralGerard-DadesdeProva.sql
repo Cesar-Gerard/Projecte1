@@ -248,14 +248,14 @@ insert into estil (est_nom) values ('Rock');
 insert into estil (est_nom) values ('Metal');
 
 /*-------------------Artistes----------------*/
-insert into artista (art_nom,art_tipus) values ('SIA','I');
-insert into artista (art_nom,art_tipus) values ('Adele','I');
-insert into artista (art_nom,art_tipus) values ('Mon Laferte','I');
-insert into artista (art_nom,art_tipus) values ('Natalia Lafourcade','I');
-insert into artista (art_nom,art_tipus) values ('Rosalia','I');
-insert into artista (art_nom,art_tipus) values ('Macaco','I');
-insert into artista (art_nom,art_tipus) values ('ACDC','G');
-insert into artista (art_nom,art_tipus) values ('Bien Querida','G');
+insert into artista (art_nom,art_tipus) values ('SIA','Individual');
+insert into artista (art_nom,art_tipus) values ('Adele','Individual');
+insert into artista (art_nom,art_tipus) values ('Mon Laferte','Individual');
+insert into artista (art_nom,art_tipus) values ('Natalia Lafourcade','Individual');
+insert into artista (art_nom,art_tipus) values ('Rosalia','Individual');
+insert into artista (art_nom,art_tipus) values ('Macaco','Individual');
+insert into artista (art_nom,art_tipus) values ('ACDC','Grupal');
+insert into artista (art_nom,art_tipus) values ('Bien Querida','Grupal');
 
 
 /*-------------------Art_grup----------------*/
@@ -312,6 +312,7 @@ insert into canço (can_id,can_any_creacio,can_interpret,can_durada) values ('9',
 insert into canço (can_id,can_any_creacio,can_interpret,can_durada) values ('10','2001','Bien Querida','9');
 insert into canço (can_id,can_any_creacio,can_interpret,can_durada) values ('11','2001','Rosalia','22');
 insert into canço (can_id,can_any_creacio,can_interpret,can_durada) values ('12','2001','Macaco','14');
+
 
 /*-------------------Album----------------*/
 insert into album (alb_id,alb_anycreacio,alb_durada) values ('13','2000','0');

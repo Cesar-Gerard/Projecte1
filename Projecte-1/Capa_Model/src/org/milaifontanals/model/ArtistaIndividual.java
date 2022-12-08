@@ -13,24 +13,25 @@ import java.util.List;
  */
 public class ArtistaIndividual extends Artista {
     private Date dataNaixement;
-    private String nom;
     private String nacionalitat;
 
-    public ArtistaIndividual(Date dataNaixement, String nom, String nacionalitat) {
-        super();
+    public ArtistaIndividual(long id, String nom, TipusArtista tp) {
+        super(id, nom, tp);
+    }
+    
+    
+    public ArtistaIndividual(Date dataNaixement, String nacionalitat, long id, String nom, TipusArtista tp) {
+        super(id, nom, tp);
         this.dataNaixement = dataNaixement;
-        this.nom = nom;
         this.nacionalitat = nacionalitat;
     }
-   
-    
-    public String getNom() {
-        return nom;
-    }
 
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
+    
+    
+
+    
+    
+    
 
     public String getNacionalitat() {
         return nacionalitat;

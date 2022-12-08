@@ -11,21 +11,11 @@ import java.util.List;
  *
  * @author gerar
  */
-abstract class Artista {
+public abstract class Artista {
     private long id;
     private String nom;
+    private TipusArtista tp;
 
-    public Artista(long id, String nom) {
-        this.id = id;
-        this.nom = nom;
-    }
-
-    public Artista() {
-    }
-
-    
-    
-    
     public long getId() {
         return id;
     }
@@ -41,6 +31,31 @@ abstract class Artista {
     public void setNom(String nom) {
         this.nom = nom;
     }
+
+    public TipusArtista getTp() {
+        return tp;
+    }
+
+    public void setTp(TipusArtista tp) {
+        this.tp = tp;
+    }
+
+    public Artista(long id, String nom, TipusArtista tp) {
+        this.id = id;
+        this.nom = nom;
+        this.tp = tp;
+    }
+
+   
+
+    
+     public String getIdString(){
+        String resultat = Long.toString(id);
+        
+        return resultat;
+    }
+    
+    
     
     
     public List<Canso> getCansoInterpretades(){

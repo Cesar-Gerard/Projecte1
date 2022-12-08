@@ -111,7 +111,6 @@ public class Productes_Vista extends javax.swing.JDialog {
 
         jLabel1.setText("Estil: ");
 
-        Estil_combo.setMaximumRowCount(100);
         Estil_combo.setToolTipText("");
         Estil_combo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
