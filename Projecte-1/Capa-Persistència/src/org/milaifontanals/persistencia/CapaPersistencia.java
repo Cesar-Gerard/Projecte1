@@ -455,46 +455,7 @@ public class CapaPersistencia  {
        
    }
    
-   
-   //Obtenim un llistat dels paisos registrats
-   public List<Pais> getPaisos() throws GestorBDEmpresaException{
-       List<Pais> resultat = new ArrayList<Pais>();
-       
-       Statement q = null;
-       
-       Pais p =null;
-     
-        try{
-            q= conn.createStatement();
-                                  
-            ResultSet rs = q.executeQuery("select pas_iso, pas_nom from pais");
-                while(rs.next()){
-                     p = new Pais(rs.getString("pas_iso"),rs.getString("pas_nom"));
-                    
-                    resultat.add(p);
-                }
-                
-            rs.close();    
- 
-        }catch(SQLException ex){
-            throw new GestorBDEmpresaException("Error en intentar recuperar la llista de paisos.\n" + ex.getMessage());
-        }finally {
-            if (q != null) {
-                try {
-                    q.close();
-                } catch (SQLException ex) {
-                    throw new GestorBDEmpresaException("Error en intentar tancar la sentència que ha recuperat la llista de paisos.\n" + ex.getMessage());
-                }
-            }
-        }
-        
-       
-        return resultat;
-   }
-   
-   
-   
-   
+      
    public List<Artista> TaulaAutor() throws GestorBDEmpresaException{
        List<Artista> resultat = new ArrayList<Artista>();
        
@@ -586,6 +547,66 @@ public class CapaPersistencia  {
                     q.close();
                 } catch (SQLException ex) {
                     throw new GestorBDEmpresaException("Error en intentar tancar la sentència que ha recuperat la llista de paisos.\n" + ex.getMessage());
+                }
+            }
+        }
+        
+       
+        return resultat;
+   }
+   
+   
+   public List<Artista> FiltreInterpret(String nom,TipusArtista tp) throws GestorBDEmpresaException{
+       List<Artista> resultat = new ArrayList<Artista>();
+       
+       TipusArtista ta=null;
+       
+         PreparedStatement q = null;
+       try{
+           
+           
+           q= conn.prepareStatement("select art_id,art_nom,art_tipus from artista where art_nom like ? and art_tipus like ?");
+           q.setString(1, "%" + nom + "%");
+           if(tp == null){
+               q.setString(2,"%" + "" + "%");
+           }else{
+               q.setString(2,"%" + tp.toString() + "%");
+           }
+           
+
+            ResultSet rs = q.executeQuery();
+            
+            while(rs.next()){
+                switch(rs.getString("art_tipus")){
+                    case("Individual"):
+                        ta=TipusArtista.Individual;
+                    ArtistaIndividual ind = new ArtistaIndividual(rs.getLong("art_id"),rs.getString("art_nom"),ta);
+                    resultat.add(ind);
+                   break;
+                        
+                        
+                     case("Grupal"):
+                           ta=TipusArtista.Grupal;
+                    ArtistaGrupal gr = new ArtistaGrupal(rs.getLong("art_id"),rs.getString("art_nom"),ta);
+                          resultat.add(gr);
+                     break;
+                }
+               
+              
+                
+            }
+           
+            
+            rs.close();
+            
+        }catch(SQLException ex){
+            throw new GestorBDEmpresaException("Error en intentar recuperar la llista de interprets.\n" + ex.getMessage());
+        }finally {
+            if (q != null) {
+                try {
+                    q.close();
+                } catch (SQLException ex) {
+                    throw new GestorBDEmpresaException("Error en intentar tancar la sentència que ha recuperat la llista de interprets.\n" + ex.getMessage());
                 }
             }
         }

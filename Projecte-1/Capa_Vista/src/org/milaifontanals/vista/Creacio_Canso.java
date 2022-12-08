@@ -16,6 +16,7 @@ import org.milaifontanals.model.Artista;
 import org.milaifontanals.model.Estil;
 import org.milaifontanals.model.Pais;
 import org.milaifontanals.model.Producte;
+import org.milaifontanals.model.TipusArtista;
 import org.milaifontanals.persistencia.CapaPersistencia;
 import org.milaifontanals.persistencia.GestorBDEmpresaException;
 
@@ -60,8 +61,6 @@ public class Creacio_Canso extends javax.swing.JDialog {
         In_field = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
-        Nacionalitat_combo = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
         Autoria_field = new javax.swing.JTextField();
         AutoriaFiltre_BT = new javax.swing.JButton();
@@ -70,8 +69,6 @@ public class Creacio_Canso extends javax.swing.JDialog {
         Taula_Autor = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        Interpret_combo = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         Interpret_field = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
@@ -176,11 +173,14 @@ public class Creacio_Canso extends javax.swing.JDialog {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtre"));
 
-        jLabel5.setText("Nacionalitat: ");
-
         jLabel6.setText("Nom Autoria: ");
 
         AutoriaFiltre_BT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/Imatges/icons8-search-32.png"))); // NOI18N
+        AutoriaFiltre_BT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AutoriaFiltre_BTActionPerformed(evt);
+            }
+        });
 
         Netejar_Autoria_BT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/Imatges/icons8-erase-32.png"))); // NOI18N
 
@@ -189,41 +189,31 @@ public class Creacio_Canso extends javax.swing.JDialog {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(18, 18, 18)
-                        .addComponent(Nacionalitat_combo, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addContainerGap()
                         .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Autoria_field, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(AutoriaFiltre_BT)
-                    .addComponent(Netejar_Autoria_BT))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(Autoria_field, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(AutoriaFiltre_BT)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Netejar_Autoria_BT)))
+                .addContainerGap(108, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(19, 19, 19)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(Autoria_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(AutoriaFiltre_BT)
-                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel5)
-                        .addComponent(Nacionalitat_combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel6)
-                            .addComponent(Autoria_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(Netejar_Autoria_BT)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Netejar_Autoria_BT))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         Taula_Autor.setModel(new javax.swing.table.DefaultTableModel(
@@ -264,8 +254,6 @@ public class Creacio_Canso extends javax.swing.JDialog {
 
         jPanel5.setBorder(javax.swing.BorderFactory.createTitledBorder("Filtre"));
 
-        jLabel7.setText("Nacionalitat: ");
-
         jLabel8.setText("Nom Interpret:");
 
         jLabel9.setText("Tipus: ");
@@ -277,6 +265,11 @@ public class Creacio_Canso extends javax.swing.JDialog {
         Tots_CH.setText("Tots");
 
         InterpretFiltre_BT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/Imatges/icons8-search-32.png"))); // NOI18N
+        InterpretFiltre_BT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                InterpretFiltre_BTActionPerformed(evt);
+            }
+        });
 
         Netejar_Interpret_BT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/Imatges/icons8-erase-32.png"))); // NOI18N
 
@@ -288,55 +281,48 @@ public class Creacio_Canso extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel7)
+                        .addComponent(jLabel8)
                         .addGap(18, 18, 18)
-                        .addComponent(Interpret_combo, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Interpret_field, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
                         .addComponent(InterpretFiltre_BT))
                     .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
+                            .addComponent(Ind_CH)
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addComponent(jLabel9)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Ind_CH)))
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Interpret_field, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-                                .addComponent(Netejar_Interpret_BT))
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGap(13, 13, 13)
-                                .addComponent(Grup_CH)
-                                .addGap(18, 18, 18)
-                                .addComponent(Tots_CH)
-                                .addGap(0, 0, Short.MAX_VALUE)))))
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Grup_CH)
+                                    .addComponent(Tots_CH))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(Netejar_Interpret_BT)))))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel7)
-                        .addComponent(Interpret_combo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(InterpretFiltre_BT)))
-                .addGap(13, 13, 13)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel8)
-                        .addComponent(Interpret_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(InterpretFiltre_BT))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(Interpret_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(9, 9, 9)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(Ind_CH))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Grup_CH)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Tots_CH))
                     .addComponent(Netejar_Interpret_BT))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(Tots_CH)
-                    .addComponent(Grup_CH)
-                    .addComponent(Ind_CH))
-                .addGap(58, 58, 58))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         Taula_Interpret.setModel(new javax.swing.table.DefaultTableModel(
@@ -367,7 +353,7 @@ public class Creacio_Canso extends javax.swing.JDialog {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
@@ -412,6 +398,41 @@ public class Creacio_Canso extends javax.swing.JDialog {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         DadesBase();
     }//GEN-LAST:event_formWindowOpened
+
+    private void AutoriaFiltre_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AutoriaFiltre_BTActionPerformed
+        
+    }//GEN-LAST:event_AutoriaFiltre_BTActionPerformed
+
+    private void InterpretFiltre_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InterpretFiltre_BTActionPerformed
+        String nom;
+        TipusArtista tp = null;
+        
+        //Agafem les dades de la secció de intèrpret
+        
+        nom = Interpret_field.getText();
+       
+        
+        if(Ind_CH.isSelected()){
+            tp=TipusArtista.Individual;
+        }else if (Grup_CH.isSelected()){
+            tp = TipusArtista.Grupal;
+        }else if(Tots_CH.isSelected()){
+            tp=null;
+        }
+        
+        //Enviem les dades al mètode de la CapaPersistencia corresponent
+        
+        List<Artista> resultat = new ArrayList<Artista>();
+        
+        try {
+            resultat=cBD.FiltreInterpret(nom,tp);
+            ContingutTaulaInterpret(resultat);
+        } catch (GestorBDEmpresaException ex) {
+             JOptionPane.showMessageDialog(null, ex.getMessage(),"Ups, ha hagut un error!", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        
+    }//GEN-LAST:event_InterpretFiltre_BTActionPerformed
 
     /**
      * @param args the command line arguments
@@ -468,9 +489,7 @@ public class Creacio_Canso extends javax.swing.JDialog {
     private javax.swing.JTextField In_field;
     private javax.swing.JRadioButton Ind_CH;
     private javax.swing.JButton InterpretFiltre_BT;
-    private javax.swing.JComboBox<String> Interpret_combo;
     private javax.swing.JTextField Interpret_field;
-    private javax.swing.JComboBox<String> Nacionalitat_combo;
     private javax.swing.JToggleButton Netejar_Autoria_BT;
     private javax.swing.JButton Netejar_Interpret_BT;
     private javax.swing.JTable Taula_Autor;
@@ -483,9 +502,7 @@ public class Creacio_Canso extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -505,23 +522,14 @@ public class Creacio_Canso extends javax.swing.JDialog {
         //Carreguem la informació dels combo box y les taules 
         
         List<Estil> est = new ArrayList<Estil> ();
-        List<Pais> pa = new ArrayList<Pais>();
+   
         try {
             est = cBD.getEstils();
-            pa = cBD.getPaisos();
             
             for(int i=0; i<est.size();i++){
                 Estil_combo.addItem(est.get(i).getNom());
             }
-            
-            for(int i=0; i<pa.size();i++){
-                Nacionalitat_combo.addItem(pa.get(i).getNom());
-                Interpret_combo.addItem(pa.get(i).getNom());
-            }
-            
-            
-            
-            
+
             //Ara configurar els checkbox
             
             
