@@ -555,7 +555,7 @@ public class CapaPersistencia  {
         return resultat;
    }
    
-   
+   //Filtre interpret
    public List<Artista> FiltreInterpret(String nom,TipusArtista tp) throws GestorBDEmpresaException{
        List<Artista> resultat = new ArrayList<Artista>();
        
@@ -615,13 +615,53 @@ public class CapaPersistencia  {
         return resultat;
    }
 
-
-   
+//Filtre Autoria 
+   public List<Artista> FiltreAutoria(String nom) throws GestorBDEmpresaException{
+       List<Artista> resultat = new ArrayList<Artista>();
        
-   
-   
-   
-   
+       TipusArtista ta=null;
+       
+         PreparedStatement q = null;
+       try{
+           
+           
+           q= conn.prepareStatement("select art_id,art_nom,art_tipus from artista where art_nom like ? and art_tipus like 'Individual'");
+           q.setString(1, "%" + nom + "%");
+          
+           
+           
+
+            ResultSet rs = q.executeQuery();
+            
+            while(rs.next()){
+
+                    ta=TipusArtista.Individual;
+                    ArtistaIndividual ind = new ArtistaIndividual(rs.getLong("art_id"),rs.getString("art_nom"),ta);
+                    resultat.add(ind);
+
+               
+                        
+            }
+           
+            
+            rs.close();
+            
+        }catch(SQLException ex){
+            throw new GestorBDEmpresaException("Error en intentar recuperar la llista de interprets.\n" + ex.getMessage());
+        }finally {
+            if (q != null) {
+                try {
+                    q.close();
+                } catch (SQLException ex) {
+                    throw new GestorBDEmpresaException("Error en intentar tancar la sentència que ha recuperat la llista de interprets.\n" + ex.getMessage());
+                }
+            }
+        }
+        System.err.println(resultat.size());
+       
+        return resultat;
+   }
+
    
    
    //Obtenim la reproduccio o reproduccions del filtre

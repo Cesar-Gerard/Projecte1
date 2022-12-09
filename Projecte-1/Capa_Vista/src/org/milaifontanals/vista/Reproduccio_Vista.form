@@ -223,9 +223,6 @@
         </Component>
         <Component class="javax.swing.JButton" name="Netejar">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\isard\Desktop\T7\SpotyMila\Projecte-1\Imatges\restart.png"/>
-            </Property>
             <Property name="text" type="java.lang.String" value="Netejar"/>
           </Properties>
           <Events>
@@ -375,31 +372,16 @@
       </Layout>
       <SubComponents>
         <Component class="javax.swing.JButton" name="jButton1">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\isard\Desktop\T7\SpotyMila\Projecte-1\Imatges\icons8-add-file-16.png"/>
-            </Property>
-          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AfegirReproduccio"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton2">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\isard\Desktop\T7\SpotyMila\Projecte-1\Imatges\icons8-edit-16.png"/>
-            </Property>
-          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EditarReproduccio"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton3">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="2" name="C:\Users\isard\Desktop\T7\SpotyMila\Projecte-1\Imatges\icons8-trash-16.png"/>
-            </Property>
-          </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Eliminar_Reproduccio"/>
           </Events>

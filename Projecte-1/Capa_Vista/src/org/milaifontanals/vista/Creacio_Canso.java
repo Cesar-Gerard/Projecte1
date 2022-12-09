@@ -28,6 +28,8 @@ public class Creacio_Canso extends javax.swing.JDialog {
 
     private CapaPersistencia cBD = null;
     ButtonGroup bG = new ButtonGroup();
+    List<Artista> inter = new ArrayList<Artista>();
+    List<Artista> art = new ArrayList<Artista>();
     /**
      * Creates new form Creació_Canso
      */
@@ -54,17 +56,18 @@ public class Creacio_Canso extends javax.swing.JDialog {
         jLabel4 = new javax.swing.JLabel();
         Titol_field = new javax.swing.JTextField();
         Estil_combo = new javax.swing.JComboBox<>();
-        Any_field = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         Autor_field = new javax.swing.JTextField();
         In_field = new javax.swing.JTextField();
+        Any_SP = new javax.swing.JSpinner();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         Autoria_field = new javax.swing.JTextField();
         AutoriaFiltre_BT = new javax.swing.JButton();
-        Netejar_Autoria_BT = new javax.swing.JToggleButton();
+        Netejar_Autoria_BT = new javax.swing.JButton();
+        Confirmar_BT = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         Taula_Autor = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
@@ -77,6 +80,7 @@ public class Creacio_Canso extends javax.swing.JDialog {
         Tots_CH = new javax.swing.JRadioButton();
         InterpretFiltre_BT = new javax.swing.JButton();
         Netejar_Interpret_BT = new javax.swing.JButton();
+        Confirmar2_BT = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         Taula_Interpret = new javax.swing.JTable();
 
@@ -88,8 +92,18 @@ public class Creacio_Canso extends javax.swing.JDialog {
         });
 
         Crear_BT.setText("Crear");
+        Crear_BT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Crear_BTActionPerformed(evt);
+            }
+        });
 
         Cancelar_BT.setText("Cancelar");
+        Cancelar_BT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Cancelar_BTActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Dades producte"));
 
@@ -109,6 +123,9 @@ public class Creacio_Canso extends javax.swing.JDialog {
 
         In_field.setEditable(false);
 
+        Any_SP.setModel(new javax.swing.SpinnerNumberModel(2000, 1900, 2500, 1));
+        Any_SP.setToolTipText("");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -116,29 +133,27 @@ public class Creacio_Canso extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Any_field))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Titol_field))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel4)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(Estil_combo, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(In_field))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(Autor_field, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 23, Short.MAX_VALUE)))
+                        .addComponent(Titol_field, javax.swing.GroupLayout.DEFAULT_SIZE, 142, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel3)
+                            .addGap(18, 18, 18)
+                            .addComponent(Any_SP, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE))
+                        .addComponent(jLabel4)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(Estil_combo, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel11)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(In_field))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(jLabel10)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(Autor_field, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -155,7 +170,7 @@ public class Creacio_Canso extends javax.swing.JDialog {
                 .addGap(55, 55, 55)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(Any_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(Any_SP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(33, 33, 33)
                 .addComponent(jLabel4)
                 .addGap(24, 24, 24)
@@ -183,13 +198,25 @@ public class Creacio_Canso extends javax.swing.JDialog {
         });
 
         Netejar_Autoria_BT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/Imatges/icons8-erase-32.png"))); // NOI18N
+        Netejar_Autoria_BT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Netejar_Autoria_BTActionPerformed(evt);
+            }
+        });
+
+        Confirmar_BT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/Imatges/icons8-check-mark-32.png"))); // NOI18N
+        Confirmar_BT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Confirmar_BTActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel6)
@@ -198,9 +225,11 @@ public class Creacio_Canso extends javax.swing.JDialog {
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addComponent(AutoriaFiltre_BT)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(Netejar_Autoria_BT)))
-                .addContainerGap(108, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
+                        .addComponent(Netejar_Autoria_BT)
+                        .addGap(18, 18, 18)
+                        .addComponent(Confirmar_BT)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -210,9 +239,11 @@ public class Creacio_Canso extends javax.swing.JDialog {
                     .addComponent(jLabel6)
                     .addComponent(Autoria_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(AutoriaFiltre_BT)
-                    .addComponent(Netejar_Autoria_BT))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(AutoriaFiltre_BT)
+                        .addComponent(Netejar_Autoria_BT))
+                    .addComponent(Confirmar_BT))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
@@ -272,6 +303,18 @@ public class Creacio_Canso extends javax.swing.JDialog {
         });
 
         Netejar_Interpret_BT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/Imatges/icons8-erase-32.png"))); // NOI18N
+        Netejar_Interpret_BT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Netejar_Interpret_BTActionPerformed(evt);
+            }
+        });
+
+        Confirmar2_BT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/Imatges/icons8-check-mark-32.png"))); // NOI18N
+        Confirmar2_BT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Confirmar2_BTActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -284,19 +327,20 @@ public class Creacio_Canso extends javax.swing.JDialog {
                         .addComponent(jLabel8)
                         .addGap(18, 18, 18)
                         .addComponent(Interpret_field, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
-                        .addComponent(InterpretFiltre_BT))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel9)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Ind_CH)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(Grup_CH)
-                                    .addComponent(Tots_CH))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(Netejar_Interpret_BT)))))
+                            .addComponent(Grup_CH)
+                            .addComponent(Tots_CH)
+                            .addComponent(Ind_CH))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 83, Short.MAX_VALUE)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(InterpretFiltre_BT)
+                            .addComponent(Netejar_Interpret_BT)
+                            .addComponent(Confirmar2_BT))
+                        .addGap(33, 33, 33)))
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
@@ -304,25 +348,31 @@ public class Creacio_Canso extends javax.swing.JDialog {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(InterpretFiltre_BT))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(16, 16, 16)
-                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel8)
-                            .addComponent(Interpret_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(9, 9, 9)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGap(16, 16, 16)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel8)
+                                    .addComponent(Interpret_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(InterpretFiltre_BT))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel9)
                             .addComponent(Ind_CH))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Grup_CH)
+                        .addComponent(Grup_CH))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(Netejar_Interpret_BT)))
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Tots_CH))
-                    .addComponent(Netejar_Interpret_BT))
-                .addContainerGap(38, Short.MAX_VALUE))
+                        .addComponent(Tots_CH)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Confirmar2_BT)
+                        .addGap(19, 19, 19))))
         );
 
         Taula_Interpret.setModel(new javax.swing.table.DefaultTableModel(
@@ -400,7 +450,22 @@ public class Creacio_Canso extends javax.swing.JDialog {
     }//GEN-LAST:event_formWindowOpened
 
     private void AutoriaFiltre_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AutoriaFiltre_BTActionPerformed
+        String nom;
         
+        
+        //Agafem les dades de la secció de autoria
+        
+        nom = Autoria_field.getText();    
+        //Enviem les dades al mètode de la CapaPersistencia corresponent
+        
+        List<Artista> resultat = new ArrayList<Artista>();
+        
+        try {
+            resultat=cBD.FiltreAutoria(nom);
+            ContingutTaulaArtista(resultat);
+        } catch (GestorBDEmpresaException ex) {
+             JOptionPane.showMessageDialog(null, ex.getMessage(),"Ups, ha hagut un error!", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_AutoriaFiltre_BTActionPerformed
 
     private void InterpretFiltre_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_InterpretFiltre_BTActionPerformed
@@ -434,6 +499,78 @@ public class Creacio_Canso extends javax.swing.JDialog {
         
     }//GEN-LAST:event_InterpretFiltre_BTActionPerformed
 
+    private void Netejar_Interpret_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Netejar_Interpret_BTActionPerformed
+        //Netegem el filtre de la taula de interprets y la tornem al seu valor original juntament amb els elements complementaris
+        
+        Interpret_field.setText("");
+        Tots_CH.setSelected(true);
+        
+        
+        ContingutTaulaInterpret(inter);
+        
+    }//GEN-LAST:event_Netejar_Interpret_BTActionPerformed
+
+    private void Netejar_Autoria_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Netejar_Autoria_BTActionPerformed
+        //Netegem el filtre de la taula de interprets y la tornem al seu valor original juntament amb els elements complementaris
+        
+        Autor_field.setText("");
+           
+        ContingutTaulaArtista(art);
+        
+        
+    }//GEN-LAST:event_Netejar_Autoria_BTActionPerformed
+
+    private void Cancelar_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cancelar_BTActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_Cancelar_BTActionPerformed
+
+    private void Crear_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Crear_BTActionPerformed
+       String titol;
+       titol=Titol_field.getText();
+       
+       Estil estil= null;
+       estil=new Estil(Estil_combo.getSelectedItem().toString());
+       
+      
+        
+        String autor = Autor_field.getText();
+        String interpret= In_field.getText();
+        
+        System.out.println(autor);
+        System.out.println(estil.getNom());
+        System.out.println(interpret);
+        
+        
+       
+    }//GEN-LAST:event_Crear_BTActionPerformed
+
+    private void Confirmar_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Confirmar_BTActionPerformed
+        int j = Taula_Autor.getSelectedRow();
+        
+        
+        if(j==-1){
+            JOptionPane.showMessageDialog(this, "Hem de seleccionar un Autor per la canço que volm crear");
+        }else{
+            Autor_field.setText(Taula_Autor.getValueAt(j, 1).toString());
+        }
+        
+    }//GEN-LAST:event_Confirmar_BTActionPerformed
+
+    private void Confirmar2_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Confirmar2_BTActionPerformed
+        int j = Taula_Interpret.getSelectedRow();
+        
+        
+        if(j==-1){
+            JOptionPane.showMessageDialog(this, "Hem de seleccionar un Interpret per la canço que volm crear");
+        }else{
+            In_field.setText(Taula_Interpret.getValueAt(j, 1).toString());
+        }
+        
+    }//GEN-LAST:event_Confirmar2_BTActionPerformed
+
+    
+   
+    
     /**
      * @param args the command line arguments
      */
@@ -478,11 +615,13 @@ public class Creacio_Canso extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField Any_field;
+    private javax.swing.JSpinner Any_SP;
     private javax.swing.JTextField Autor_field;
     private javax.swing.JButton AutoriaFiltre_BT;
     private javax.swing.JTextField Autoria_field;
     private javax.swing.JButton Cancelar_BT;
+    private javax.swing.JButton Confirmar2_BT;
+    private javax.swing.JButton Confirmar_BT;
     private javax.swing.JButton Crear_BT;
     private javax.swing.JComboBox<String> Estil_combo;
     private javax.swing.JRadioButton Grup_CH;
@@ -490,7 +629,7 @@ public class Creacio_Canso extends javax.swing.JDialog {
     private javax.swing.JRadioButton Ind_CH;
     private javax.swing.JButton InterpretFiltre_BT;
     private javax.swing.JTextField Interpret_field;
-    private javax.swing.JToggleButton Netejar_Autoria_BT;
+    private javax.swing.JButton Netejar_Autoria_BT;
     private javax.swing.JButton Netejar_Interpret_BT;
     private javax.swing.JTable Taula_Autor;
     private javax.swing.JTable Taula_Interpret;
@@ -554,8 +693,7 @@ public class Creacio_Canso extends javax.swing.JDialog {
 
     private void DadesTaules() {
     
-        List<Artista> inter = new ArrayList<Artista>();
-        List<Artista> art = new ArrayList<Artista>();
+        
         try{
             inter = cBD.TaulaInterpret();
             art = cBD.TaulaAutor();
