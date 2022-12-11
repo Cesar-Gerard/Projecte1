@@ -379,12 +379,26 @@ public class Productes_Vista extends javax.swing.JDialog {
                 {null, null, null, null},
                 {null, null, null, null},
                 {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
                 {null, null, null, null}
             },
             new String [] {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -492,9 +506,7 @@ public class Productes_Vista extends javax.swing.JDialog {
            
             
        String titol= Titol_field.getText();
-       if(titol.equals("")){
-           titol=null;
-       }
+      
        String estat = null;
        
        if(Actiu_RB.isSelected()){
@@ -510,7 +522,7 @@ public class Productes_Vista extends javax.swing.JDialog {
         estil= Estil_combo.getSelectedItem().toString();
         
         if(estil.equals("Tots")){
-           estil=null;
+           estil="";
        }
        
        List<Tipus_Producte> tp = new ArrayList<Tipus_Producte>();
@@ -640,11 +652,11 @@ public class Productes_Vista extends javax.swing.JDialog {
                 
                 data[i][0]=rep.get(i).getTitol();
                 data[i][1]=rep.get(i).getEstil().getNom();
-                data[i][2]=rep.get(i).getTp();
+                data[i][2]=rep.get(i).getTp().toString();
                 data[i][3]=rep.get(i).isActiu();
             }
             
-            
+          jTable1.setDefaultEditor(Object.class, null);
             jTable1.setModel(new DefaultTableModel(data,columnNames));
     }
    

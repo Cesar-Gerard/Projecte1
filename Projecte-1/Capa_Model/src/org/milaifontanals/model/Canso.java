@@ -11,32 +11,36 @@ package org.milaifontanals.model;
 public class Canso extends Producte{
     private int anyCreacio;
     private long durada;
+    private Artista art;
 
-    public Canso(int anyCreacio, long durada, long id, String titol, boolean actiu, Estil estil, String tp) {
+ 
+     
+    
+
+    public Canso(long id, String titol, boolean actiu, Estil estil, Tipus_Producte tp) {
         super(id, titol, actiu, estil, tp);
+    }
+
+    
+
+    //Constructor per crear una nova canço
+
+    public Canso(int anyCreacio, long durada, Artista art, long id) {
+        super(id);
         this.anyCreacio = anyCreacio;
         this.durada = durada;
-    }
-
-    public Canso(long id, String titol, boolean actiu, Estil estil, String tp) {
-        super(id, titol, actiu, estil, tp);
+        this.art = art;
     }
 
     
 
     
-
-    
-
     
     
     
+    
 
-    @Override
-    public int getDuracio() {
-        return super.getDuracio(); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
-    }
-
+    
     
     
     public int getAnyCreacio() {
@@ -54,6 +58,16 @@ public class Canso extends Producte{
     public void setDurada(long durada) {
         this.durada = durada;
     }
+
+    public Artista getArt() {
+        return art;
+    }
+
+    public void setArt(Artista art) {
+        this.art = art;
+    }
+    
+    
     
     
 }

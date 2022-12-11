@@ -23,6 +23,13 @@ public class ArtistaGrupal extends Artista {
         super(id, nom, tp);
         
     }
+
+    public ArtistaGrupal(String nom) {
+        super(nom);
+    }
+    
+    
+    
     
 
     public Date getDatacreacio() {

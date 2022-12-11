@@ -15,6 +15,24 @@ public abstract class Artista {
     private long id;
     private String nom;
     private TipusArtista tp;
+    
+    
+    
+     public Artista(long id, String nom, TipusArtista tp) {
+        this.id = id;
+        this.nom = nom;
+        this.tp = tp;
+    }
+
+    public Artista(String nom) {
+        this.nom = nom;
+    }
+
+    public Artista(long id) {
+        this.id = id;
+    }
+     
+     
 
     public long getId() {
         return id;
@@ -40,29 +58,12 @@ public abstract class Artista {
         this.tp = tp;
     }
 
-    public Artista(long id, String nom, TipusArtista tp) {
-        this.id = id;
-        this.nom = nom;
-        this.tp = tp;
-    }
-
-   
-
-    
      public String getIdString(){
         String resultat = Long.toString(id);
         
         return resultat;
     }
     
-    
-    
-    
-    public List<Canso> getCansoInterpretades(){
-        
-        List <Canso> resultat = new ArrayList<Canso>();
-        
-        return resultat;
-    }
+   
     
 }

@@ -26,6 +26,14 @@ public class ArtistaIndividual extends Artista {
         this.nacionalitat = nacionalitat;
     }
 
+    public ArtistaIndividual(String nom) {
+        super(nom);
+    }
+
+    public ArtistaIndividual(long id) {
+        super(id);
+    }
+
     
     
 

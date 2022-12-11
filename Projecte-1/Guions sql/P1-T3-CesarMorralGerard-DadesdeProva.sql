@@ -300,23 +300,23 @@ insert into cataleg(cat_titol,cat_actiu,cat_estil,cat_tipus) values ('Cotxe','Ac
 insert into cataleg(cat_titol,cat_actiu,cat_estil,cat_tipus) values ('MM','Inactiu','Mixte','L');
 
 /*-------------------Canço----------------*/
-insert into canço (can_id,can_any_creacio,can_interpret,can_durada) values ('1','2022','SIA','20');
-insert into canço (can_id,can_any_creacio,can_interpret,can_durada) values ('2','2020','Adele','10');
-insert into canço (can_id,can_any_creacio,can_interpret,can_durada) values ('3','2021','Mon Laferte','7');
-insert into canço (can_id,can_any_creacio,can_interpret,can_durada) values ('4','1970','Natalia Lafourcade','5');
-insert into canço (can_id,can_any_creacio,can_interpret,can_durada) values ('5','1980','Rosalia','2');
-insert into canço (can_id,can_any_creacio,can_interpret,can_durada) values ('6','2000','Macaco','11');
-insert into canço (can_id,can_any_creacio,can_interpret,can_durada) values ('7','2003','ACDC','3');
-insert into canço (can_id,can_any_creacio,can_interpret,can_durada) values ('8','2001','SIA','12');
-insert into canço (can_id,can_any_creacio,can_interpret,can_durada) values ('9','2001','Natalia Lafourcade','11');
-insert into canço (can_id,can_any_creacio,can_interpret,can_durada) values ('10','2001','Bien Querida','9');
-insert into canço (can_id,can_any_creacio,can_interpret,can_durada) values ('11','2001','Rosalia','22');
-insert into canço (can_id,can_any_creacio,can_interpret,can_durada) values ('12','2001','Macaco','14');
+insert into canço (can_id,can_any_creacio,can_interpret,can_durada) values (1,2022,'SIA',20);
+insert into canço (can_id,can_any_creacio,can_interpret,can_durada) values (2,2020,'Adele',10);
+insert into canço (can_id,can_any_creacio,can_interpret,can_durada) values (3,2021,'Mon Laferte',7);
+insert into canço (can_id,can_any_creacio,can_interpret,can_durada) values (4,1970,'Natalia Lafourcade',5);
+insert into canço (can_id,can_any_creacio,can_interpret,can_durada) values (5,1980,'Rosalia',2);
+insert into canço (can_id,can_any_creacio,can_interpret,can_durada) values (6,2000,'Macaco',11);
+insert into canço (can_id,can_any_creacio,can_interpret,can_durada) values (7,2003,'ACDC',3);
+insert into canço (can_id,can_any_creacio,can_interpret,can_durada) values (8,2001,'SIA',12);
+insert into canço (can_id,can_any_creacio,can_interpret,can_durada) values (9,2001,'Natalia Lafourcade',11);
+insert into canço (can_id,can_any_creacio,can_interpret,can_durada) values (10,2001,'Bien Querida',9);
+insert into canço (can_id,can_any_creacio,can_interpret,can_durada) values (11,2001,'Rosalia',22);
+insert into canço (can_id,can_any_creacio,can_interpret,can_durada) values (12,2001,'Macaco',14);
 
 
 /*-------------------Album----------------*/
-insert into album (alb_id,alb_anycreacio,alb_durada) values ('13','2000','0');
-insert into album (alb_id,alb_anycreacio,alb_durada) values ('14','2020','0');
+insert into album (alb_id,alb_anycreacio,alb_durada) values (13,2000,0);
+insert into album (alb_id,alb_anycreacio,alb_durada) values (14,2020,0);
 
 /*-------------------Album_contingut----------------*/
 insert into album_cont (abc_idalbum,abc_idcanço,abc_pos) values ('13','1','1');

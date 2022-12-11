@@ -13,25 +13,28 @@ public abstract class Producte {
     private String titol;
     private boolean actiu;
     private Estil estil;
-    private String tp;
+    private Tipus_Producte tp;
 
-    public Producte() {
-    }
 
-    public Producte(long id, String titol) {//Constructor per poder recuperar les dades de la BD per a la vista reproduccio
+    
+    //Constructors necessaris per les diverses configuracions de classes que necessiten la classe Producte
+   
+    
+
+    public Producte(long id, String titol) {
         this.id = id;
         this.titol = titol;
     }
 
-    public Producte(String titol) {//Constructor necessari a la hora de fer la creació de una nova reproduccio
+    public Producte(String titol) {
         this.titol = titol;
     }
 
-    public Producte(long id) {//Constructor per el filtre de reproduccions
-        this.id = id;
+    public Producte(long id) {
+            this.id = id;
     }
 
-    public Producte(long id, String titol, boolean actiu, Estil estil, String tp) {
+    public Producte(long id, String titol, boolean actiu, Estil estil, Tipus_Producte tp) {
         this.id = id;
         this.titol = titol;
         this.actiu = actiu;
@@ -39,7 +42,7 @@ public abstract class Producte {
         this.tp = tp;
     }
 
-    public Producte(String titol, boolean actiu, Estil estil, String tp) {
+    public Producte(String titol, boolean actiu, Estil estil, Tipus_Producte tp) {
         this.titol = titol;
         this.actiu = actiu;
         this.estil = estil;
@@ -50,7 +53,7 @@ public abstract class Producte {
     
     
     
-    public String getIdString(){
+     public String getIdString(){
         String resultat = Long.toString(id);
         
         return resultat;
@@ -64,19 +67,14 @@ public abstract class Producte {
         this.estil = estil;
     }
 
-    public String getTp() {
+    public Tipus_Producte getTp() {
         return tp;
     }
 
-    public void setTp(String tp) {
+    public void setTp(Tipus_Producte tp) {
         this.tp = tp;
     }
 
-    
-
-    
-
-  
 
     public long getId() {
         return id;
@@ -96,15 +94,24 @@ public abstract class Producte {
 
     public String isActiu() {
         if(actiu == true){
-            return "actiu";
+            return "Actiu";
         }else{
-            return "inactiu";
+            return "Inactiu";
         }
     }
 
     public void setActiu(boolean actiu) {
         this.actiu = actiu;
     }
+    
+    
+    public int getDuracio(){
+        int durada=0;
+        
+        return durada;
+    }
+    
+   
 
     @Override
     public String toString() {
@@ -118,11 +125,6 @@ public abstract class Producte {
         return hash;
     }
     
-    public int getDuracio(){
-        int durada=0;
-        
-        return durada;
-    }
 
     
 }

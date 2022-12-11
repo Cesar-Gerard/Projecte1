@@ -114,7 +114,7 @@ create table CANÇO(
 can_id INTEGER CONSTRAINT FK_CANÇO_CAN_ID REFERENCES CATALEG,
 can_any_creacio INT CONSTRAINT NN_CANÇO_ANY NOT NULL,
 can_interpret VARCHAR2(100) CONSTRAINT FK_CANÇO_CAN_INTERPRET REFERENCES ARTISTA(art_nom),
-can_durada Float CONSTRAINT NN_CANÇO_DURADA NOT NULL,
+can_durada decimal(5,2) CONSTRAINT NN_CANÇO_DURADA NOT NULL,
 
 CONSTRAINT PK_CANÇO_ID PRIMARY KEY(can_id)
 
@@ -137,7 +137,7 @@ aut_artid NUMBER CONSTRAINT FK_AUTORIA_AUT_ARTINDID REFERENCES Artista
 create table ALBUM(
 alb_id INTEGER CONSTRAINT FK_ALBUM_ALB_ID REFERENCES CATALEG,
 alb_anycreacio INT CONSTRAINT NN_ALBUM_ANY NOT NULL,
-alb_durada INTEGER CONSTRAINT NN_ALBUM_DURADA NOT NULL,
+alb_durada decimal(5,2) CONSTRAINT NN_ALBUM_DURADA NOT NULL,
 CONSTRAINT PK_ALBUM_ID PRIMARY KEY(alb_id)
 );
 
@@ -162,7 +162,7 @@ CONSTRAINT UN_ALBUM_CONTENT_IDALBUM_POS UNIQUE (abc_idalbum,abc_pos)
 
 create table LLISTA(
 lli_id INTEGER CONSTRAINT FK_LLISTA_LLI_ID REFERENCES CATALEG,
-lli_durada INTEGER CONSTRAINT NN_LLISTA_DURADA NOT NULL,
+lli_durada decimal(5,2) CONSTRAINT NN_LLISTA_DURADA NOT NULL,
 
 CONSTRAINT PK_LLISTA_ID PRIMARY KEY (lli_id)
 );
@@ -542,5 +542,6 @@ create or replace trigger TR_reproduccio_client
             raise_application_error(-20018,'No pots posar un client que no existeix ');
         end if;
         
-    end;    
+    end;  
+ 
 /

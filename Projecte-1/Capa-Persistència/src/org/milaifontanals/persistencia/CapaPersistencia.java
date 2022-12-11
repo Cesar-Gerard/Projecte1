@@ -205,11 +205,7 @@ public class CapaPersistencia  {
                 }
             }
         }
-        
-        
-        
-       
-       
+  
    }
    
    
@@ -259,7 +255,7 @@ public class CapaPersistencia  {
    
    
    
-   
+   //Omple la taula de filtre de la vista Productes
    public List<Producte> Omplir_Taula_Productes() throws GestorBDEmpresaException{
        List<Producte> prod = new ArrayList<Producte>();
        
@@ -267,14 +263,14 @@ public class CapaPersistencia  {
        Album alb = null;
        Llista list = null;
        boolean estat;
-      
+      Tipus_Producte tipus= null;
        Estil est = null;
        
        
        
        PreparedStatement q = null;
        try{
-            q= conn.prepareStatement("select cat_id, cat_titol,cat_actiu,cat_estil,cat_tipus from cataleg where cat_actiu=?");
+            q= conn.prepareStatement("select cat_id, cat_titol,cat_actiu,cat_estil,cat_tipus from cataleg where cat_actiu=? order by cat_titol asc");
             q.setString(1, "Actiu");
             
             ResultSet rs = q.executeQuery();
@@ -291,18 +287,20 @@ public class CapaPersistencia  {
                 
              switch(rs.getString("cat_tipus")){
                  case ("C"):
-                 
-                 song = new Canso(rs.getLong("cat_id"),rs.getString("cat_titol"),estat,est,rs.getString("cat_tipus"));
+                 tipus = Tipus_Producte.C;
+                 song = new Canso(rs.getLong("cat_id"),rs.getString("cat_titol"),estat,est,tipus);
                  prod.add(song);
                  break;
                  
                  case ("A"):
-                 alb = new Album(rs.getInt("cat_id"),rs.getString("cat_titol"),estat,est,rs.getString("cat_tipus"));
+                     tipus = Tipus_Producte.A;
+                 alb = new Album(rs.getInt("cat_id"),rs.getString("cat_titol"),estat,est,tipus);
                 prod.add(alb);
                  break;
                  
                  case ("L"):
-                 list = new Llista(rs.getLong("cat_id"),rs.getString("cat_titol"),estat,est,rs.getString("cat_tipus"));
+                     tipus = Tipus_Producte.L;
+                 list = new Llista(rs.getLong("cat_id"),rs.getString("cat_titol"),estat,est,tipus);
                 prod.add(list);
                  break;
                  
@@ -330,12 +328,14 @@ public class CapaPersistencia  {
        
    }
    
+   //Ens dona el resultat de filtre de productes
    public List<Producte> getProductes(String titol,String state, String estil, List<Tipus_Producte>tp) throws GestorBDEmpresaException{
        List<Producte> filtre = new ArrayList<Producte>();
        Canso song = null;
        Album alb = null;
        Llista list = null;
        boolean estat;
+       Tipus_Producte tp2= null;
       
        Estil est = null;
        
@@ -345,7 +345,7 @@ public class CapaPersistencia  {
        try{
            
            
-           q= conn.prepareStatement("select cat_id, cat_titol,cat_actiu,cat_estil,cat_tipus from cataleg where cat_titol like ? and REGEXP_LIKE(cat_actiu, ?) and cat_estil like ? and REGEXP_LIKE(cat_tipus, ?)");
+           q= conn.prepareStatement("select cat_id, cat_titol,cat_actiu,cat_estil,cat_tipus from cataleg where cat_titol like ? and REGEXP_LIKE(cat_actiu, ?) and cat_estil like ? and REGEXP_LIKE(cat_tipus, ?) order by cat_titol asc");
            
            q.setString(1, "%" + titol + "%");
               
@@ -356,7 +356,7 @@ public class CapaPersistencia  {
                q.setString(2, state );
            }
            
-           q.setString(3,estil);
+           q.setString(3,"%" + estil + "%");
            
            
            
@@ -380,18 +380,20 @@ public class CapaPersistencia  {
               
              switch(rs.getString("cat_tipus")){
                  case ("C"):
-                 
-                 song = new Canso(rs.getInt("cat_id"),rs.getString("cat_titol"),estat,est,rs.getString("cat_tipus"));
+                 tp2=Tipus_Producte.C;
+                 song = new Canso(rs.getInt("cat_id"),rs.getString("cat_titol"),estat,est,tp2);
                  filtre.add(song);
                  break;
                  
                  case ("A"):
-                 alb = new Album(rs.getInt("cat_id"),rs.getString("cat_titol"),estat,est,rs.getString("cat_tipus"));
+                     tp2=Tipus_Producte.A;
+                 alb = new Album(rs.getInt("cat_id"),rs.getString("cat_titol"),estat,est,tp2);
                 filtre.add(alb);
                  break;
                  
                  case ("L"):
-                 list = new Llista(rs.getInt("cat_id"),rs.getString("cat_titol"),estat,est,rs.getString("cat_tipus"));
+                     tp2=Tipus_Producte.L;
+                 list = new Llista(rs.getInt("cat_id"),rs.getString("cat_titol"),estat,est,tp2);
                 filtre.add(list);
                  break;
                  
@@ -455,7 +457,7 @@ public class CapaPersistencia  {
        
    }
    
-      
+      //Ens dona el contingut per a la taula de autoria
    public List<Artista> TaulaAutor() throws GestorBDEmpresaException{
        List<Artista> resultat = new ArrayList<Artista>();
        
@@ -657,7 +659,7 @@ public class CapaPersistencia  {
                 }
             }
         }
-        System.err.println(resultat.size());
+        
        
         return resultat;
    }
@@ -756,14 +758,141 @@ public class CapaPersistencia  {
          
    }
    
+   //Afegir nu producte a la taula Cataleg
+   
+   public void afegirProducte(String titol,boolean estat,Estil estil,Tipus_Producte tipus) throws GestorBDEmpresaException{
+       
+       
+       PreparedStatement q = null;
+       try{
+           
+           
+           q= conn.prepareStatement("insert into cataleg(cat_titol,cat_actiu,cat_estil,cat_tipus) values (?,?,?,?)");
+           q.setString(1,titol);
+           if(estat == true){
+               q.setString(2,"Actiu");
+           }else{
+               q.setString(2,"Inactiu");
+           }
+           
+           q.setString(3,estil.getNom());
+           q.setString(4,tipus.toString());
+           
+            ResultSet rs = q.executeQuery();
+            q.executeQuery("commit");
+            rs.close();
+            
+        }catch(SQLException ex){
+            throw new GestorBDEmpresaException("Error en intentar inserir el nou producte.\n" + ex.getMessage());
+        }finally {
+            if (q != null) {
+                try {
+                    q.close();
+                } catch (SQLException ex) {
+                    throw new GestorBDEmpresaException("Error en intentar tancar la sentència que ha inserit el nou producte.\n" + ex.getMessage());
+                }
+            }
+        }
+  
+   }
+   
+   //Ens retorna el ID que se li ha assignat de forma automatica al producte que acabem de crear
+ public long getIDProducteAfegit() throws GestorBDEmpresaException{
+       
+       
+       Statement q = null;
+       long id=0;
+      
+        try{
+            q= conn.createStatement();
+            ResultSet rs2 = q.executeQuery("select max(cat_id) from cataleg");
+            while(rs2.next()){
+                id = rs2.getLong("max(cat_id)");
+            }
+            rs2.close();
+        }catch(SQLException ex){
+            throw new GestorBDEmpresaException("Error en intentar aconseguir el id del producte creat que li ha sigut asignat.\n" + ex.getMessage());
+        }finally {
+            if (q != null) {
+                try {
+                    q.close();
+                } catch (SQLException ex) {
+                    throw new GestorBDEmpresaException("Error en intentar tancar la sentència que ha de aconseguir el id del producte creat que li ha sigut asignat.\n" + ex.getMessage());
+                }
+            }
+        }
+        
+        
+        
+       return id;
+   }
+ 
+ 
+    public void afegirCanso(Canso afegir) throws GestorBDEmpresaException {
+        PreparedStatement q = null;
+       try{
+           
+           
+           q= conn.prepareStatement("insert into canço (can_id,can_any_creacio,can_interpret,can_durada) values (?,?,?,?)");
+           q.setLong(1,afegir.getId());
+           q.setInt(2, afegir.getAnyCreacio());
+           q.setString(3,afegir.getArt().getNom());
+           q.setLong(4,afegir.getDurada());
+           
+            ResultSet rs = q.executeQuery();
+            q.executeQuery("commit");
+            rs.close();
+            
+        }catch(SQLException ex){
+            throw new GestorBDEmpresaException("Error en intentar inserir el producte en la taula canço.\n" + ex.getMessage());
+        }finally {
+            if (q != null) {
+                try {
+                    q.close();
+                } catch (SQLException ex) {
+                    throw new GestorBDEmpresaException("Error en intentar tancar la sentència que ha inserit el nou producte en la taula canço.\n" + ex.getMessage());
+                }
+            }
+        }
+     }
+    
+    
+    public void afegirProducteAutoria(Long producte,Long artista) throws GestorBDEmpresaException {
+        PreparedStatement q = null;
+       try{
+           
+           
+           q= conn.prepareStatement("insert into autoria (aut_idprod,aut_artid) values (?,?)");
+           q.setLong(1,producte);
+           q.setLong(2,artista);
+           
+            ResultSet rs = q.executeQuery();
+            q.executeQuery("commit");
+            rs.close();
+            
+        }catch(SQLException ex){
+            throw new GestorBDEmpresaException("Error en intentar inserir el producte en la taula autoria.\n" + ex.getMessage());
+        }finally {
+            if (q != null) {
+                try {
+                    q.close();
+                } catch (SQLException ex) {
+                    throw new GestorBDEmpresaException("Error en intentar tancar la sentència que ha inserit el nou producte en la taula autoria.\n" + ex.getMessage());
+                }
+            }
+        }
+     }
+    
+   
    
     
     public static void main(String[] args) throws GestorBDEmpresaException {
         
         
     }
+
     
-    
+   
 }
 
 

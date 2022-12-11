@@ -12,11 +12,11 @@ package org.milaifontanals.model;
 public class Llista extends Producte{
     private long durada;
 
-    public Llista(long id, String titol, boolean actiu, Estil estil, String tp) {
+    public Llista(long id, String titol, boolean actiu, Estil estil, Tipus_Producte tp) {
         super(id, titol, actiu, estil, tp);
     }
 
-    public Llista(long durada, long id, String titol, boolean actiu, Estil estil, String tp) {
+    public Llista(long durada, long id, String titol, boolean actiu, Estil estil, Tipus_Producte tp) {
         super(id, titol, actiu, estil, tp);
         this.durada = durada;
     }
