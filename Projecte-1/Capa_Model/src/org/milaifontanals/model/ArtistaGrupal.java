@@ -27,6 +27,10 @@ public class ArtistaGrupal extends Artista {
     public ArtistaGrupal(String nom) {
         super(nom);
     }
+
+    public ArtistaGrupal(long id) {
+        super(id);
+    }
     
     
     

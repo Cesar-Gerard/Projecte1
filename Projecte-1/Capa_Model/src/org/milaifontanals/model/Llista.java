@@ -21,16 +21,13 @@ public class Llista extends Producte{
         this.durada = durada;
     }
 
-    
+    public Llista(long durada, long id) {
+        super(id);
+        this.durada = durada;
+    }
 
     
 
-    
-    
-    
-    
-    
-    
     
     public long getDurada() {
         return durada;

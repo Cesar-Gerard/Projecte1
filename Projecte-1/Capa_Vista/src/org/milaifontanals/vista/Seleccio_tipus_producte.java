@@ -113,14 +113,21 @@ public class Seleccio_tipus_producte extends javax.swing.JDialog {
         Creacio_Canso dialog = new Creacio_Canso (new javax.swing.JFrame(), true);
         dialog.setConnexio(cBD);
         dialog.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_Canso_BTActionPerformed
 
     private void Album_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Album_BTActionPerformed
-        // TODO add your handling code here:
+        Creacio_Album dialog = new Creacio_Album(new javax.swing.JFrame(), true);
+        dialog.setConnexio(cBD);
+        dialog.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_Album_BTActionPerformed
 
     private void Llista_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Llista_BTActionPerformed
-        // TODO add your handling code here:
+         Creacio_Llista dialog = new Creacio_Llista(new javax.swing.JFrame(), true);
+        dialog.setConnexio(cBD);
+        dialog.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_Llista_BTActionPerformed
 
     /**

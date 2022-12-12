@@ -315,8 +315,8 @@ insert into canço (can_id,can_any_creacio,can_interpret,can_durada) values (12,2
 
 
 /*-------------------Album----------------*/
-insert into album (alb_id,alb_anycreacio,alb_durada) values (13,2000,0);
-insert into album (alb_id,alb_anycreacio,alb_durada) values (14,2020,0);
+insert into album (alb_id,alb_interpret,alb_anycreacio,alb_durada) values (13,'ACDC',2000,0);
+insert into album (alb_id,alb_interpret,alb_anycreacio,alb_durada) values (14,'Macaco',2020,0);
 
 /*-------------------Album_contingut----------------*/
 insert into album_cont (abc_idalbum,abc_idcanço,abc_pos) values ('13','1','1');

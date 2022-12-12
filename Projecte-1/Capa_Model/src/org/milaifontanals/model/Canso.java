@@ -10,7 +10,7 @@ package org.milaifontanals.model;
  */
 public class Canso extends Producte{
     private int anyCreacio;
-    private long durada;
+    private double durada;
     private Artista art;
 
  
@@ -23,17 +23,28 @@ public class Canso extends Producte{
 
     
 
-    //Constructor per crear una nova canço
-
-    public Canso(int anyCreacio, long durada, Artista art, long id) {
+    public Canso(int anyCreacio, double durada, Artista art, long id) {
         super(id);
         this.anyCreacio = anyCreacio;
         this.durada = durada;
         this.art = art;
     }
 
-    
+    public Canso(int anyCreacio, double durada, long id, String titol) {
+        super(id, titol);
+        this.anyCreacio = anyCreacio;
+        this.durada = durada;
+    }
 
+    public Canso(int anyCreacio, double durada,long id, String titol, Estil estil) {
+        super(id, titol, estil);
+        this.anyCreacio = anyCreacio;
+        this.durada = durada;
+       
+    }
+
+     
+    
     
     
     
@@ -51,7 +62,7 @@ public class Canso extends Producte{
         this.anyCreacio = anyCreacio;
     }
 
-    public long getDurada() {
+    public double getDurada() {
         return durada;
     }
 

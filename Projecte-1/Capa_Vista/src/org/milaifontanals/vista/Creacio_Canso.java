@@ -266,6 +266,7 @@ public class Creacio_Canso extends javax.swing.JDialog {
         jLabel6.setText("Nom Autoria: ");
 
         AutoriaFiltre_BT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/Imatges/icons8-search-32.png"))); // NOI18N
+        AutoriaFiltre_BT.setText("Cercar");
         AutoriaFiltre_BT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AutoriaFiltre_BTActionPerformed(evt);
@@ -273,6 +274,7 @@ public class Creacio_Canso extends javax.swing.JDialog {
         });
 
         Netejar_Autoria_BT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/Imatges/icons8-erase-32.png"))); // NOI18N
+        Netejar_Autoria_BT.setText("Netejar");
         Netejar_Autoria_BT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Netejar_Autoria_BTActionPerformed(evt);
@@ -280,6 +282,7 @@ public class Creacio_Canso extends javax.swing.JDialog {
         });
 
         Confirmar_BT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/Imatges/icons8-check-mark-32.png"))); // NOI18N
+        Confirmar_BT.setText("Confirmar Selecció");
         Confirmar_BT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Confirmar_BTActionPerformed(evt);
@@ -371,6 +374,7 @@ public class Creacio_Canso extends javax.swing.JDialog {
         Tots_CH.setText("Tots");
 
         InterpretFiltre_BT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/Imatges/icons8-search-32.png"))); // NOI18N
+        InterpretFiltre_BT.setText("Cercar");
         InterpretFiltre_BT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 InterpretFiltre_BTActionPerformed(evt);
@@ -378,6 +382,7 @@ public class Creacio_Canso extends javax.swing.JDialog {
         });
 
         Netejar_Interpret_BT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/Imatges/icons8-erase-32.png"))); // NOI18N
+        Netejar_Interpret_BT.setText("Netejar");
         Netejar_Interpret_BT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Netejar_Interpret_BTActionPerformed(evt);
@@ -385,6 +390,7 @@ public class Creacio_Canso extends javax.swing.JDialog {
         });
 
         Confirmar2_BT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/Imatges/icons8-check-mark-32.png"))); // NOI18N
+        Confirmar2_BT.setText("Confirmar Selecció");
         Confirmar2_BT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Confirmar2_BTActionPerformed(evt);
@@ -613,29 +619,22 @@ public class Creacio_Canso extends javax.swing.JDialog {
        int minuts=(Integer)Minuts_SP.getValue();
        int segons = (Integer)Segons_SP.getValue();
        
-       
+       String autor = Autor_field.getText();
+       String interpret= In_field.getText();
+       double total=0;
+       total=ConvertirTemps(hores,minuts,segons);
        
         if(titol.length()<1){
              JOptionPane.showMessageDialog(this, "El titol de la cançó ha de tenir com a mínim un caràcter");
-        }else if(minuts<1){
+        }else if(total<1){
              JOptionPane.showMessageDialog(this, "El nou producte ha de tenir una duració mínima de 1 minut");
+        }else if(autor.equals("")||interpret.equals("")){
+            JOptionPane.showMessageDialog(this,"Els productes han de tenir seleccionat un ineterpret y un autor de les corresponents taules");
         }else{
         Estil estil= null;
         estil=new Estil(Estil_combo.getSelectedItem().toString());
        
-      
-        
-        String autor = Autor_field.getText();
-        String interpret= In_field.getText();
-        
-        
-        long total=0;
-        
-       
-        
-        total=ConvertirTemps(hores,minuts,segons);
-        
-        
+    
         int any = (Integer)Any_SP.getValue();
         
         
@@ -683,6 +682,9 @@ public class Creacio_Canso extends javax.swing.JDialog {
            } catch (GestorBDEmpresaException ex) {
                  JOptionPane.showMessageDialog(null, ex.getMessage(),"Ups, ha hagut un error!", JOptionPane.ERROR_MESSAGE);
            }
+           
+           //Missatge de confirmació
+           JOptionPane.showMessageDialog(null,"Producte creat","Confirmació de creació", JOptionPane.INFORMATION_MESSAGE);
         }
         
        

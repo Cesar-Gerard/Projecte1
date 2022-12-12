@@ -48,6 +48,12 @@ public abstract class Producte {
         this.estil = estil;
         this.tp = tp;
     }
+
+    public Producte(long id, String titol, Estil estil) {
+        this.id = id;
+        this.titol = titol;
+        this.estil = estil;
+    }
     
     
     
@@ -105,12 +111,7 @@ public abstract class Producte {
     }
     
     
-    public int getDuracio(){
-        int durada=0;
-        
-        return durada;
-    }
-    
+
    
 
     @Override

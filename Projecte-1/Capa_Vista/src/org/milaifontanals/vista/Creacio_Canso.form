@@ -442,6 +442,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/org/milaifontanals/Imatges/icons8-search-32.png"/>
                 </Property>
+                <Property name="text" type="java.lang.String" value="Cercar"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AutoriaFiltre_BTActionPerformed"/>
@@ -452,6 +453,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/org/milaifontanals/Imatges/icons8-erase-32.png"/>
                 </Property>
+                <Property name="text" type="java.lang.String" value="Netejar"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Netejar_Autoria_BTActionPerformed"/>
@@ -462,6 +464,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/org/milaifontanals/Imatges/icons8-check-mark-32.png"/>
                 </Property>
+                <Property name="text" type="java.lang.String" value="Confirmar Selecci&#xf3;"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Confirmar_BTActionPerformed"/>
@@ -649,6 +652,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/org/milaifontanals/Imatges/icons8-search-32.png"/>
                 </Property>
+                <Property name="text" type="java.lang.String" value="Cercar"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="InterpretFiltre_BTActionPerformed"/>
@@ -659,6 +663,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/org/milaifontanals/Imatges/icons8-erase-32.png"/>
                 </Property>
+                <Property name="text" type="java.lang.String" value="Netejar"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Netejar_Interpret_BTActionPerformed"/>
@@ -669,6 +674,7 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/org/milaifontanals/Imatges/icons8-check-mark-32.png"/>
                 </Property>
+                <Property name="text" type="java.lang.String" value="Confirmar Selecci&#xf3;"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Confirmar2_BTActionPerformed"/>

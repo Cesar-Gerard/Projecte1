@@ -12,6 +12,7 @@ package org.milaifontanals.model;
 public class Album extends Producte{
     private int anyCreacio;
     private long durada;
+    private Artista art;
 
     public Album(long id, String titol, boolean actiu, Estil estil, Tipus_Producte tp) {
         super(id, titol, actiu, estil, tp);
@@ -21,6 +22,13 @@ public class Album extends Producte{
         super(id, titol, actiu, estil, tp);
         this.anyCreacio = anyCreacio;
         this.durada = durada;
+    }
+
+    public Album(int anyCreacio, long durada, Artista art, long id) {
+        super(id);
+        this.anyCreacio = anyCreacio;
+        this.durada = durada;
+        this.art = art;
     }
 
     
@@ -44,6 +52,14 @@ public class Album extends Producte{
 
     public void setDurada(long durada) {
         this.durada = durada;
+    }
+
+    public Artista getArt() {
+        return art;
+    }
+
+    public void setArt(Artista art) {
+        this.art = art;
     }
     
     
