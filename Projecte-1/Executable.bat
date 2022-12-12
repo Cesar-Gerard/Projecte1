@@ -1,4 +1,4 @@
-cd SpotyMila/Projecte-1/Capa_Vista
+cd Capa_Vista
 copy empresaJDBC.properties dist
-cd dist
+cd ./dist
 java -jar Capa_Vista.jar
