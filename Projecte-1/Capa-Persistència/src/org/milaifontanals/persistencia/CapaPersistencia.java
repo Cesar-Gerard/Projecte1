@@ -621,13 +621,13 @@ public class CapaPersistencia  {
             rs.close();    
  
         }catch(SQLException ex){
-            throw new GestorBDEmpresaException("Error en intentar recuperar la llista de paisos.\n" + ex.getMessage());
+            throw new GestorBDEmpresaException("Error en intentar omplir la Taula Interpret.\n" + ex.getMessage());
         }finally {
             if (q != null) {
                 try {
                     q.close();
                 } catch (SQLException ex) {
-                    throw new GestorBDEmpresaException("Error en intentar tancar la sentència que ha recuperat la llista de paisos.\n" + ex.getMessage());
+                    throw new GestorBDEmpresaException("Error en intentar tancar la sentència que de omplir la Taula Interpret\n" + ex.getMessage());
                 }
             }
         }
@@ -962,6 +962,36 @@ public class CapaPersistencia  {
                 }
             }
         }
+    
+    }
+
+    
+    //Crear una nova llista en la taula Llista
+    public void afegirLlista(long id) throws GestorBDEmpresaException {
+        PreparedStatement q = null;
+       try{
+           
+           
+           q= conn.prepareStatement("insert into llista (lli_id,lli_durada) values (?,?)");
+           q.setLong(1,id);
+           q.setLong(2, 0);
+           
+           
+            ResultSet rs = q.executeQuery();
+            q.executeQuery("commit");
+            rs.close();
+            
+        }catch(SQLException ex){
+            throw new GestorBDEmpresaException("Error en intentar inserir el producte en la taula Llista.\n" + ex.getMessage());
+        }finally {
+            if (q != null) {
+                try {
+                    q.close();
+                } catch (SQLException ex) {
+                    throw new GestorBDEmpresaException("Error en intentar tancar la sentència que ha inserit la nova llista en la taula Llista.\n" + ex.getMessage());
+                }
+            }
+        }
      }
 
      
@@ -1095,7 +1125,7 @@ public class CapaPersistencia  {
        return resultat;
    }
     
-    
+    //Retorna una llista de caçons i albums que es pot afegir en una llista
     public List<Producte> getProductesLlista(Estil estil, String titol) throws GestorBDEmpresaException{
         List<Producte> resultat = new ArrayList<Producte>();
        Canso song = null;
@@ -1223,6 +1253,58 @@ public void afegirCansoAlbum(Long id, Long alb_cont) throws GestorBDEmpresaExcep
         }
 
    }
+
+
+
+
+
+
+//Afegeix contingut a la taula llista_cont
+public void afegirContingutLlista(Long id, Long llc_cont) throws GestorBDEmpresaException{
+       
+    long pos=0;
+       
+       
+       PreparedStatement q = null;
+       PreparedStatement x = null;
+       try{
+           
+           
+           q= conn.prepareStatement("select max(llc_pos)from llista_cont where llc_idllista like ?");
+           
+           q.setLong(1, id);
+
+            ResultSet rs = q.executeQuery();
+            
+            while(rs.next()){
+              pos = rs.getInt("max(llc_pos)");
+
+            }
+            pos=pos+1;
+            x=conn.prepareStatement("insert into llista_cont(llc_idllista,llc_idcataleg,llc_pos) values(?,?,?)");
+            x.setLong(1, id);
+            x.setLong(2,llc_cont);
+            x.setLong(3,pos);
+            
+            ResultSet rs2 = x.executeQuery();
+            rs2=x.executeQuery("commit");
+            rs2.close();
+            rs.close();
+            
+        }catch(SQLException ex){
+            throw new GestorBDEmpresaException("Error en intentar recuperar la llista de productes .\n" + ex.getMessage());
+        }finally {
+            if (q != null) {
+                try {
+                    q.close();
+                } catch (SQLException ex) {
+                    throw new GestorBDEmpresaException("Error en intentar tancar la sentència que ha recuperat la llista de productes.\n" + ex.getMessage());
+                }
+            }
+        }
+
+   }
+
     
    public void updateDuradaAlbum(Double durada,Long id) throws GestorBDEmpresaException{
        
@@ -1240,7 +1322,7 @@ public void afegirCansoAlbum(Long id, Long alb_cont) throws GestorBDEmpresaExcep
            q.setLong(2,id);
 
             ResultSet rs = q.executeQuery();
-            
+            rs=q.executeQuery("commit");
            
             rs.close();
             
@@ -1258,7 +1340,236 @@ public void afegirCansoAlbum(Long id, Long alb_cont) throws GestorBDEmpresaExcep
 
    }
    
+   
+   public void updateDuradLlista(Double durada,Long id) throws GestorBDEmpresaException{
+       
+    long pos=0;
+       
+       
+       PreparedStatement q = null;
+       
+       try{
+           
+           
+           q= conn.prepareStatement("update llista set lli_durada=? where lli_id like ?");
+           
+           q.setDouble(1, durada);
+           q.setLong(2,id);
+
+            ResultSet rs = q.executeQuery();
+            rs=q.executeQuery("commit");
+           
+            rs.close();
+            
+        }catch(SQLException ex){
+            throw new GestorBDEmpresaException("Error en intentar actualitzar la duració de la llista .\n" + ex.getMessage());
+        }finally {
+            if (q != null) {
+                try {
+                    q.close();
+                } catch (SQLException ex) {
+                    throw new GestorBDEmpresaException("Error en intentar tancar la sentència que ha actualitzat la duració de la llista.\n" + ex.getMessage());
+                }
+            }
+        }
+
+   }
+   
+   
+   public double getDuradaLlista(Long llc_cont) throws GestorBDEmpresaException{
+       
+    double durada=0;
+       
+       
+       PreparedStatement q = null;
+       PreparedStatement x = null;
+       
+       try{
+           
+           
+           q= conn.prepareStatement("select cat_tipus from cataleg where cat_id = ?");
+           
+           q.setDouble(1, llc_cont);
+         
+
+            ResultSet rs = q.executeQuery();
+            
+             while(rs.next()){
+
+                switch(rs.getString("cat_tipus")){
+                 case ("C"):
+                  x=conn.prepareStatement("select can_durada from canço where can_id = ?");
+               
+                   x.setLong(1,llc_cont);
+                  
+            
+                ResultSet rs2 = x.executeQuery();
+                while(rs2.next()){
+                    durada=durada+(rs2.getDouble("can_durada"));
+                }
+                
+                rs2.close();
+
+                 break;
+                 
+                 case ("A"):
+                      x=conn.prepareStatement("select alb_durada from album where alb_id = ?");
+               
+                   x.setLong(1,llc_cont);
+                  
+            
+                ResultSet rs3 = x.executeQuery();
+                 while(rs3.next()){
+                   durada=durada+(rs3.getDouble("alb_durada"));
+                }
+                
+                rs3.close();
+                 break;
+                 
+                }
+                 
+             }
+            
+           
+            rs.close();
+            
+        }catch(SQLException ex){
+            throw new GestorBDEmpresaException("Error en intentar recuperar duracio .\n" + ex.getMessage());
+        }finally {
+            if (q != null) {
+                try {
+                    q.close();
+                } catch (SQLException ex) {
+                    throw new GestorBDEmpresaException("Error en intentar tancar la sentència que ha recuperat la duracio.\n" + ex.getMessage());
+                }
+            }
+        }
+       
+       return durada;
+
+   }
+   
+   
+   
+   
+   //Actualitza Valor durada llista
+   public void updateDuradaLlista(Double durada,Long id) throws GestorBDEmpresaException{
+       
+    long pos=0;
+       
+       
+       PreparedStatement q = null;
+       
+       try{
+           
+           
+           q= conn.prepareStatement("update llista set lli_durada=? where lli_id like ?");
+           
+           q.setDouble(1, durada);
+           q.setLong(2,id);
+
+            ResultSet rs = q.executeQuery();
+            
+           
+            rs.close();
+            
+        }catch(SQLException ex){
+            throw new GestorBDEmpresaException("Error en intentar actualitzar la duracio total de la llista .\n" + ex.getMessage());
+        }finally {
+            if (q != null) {
+                try {
+                    q.close();
+                } catch (SQLException ex) {
+                    throw new GestorBDEmpresaException("Error en intentar tancar la sentència que ha actualitzar la duracio total de la llista.\n" + ex.getMessage());
+                }
+            }
+        }
+
+   }
+   
+   
+   //Retorna el contingut de un album o una llista
+   public List<Producte> Contingut(List<Producte> prod) throws GestorBDEmpresaException{
+       
     
+    List<Producte> filtre = new ArrayList<Producte>();
+    Album alb = null;
+    Llista list = null;
+    Tipus_Producte tp2=null;
+    Estil est = null;
+    boolean estat;
+       
+       
+       PreparedStatement q = null;
+       
+       try{
+           
+           
+           q= conn.prepareStatement("select cat_titol, cat_actiu,cat_estil, cat_tipus from cataleg join ? on ?=cat_id and ? =?");
+           
+           if(prod.get(0).getTp().equals("A")){
+           q.setString(1, "album_cont");
+           q.setString(2,"abc_idcanço");
+           q.setString(3, "abc_idalbum");
+           q.setLong(4,prod.get(0).getId());
+           
+           }else{
+           q.setString(1, "llista_cont");
+           q.setString(2,"llc_idcataleg");
+           q.setString(3, "llc_idllista");
+           q.setLong(4, prod.get(0).getId());
+           
+           }
+  
+            ResultSet rs = q.executeQuery();
+                        while(rs.next()){
+                
+                if(rs.getString("cat_actiu").equals("Actiu")){
+                    estat=true;
+                }else{
+                    estat=false;
+                }
+                est = new Estil(rs.getString("cat_estil"));
+              
+             switch(rs.getString("cat_tipus")){
+                
+                 
+                 case ("A"):
+                     tp2=Tipus_Producte.A;
+                 alb = new Album(rs.getInt("cat_id"),rs.getString("cat_titol"),estat,est,tp2);
+                filtre.add(alb);
+                 break;
+                 
+                 case ("L"):
+                     tp2=Tipus_Producte.L;
+                 list = new Llista(rs.getInt("cat_id"),rs.getString("cat_titol"),estat,est,tp2);
+                filtre.add(list);
+                 break;
+                 
+             }
+              
+                
+            }
+           
+            rs.close();
+            
+        }catch(SQLException ex){
+            throw new GestorBDEmpresaException("Error en intentar actualitzar la duracio total de la llista .\n" + ex.getMessage());
+        }finally {
+            if (q != null) {
+                try {
+                    q.close();
+                } catch (SQLException ex) {
+                    throw new GestorBDEmpresaException("Error en intentar tancar la sentència que ha actualitzar la duracio total de la llista.\n" + ex.getMessage());
+                }
+            }
+        }
+        return filtre;
+   }
+   
+   
+   
+   
     public static void main(String[] args) throws GestorBDEmpresaException {
         
         

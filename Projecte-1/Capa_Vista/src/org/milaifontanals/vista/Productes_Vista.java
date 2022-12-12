@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import org.milaifontanals.model.Album;
 import org.milaifontanals.model.Estil;
 import org.milaifontanals.model.Producte;
 import org.milaifontanals.model.Tipus_Producte;
@@ -29,8 +30,9 @@ import org.milaifontanals.persistencia.GestorBDEmpresaException;
 public class Productes_Vista extends javax.swing.JDialog {
 
     private CapaPersistencia cBD = null;
-    
+    List<Producte> rep = new ArrayList<Producte>();
      ButtonGroup bG = new ButtonGroup();
+     int j=0;
      
     /**
      * Creates new form Productes
@@ -260,6 +262,11 @@ public class Productes_Vista extends javax.swing.JDialog {
         jLabel3.setText("Editar Producte");
 
         Eliminar_BT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/Imatges/icons8-trash-16.png"))); // NOI18N
+        Eliminar_BT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Eliminar_BTActionPerformed(evt);
+            }
+        });
 
         jLabel4.setText("Eliminar Producte");
 
@@ -345,6 +352,11 @@ public class Productes_Vista extends javax.swing.JDialog {
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Veure Contingut"));
 
         Content_BT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/Imatges/icons8-show-property-32.png"))); // NOI18N
+        Content_BT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Content_BTActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Veure Contingut");
 
@@ -585,6 +597,22 @@ public class Productes_Vista extends javax.swing.JDialog {
         
     }//GEN-LAST:event_Afegir_BTActionPerformed
 
+    private void Content_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Content_BTActionPerformed
+       
+       JOptionPane.showMessageDialog(this, "Funcio no implementada");
+    }//GEN-LAST:event_Content_BTActionPerformed
+
+    private void Eliminar_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Eliminar_BTActionPerformed
+        j = jTable1.getSelectedRow();
+        if(j==-1){
+            JOptionPane.showMessageDialog(this, "Hem de seleccionar un producte");
+        }else{
+           rep.remove(j);
+           ContingutTaula(rep);
+        }
+        
+    }//GEN-LAST:event_Eliminar_BTActionPerformed
+
     
     
     
@@ -632,7 +660,7 @@ public class Productes_Vista extends javax.swing.JDialog {
     private void DadesTaula() {
         
         //Omplim la taula amb les reproduccions actuals
-        List<Producte> rep = new ArrayList<Producte>();
+       
         try{
             rep = cBD.Omplir_Taula_Productes();
             ContingutTaula(rep);

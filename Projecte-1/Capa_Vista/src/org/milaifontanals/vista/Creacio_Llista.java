@@ -7,12 +7,15 @@ package org.milaifontanals.vista;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.milaifontanals.model.Artista;
 import org.milaifontanals.model.Canso;
 import org.milaifontanals.model.Estil;
+import org.milaifontanals.model.Llista;
 import org.milaifontanals.model.Producte;
+import org.milaifontanals.model.Tipus_Producte;
 import org.milaifontanals.persistencia.CapaPersistencia;
 import org.milaifontanals.persistencia.GestorBDEmpresaException;
 
@@ -27,8 +30,11 @@ public class Creacio_Llista extends javax.swing.JDialog {
     List<Artista> art = new ArrayList<Artista>();
     List<Producte> alb_cont = new ArrayList<Producte>();
     List<Producte> alb_taula = new ArrayList<Producte>();
+    List<Producte> agafar = new ArrayList<Producte>();
+    ButtonGroup bG = new ButtonGroup();
     
     int j;
+    double durada=0;
     int hores;
     int minuts;
     int segons;
@@ -57,7 +63,10 @@ public class Creacio_Llista extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         Titol_field = new javax.swing.JTextField();
         Estil_combo = new javax.swing.JComboBox<>();
-        Any_field = new javax.swing.JTextField();
+        Any_SP = new javax.swing.JSpinner();
+        jLabel4 = new javax.swing.JLabel();
+        Actiu_RB = new javax.swing.JRadioButton();
+        Inactiu_RB = new javax.swing.JRadioButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
         Estil_combo1 = new javax.swing.JComboBox<>();
@@ -100,6 +109,19 @@ public class Creacio_Llista extends javax.swing.JDialog {
 
         jLabel3.setText("Any de creació: ");
 
+        Any_SP.setModel(new javax.swing.SpinnerNumberModel(2000, 1900, 2500, 1));
+
+        jLabel4.setText("Estat:");
+
+        Actiu_RB.setText("Actiu");
+        Actiu_RB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Actiu_RBActionPerformed(evt);
+            }
+        });
+
+        Inactiu_RB.setText("Inactiu");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -107,18 +129,26 @@ public class Creacio_Llista extends javax.swing.JDialog {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Any_field, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Estil_combo, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Titol_field)))
+                        .addComponent(Titol_field))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(Estil_combo, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(Any_SP, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addGap(18, 18, 18)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(Inactiu_RB)
+                                    .addComponent(Actiu_RB))))
+                        .addGap(0, 8, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -135,8 +165,14 @@ public class Creacio_Llista extends javax.swing.JDialog {
                 .addGap(55, 55, 55)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(Any_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(23, Short.MAX_VALUE))
+                    .addComponent(Any_SP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel4)
+                    .addComponent(Actiu_RB))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Inactiu_RB)
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Inserir cançons/àlbum a la llista"));
@@ -176,6 +212,11 @@ public class Creacio_Llista extends javax.swing.JDialog {
 
         Afegir_BT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/Imatges/icons8-add-file-16.png"))); // NOI18N
         Afegir_BT.setText("Afageix Contingut");
+        Afegir_BT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Afegir_BTActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -247,6 +288,11 @@ public class Creacio_Llista extends javax.swing.JDialog {
         jScrollPane2.setViewportView(Taula_Contingut);
 
         Eliminar_BT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/Imatges/icons8-trash-16.png"))); // NOI18N
+        Eliminar_BT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Eliminar_BTActionPerformed(evt);
+            }
+        });
 
         jLabel8.setText("Eliminar contingut seleccionat:");
 
@@ -296,11 +342,11 @@ public class Creacio_Llista extends javax.swing.JDialog {
                     .addComponent(Cancelar_BT)
                     .addComponent(Crear_BT)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(48, 48, 48)
+                .addGap(29, 29, 29)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 400, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -324,7 +370,59 @@ public class Creacio_Llista extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void Crear_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Crear_BTActionPerformed
-        // TODO add your handling code here:
+       long id = 0;
+       Tipus_Producte tp = null;
+       tp = Tipus_Producte.L;
+       boolean estat=true;
+       
+       if(Actiu_RB.isSelected()){
+           estat=true;
+       }else if(Inactiu_RB.isSelected()){
+           estat=false;
+       }
+       
+      Estil estil= null;
+        estil=new Estil(Estil_combo.getSelectedItem().toString());
+       
+       
+        String titol;
+       titol=Titol_field.getText();
+       
+       if(titol.length()<1){
+             JOptionPane.showMessageDialog(this, "El titol de la cançó ha de tenir com a mínim un caràcter");
+       }else{
+           try {
+               
+             cBD.afegirProducte(titol,estat,estil,tp);
+            
+             id = cBD.getIDProducteAfegit();
+             Llista nou = new Llista(id,0);
+              cBD.afegirLlista(id);
+      
+       for(int i=0; i<alb_cont.size();i++){
+             
+            cBD.afegirContingutLlista(id,alb_cont.get(i).getId());
+               
+              durada=cBD.getDuradaLlista(alb_cont.get(i).getId());
+          
+       }
+       
+       cBD.updateDuradaAlbum(durada,id);
+       CalcularTemps(durada);
+       
+       
+      
+       
+         JOptionPane.showMessageDialog(this, "Productes afegits a la Llista sense cap problema");
+         JOptionPane.showMessageDialog(this, "La durada de la llista s'ha actualitzat amb la suma de la durada del seu contingut:"+hores+":"+minuts+":"+segons);
+       
+      } catch (GestorBDEmpresaException ex) {
+                 JOptionPane.showMessageDialog(null, ex.getMessage(),"Ups, ha hagut un error!", JOptionPane.ERROR_MESSAGE);
+        }
+       }
+       
+      
+       
     }//GEN-LAST:event_Crear_BTActionPerformed
 
     private void Netejar_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Netejar_BTActionPerformed
@@ -341,7 +439,7 @@ public class Creacio_Llista extends javax.swing.JDialog {
         try {
             est=cBD.getEstils();   
             Estil_combo1.addItem("Tots");
-            Estil_combo.addItem("Tots");
+           
             for(int i =0; i<est.size();i++){
                 Estil_combo1.addItem(est.get(i).getNom());
                  Estil_combo.addItem(est.get(i).getNom());
@@ -353,6 +451,17 @@ public class Creacio_Llista extends javax.swing.JDialog {
             
             DadesTaula();
             ContingutTaulaCont(alb_cont);
+            
+             bG.add(Actiu_RB);
+             bG.add(Inactiu_RB);
+       
+        
+        
+         //De base l'estat seleccionat ha de ser "actiu"
+         Actiu_RB.setSelected(true);
+            
+            
+            
         } catch (GestorBDEmpresaException ex) {
            JOptionPane.showMessageDialog(null, ex.getMessage(),"Ups, ha hagut un error!", JOptionPane.ERROR_MESSAGE);
         }
@@ -375,6 +484,56 @@ public class Creacio_Llista extends javax.swing.JDialog {
             JOptionPane.showMessageDialog(null, ex.getMessage(),"Ups, ha hagut un error!", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_Cerca_BTActionPerformed
+
+    private void Afegir_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Afegir_BTActionPerformed
+       j = Llista_resultat.getSelectedRow();
+          
+        
+        
+        if(j==-1){
+            JOptionPane.showMessageDialog(this, "Hem de seleccionar un Autor per la canço que volm crear");
+        }else{
+            
+            
+            
+            String nom = alb_taula.get(j).getTitol();
+            
+           boolean trobat=false;
+            for(int i =0; i<alb_cont.size();i++){
+                if(alb_cont.get(i).getTitol().equals(nom)){
+                    trobat = true;
+                }
+            }
+            
+                if(trobat==true){
+                     JOptionPane.showMessageDialog(this, "Aquesta canço ja esta incluida en el àlbum");
+                }else if(trobat==false){
+                    agafar.add(alb_taula.get(j));
+                     alb_cont=agafar;
+                       ContingutTaulaCont(alb_cont);
+                }
+           
+           
+          
+            
+        }
+    }//GEN-LAST:event_Afegir_BTActionPerformed
+
+    private void Eliminar_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Eliminar_BTActionPerformed
+         int x= Taula_Contingut.getSelectedRow();
+        if(x==-1){
+            JOptionPane.showMessageDialog(this, "Hem de seleccionar una canso que volem eliminar");
+        }else{
+            agafar.remove(x);
+            alb_cont = agafar;
+        ContingutTaulaCont(alb_cont);
+        }
+       
+    }//GEN-LAST:event_Eliminar_BTActionPerformed
+
+    private void Actiu_RBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Actiu_RBActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Actiu_RBActionPerformed
 
     
     public void DadesTaula() {
@@ -413,29 +572,21 @@ public class Creacio_Llista extends javax.swing.JDialog {
     
      private void ContingutTaulaCont(List<Producte> cont) {
         Taula_Contingut.removeAll();
-         String columnNames []={"ID","NOM","DURADA","ESTIL","ANY CREACIO"};
-            String data[][]= new String [cont.size()][5];
+         String columnNames []={"Títol","Estil","Tipus","Estat"};
+            String data[][]= new String [cont.size()][4];
          
          
-        /*for(int i =0; i<cont.size();i++){
+        for(int i =0; i<cont.size();i++){
                 
-               double durada = cont.get(i).getDurada();
-            CalcularTemps(durada);
-            String any = String.valueOf(cont.get(i).getAnyCreacio());
-            
-            
-                data[i][0]=cont.get(i).getIdString();
-                data[i][1]=cont.get(i).getTitol();
-                data[i][2]=(hores+":"+minuts+":"+segons);
-                data[i][3]=cont.get(i).getEstil().getNom();
-                data[i][4]=any;
-            
-             
+                data[i][0]=cont.get(i).getTitol();
+                data[i][1]=cont.get(i).getEstil().getNom();
+                data[i][2]=cont.get(i).getTp().toString();
+                data[i][3]=cont.get(i).isActiu();
             }
             
             Taula_Contingut.setDefaultEditor(Object.class, null);
             Taula_Contingut.setModel(new DefaultTableModel(data,columnNames));
-            */
+            
             
     }
      
@@ -495,14 +646,16 @@ public class Creacio_Llista extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JRadioButton Actiu_RB;
     private javax.swing.JButton Afegir_BT;
-    private javax.swing.JTextField Any_field;
+    private javax.swing.JSpinner Any_SP;
     private javax.swing.JButton Cancelar_BT;
     private javax.swing.JButton Cerca_BT;
     private javax.swing.JButton Crear_BT;
     private javax.swing.JButton Eliminar_BT;
     private javax.swing.JComboBox<String> Estil_combo;
     private javax.swing.JComboBox<String> Estil_combo1;
+    private javax.swing.JRadioButton Inactiu_RB;
     private javax.swing.JTable Llista_resultat;
     private javax.swing.JButton Netejar_BT;
     private javax.swing.JTable Taula_Contingut;
@@ -511,6 +664,7 @@ public class Creacio_Llista extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
