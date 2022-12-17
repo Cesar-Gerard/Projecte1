@@ -100,6 +100,11 @@ public class Creacio_Llista extends javax.swing.JDialog {
         });
 
         Cancelar_BT.setText("Cancelar");
+        Cancelar_BT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Cancelar_BTActionPerformed(evt);
+            }
+        });
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Dades producte"));
 
@@ -403,7 +408,7 @@ public class Creacio_Llista extends javax.swing.JDialog {
              
             cBD.afegirContingutLlista(id,alb_cont.get(i).getId());
                
-              durada=cBD.getDuradaLlista(alb_cont.get(i).getId());
+              durada=cBD.getDurada(alb_cont.get(i).getId());
           
        }
        
@@ -534,6 +539,10 @@ public class Creacio_Llista extends javax.swing.JDialog {
     private void Actiu_RBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Actiu_RBActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_Actiu_RBActionPerformed
+
+    private void Cancelar_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cancelar_BTActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_Cancelar_BTActionPerformed
 
     
     public void DadesTaula() {

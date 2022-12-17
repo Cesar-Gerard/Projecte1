@@ -17,6 +17,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import org.milaifontanals.model.Album;
+import org.milaifontanals.model.Canso;
 import org.milaifontanals.model.Estil;
 import org.milaifontanals.model.Producte;
 import org.milaifontanals.model.Tipus_Producte;
@@ -258,6 +259,11 @@ public class Productes_Vista extends javax.swing.JDialog {
         jLabel2.setText("Afegir Nou Producte");
 
         Editar_BT.setIcon(new javax.swing.ImageIcon(getClass().getResource("/org/milaifontanals/Imatges/icons8-edit-16.png"))); // NOI18N
+        Editar_BT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Editar_BTActionPerformed(evt);
+            }
+        });
 
         jLabel3.setText("Editar Producte");
 
@@ -577,7 +583,7 @@ public class Productes_Vista extends javax.swing.JDialog {
     }//GEN-LAST:event_Netejar_BTActionPerformed
 
     private void Afegir_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Afegir_BTActionPerformed
-         Seleccio_tipus_producte dialog = new Seleccio_tipus_producte (new javax.swing.JFrame(), true);
+       Seleccio_tipus_producte dialog = new Seleccio_tipus_producte (new javax.swing.JFrame(), true);
        dialog.setConnexio(cBD);
        dialog.setVisible(true);
        
@@ -598,8 +604,16 @@ public class Productes_Vista extends javax.swing.JDialog {
     }//GEN-LAST:event_Afegir_BTActionPerformed
 
     private void Content_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Content_BTActionPerformed
-       
-       JOptionPane.showMessageDialog(this, "Funcio no implementada");
+        j = jTable1.getSelectedRow();
+        if(j==-1 || rep.get(j).getTp().toString().equals("C")){
+            JOptionPane.showMessageDialog(this, "Hem de seleccionar un àlbum o llista de la qual volguem veure el contingut");
+        }else{  
+          Producte p = rep.get(j);
+            Veure_Contingut dialog = new Veure_Contingut (new javax.swing.JFrame(), true);
+            dialog.setConnexio(cBD);
+            dialog.setProducte(p);
+            dialog.setVisible(true);
+        }
     }//GEN-LAST:event_Content_BTActionPerformed
 
     private void Eliminar_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Eliminar_BTActionPerformed
@@ -607,11 +621,61 @@ public class Productes_Vista extends javax.swing.JDialog {
         if(j==-1){
             JOptionPane.showMessageDialog(this, "Hem de seleccionar un producte");
         }else{
-           rep.remove(j);
-           ContingutTaula(rep);
+            
+           
+            
+         Eliminar_Producte dialog = new Eliminar_Producte (new javax.swing.JFrame(), true);
+       dialog.setConnexio(cBD);
+       dialog.pasarProducte(rep.get(j));
+       dialog.setVisible(true);
+       
+        dialog.addWindowListener(new WindowAdapter(){
+           @Override
+           public void windowClosed(WindowEvent e) {
+               
+                //Actualitzem la taula
+               DadesTaula();
+           }
+           
+           
+       });
+           
+         
         }
         
     }//GEN-LAST:event_Eliminar_BTActionPerformed
+
+    private void Editar_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Editar_BTActionPerformed
+            
+         j = jTable1.getSelectedRow();
+        if(j==-1){
+            JOptionPane.showMessageDialog(this, "Hem de seleccionar un producte");
+        }else{
+        
+       Editar_Producte dialog = new Editar_Producte (new javax.swing.JFrame(), true);
+       dialog.setConnexio(cBD);
+      
+       
+       dialog.pasarProducte(rep.get(j));
+       dialog.setVisible(true);
+       
+        dialog.addWindowListener(new WindowAdapter(){
+           @Override
+           public void windowClosed(WindowEvent e) {
+               
+                //Actualitzem la taula
+               DadesTaula();
+           }
+           
+           
+       });
+           
+         
+        }
+        
+        
+        
+    }//GEN-LAST:event_Editar_BTActionPerformed
 
     
     

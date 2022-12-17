@@ -105,6 +105,10 @@ public abstract class Producte {
             return "Inactiu";
         }
     }
+    
+    public boolean getActiu(){
+        return actiu;
+    }
 
     public void setActiu(boolean actiu) {
         this.actiu = actiu;

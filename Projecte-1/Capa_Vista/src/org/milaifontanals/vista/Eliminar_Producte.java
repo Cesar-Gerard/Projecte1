@@ -5,7 +5,14 @@
  */
 package org.milaifontanals.vista;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import org.milaifontanals.model.Producte;
 import org.milaifontanals.persistencia.CapaPersistencia;
+import org.milaifontanals.persistencia.GestorBDEmpresaException;
 
 /**
  *
@@ -13,6 +20,7 @@ import org.milaifontanals.persistencia.CapaPersistencia;
  */
 public class Eliminar_Producte extends javax.swing.JDialog {
 private CapaPersistencia cBD = null;
+List<Producte> eliminar = new ArrayList<Producte>();
     /**
      * Creates new form Eliminar_Producte
      */
@@ -101,9 +109,20 @@ private CapaPersistencia cBD = null;
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ConfirmarEliminacio(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ConfirmarEliminacio
-       
-
+   
+   String tipus = eliminar.get(0).getTp().toString();
+   Long id = eliminar.get(0).getId();
+    try {
+        cBD.eliminarProducte(id,tipus);
+        JOptionPane.showMessageDialog(this, "El producte ha sigut correctament eliminat");
         this.dispose();
+    } catch (GestorBDEmpresaException ex) {
+        JOptionPane.showMessageDialog(null, ex.getMessage(),"Ups, ha hagut un error!", JOptionPane.ERROR_MESSAGE);
+    }
+     
+     
+     
+      
     }//GEN-LAST:event_jButton1ConfirmarEliminacio
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -158,4 +177,14 @@ private CapaPersistencia cBD = null;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
+
+    void setConnexio(CapaPersistencia conn) {
+    cBD= conn;
+    }
+
+    void pasarProducte(Producte get) {
+        eliminar.add(get);
+    }
+
+ 
 }

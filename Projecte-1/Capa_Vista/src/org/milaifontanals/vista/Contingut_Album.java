@@ -15,6 +15,7 @@ import org.milaifontanals.model.Album;
 import org.milaifontanals.model.Artista;
 import org.milaifontanals.model.Canso;
 import org.milaifontanals.model.Estil;
+import org.milaifontanals.model.Producte;
 import org.milaifontanals.persistencia.CapaPersistencia;
 import org.milaifontanals.persistencia.GestorBDEmpresaException;
 
@@ -34,6 +35,8 @@ public class Contingut_Album extends javax.swing.JDialog {
     int hores;
     int minuts;
     int segons;
+    double total;
+    Producte prod= null;
     
     
     
@@ -347,6 +350,9 @@ public class Contingut_Album extends javax.swing.JDialog {
             }
             
             
+         
+            
+            alb_cont=cBD.ContingutAlbum(prod);
             DadesTaula();
             ContingutTaulaCont(alb_cont);
         } catch (GestorBDEmpresaException ex) {
@@ -441,7 +447,7 @@ public class Contingut_Album extends javax.swing.JDialog {
               durada=durada +alb_cont.get(i).getDurada();
           
        }
-       
+       total=durada;
        cBD.updateDuradaAlbum(durada,id);
        CalcularTemps(durada);
        
@@ -624,5 +630,13 @@ public class Contingut_Album extends javax.swing.JDialog {
     resultat=minuts+hores_m+segons_m;
     
     return resultat;
+    }
+
+    void pasarProducte(Producte pr) {
+      prod=pr;
+    }
+
+    double getDuarada() {
+       return total;
     }
 }

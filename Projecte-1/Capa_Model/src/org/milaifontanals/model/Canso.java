@@ -43,9 +43,15 @@ public class Canso extends Producte{
        
     }
 
-     
+    public Canso(int anyCreacio, double durada, long id, String titol, boolean actiu, Estil estil, Tipus_Producte tp) {
+        super(id, titol, actiu, estil, tp);
+        this.anyCreacio = anyCreacio;
+        this.durada = durada;
+    }
     
     
+
+
     
     
     

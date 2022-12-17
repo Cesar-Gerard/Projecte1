@@ -425,6 +425,7 @@ for each row
 
 declare
     v_durada canço.can_durada%type;
+   
 begin
     if inserting or updating then
         select can_durada into v_durada from CANÇO where can_id = :NEW.abc_idcanço;
@@ -439,7 +440,45 @@ begin
 end;
 /
 
+create or replace trigger TR_LLISTA_DURADA
+after insert or delete or update of llc_idcataleg
+on llista_cont for each row
+declare
+v_durada number(5,2);
+v_tipus cataleg.cat_tipus%type;
+begin
+if inserting or updating then 
+    select cat_tipus into v_tipus from cataleg where cat_id=:new.llc_idcataleg;
 
+ if v_tipus = 'C' THEN
+            select CAN_DURADA into v_durada from CANÇO where CAN_ID = :new.llc_idcataleg;
+            update llista set lli_durada = lli_durada +v_durada where lli_id = :new.llc_idllista;
+end if;
+
+if v_tipus = 'A' THEN
+            select alb_DURADA into v_durada from album where alb_ID = :new.llc_idcataleg;
+            update llista set lli_durada = lli_durada +v_durada where lli_id = :new.llc_idllista;
+end if;
+end if;
+
+
+if deleting or updating then 
+    select cat_tipus into v_tipus from cataleg where cat_id=:old.llc_idcataleg;
+
+ if v_tipus = 'C' THEN
+            select CAN_DURADA into v_durada from CANÇO where CAN_ID = :old.llc_idcataleg;
+            update llista set lli_durada = lli_durada -v_durada where lli_id = :old.llc_idllista;
+end if;
+
+if v_tipus = 'A' THEN
+            select alb_DURADA into v_durada from album where alb_ID = :old.llc_idcataleg;
+            update llista set lli_durada = lli_durada -v_durada where lli_id = :old.llc_idllista;
+end if;
+end if;
+
+
+end;
+/
 create or replace trigger TR_LLISTA_NO_LLISTA
     before insert or update on LLISTA_CONT
     for each row 
@@ -548,3 +587,4 @@ create or replace trigger TR_reproduccio_client
     end;  
  
 /
+

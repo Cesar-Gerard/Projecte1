@@ -348,6 +348,11 @@ insert into llista_cont (llc_idllista,llc_idcataleg,llc_pos) values ('16','1','2
 insert into llista_cont (llc_idllista,llc_idcataleg,llc_pos) values ('16','5','3');
 
 
+/*---------------Autoria--------------------*/
+insert into autoria(aut_idprod,aut_artid) values(1,1);
+
+
+
 /*-------------------Clients----------------*/
 insert into clients (cli_email,cli_nom,cli_cognoms,cli_datanaix,cli_postal,cli_d1,cli_d2,cli_poblacio,cli_pais) values ('ivanpuga@gmail.com','Ivan','Puga','21/08/1998','08584','Su casa',null,'Igualada','España');
 insert into clients (cli_email,cli_nom,cli_cognoms,cli_datanaix,cli_postal,cli_d1,cli_d2,cli_poblacio,cli_pais) values ('yaizacastillo@gmail.com','Yaiza','Castillo','19/06/1997','08784','Su casa',null,'Piera','España');

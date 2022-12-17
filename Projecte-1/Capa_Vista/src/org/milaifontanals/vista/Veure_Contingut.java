@@ -22,7 +22,10 @@ import org.milaifontanals.persistencia.GestorBDEmpresaException;
 public class Veure_Contingut extends javax.swing.JDialog {
     
      private CapaPersistencia cBD = null;
-    List<Producte> rep = new ArrayList<Producte>();
+    Producte p=null;
+    int hores=0;
+    int minuts=0;
+    int segons=0;
     
     /**
      * Creates new form Veure_Contingut
@@ -50,6 +53,8 @@ public class Veure_Contingut extends javax.swing.JDialog {
         jLabel3 = new javax.swing.JLabel();
         Estil_field = new javax.swing.JTextField();
         jSeparator1 = new javax.swing.JSeparator();
+        jLabel2 = new javax.swing.JLabel();
+        Durada_field = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
 
@@ -90,21 +95,27 @@ public class Veure_Contingut extends javax.swing.JDialog {
 
         Estil_field.setEditable(false);
 
+        jLabel2.setText("Durada total:");
+
+        Durada_field.setEditable(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel3))
-                .addGap(40, 40, 40)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2))
+                .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(Titol_field)
-                    .addComponent(Estil_field, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE))
+                    .addComponent(Estil_field, javax.swing.GroupLayout.DEFAULT_SIZE, 112, Short.MAX_VALUE)
+                    .addComponent(Durada_field))
                 .addContainerGap(143, Short.MAX_VALUE))
-            .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -117,7 +128,11 @@ public class Veure_Contingut extends javax.swing.JDialog {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(Estil_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(70, 70, 70)
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(Durada_field, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(35, 35, 35)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -159,38 +174,49 @@ public class Veure_Contingut extends javax.swing.JDialog {
                         .addGap(32, 32, 32)
                         .addComponent(jButton1)
                         .addGap(42, 42, 42)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(255, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        Titol_field.setText(rep.get(0).getTitol());
-        Titol_field.setText(rep.get(0).getTitol());
+
         
         List<Producte> cont = new ArrayList<Producte>();
          try {
-             cont=cBD.Contingut(rep);
-              jTable1.removeAll();
+             Titol_field.setText(p.getTitol());
+             Estil_field.setText(p.getEstil().getNom());
+             
+             double durada = cBD.getDurada(p.getId());
+             CalcularTemps(durada);
+             
+             Durada_field.setText(hores+":"+minuts+":"+segons);
+             
+             
+             
+             cont=cBD.Contingut(p);
+              jTable2.removeAll();
          String columnNames []={"Títol","Estil","Tipus","Estat"};
-            String data[][]= new String [cont.size()][5];
-         
-         
+            String data[][]= new String [cont.size()][4];
+        
         for(int i =0; i<cont.size();i++){
-                
                 data[i][0]=cont.get(i).getTitol();
                 data[i][1]=cont.get(i).getEstil().getNom();
                 data[i][2]=cont.get(i).getTp().toString();
                 data[i][3]=cont.get(i).isActiu();
+            
+                
             }
             
-          jTable1.setDefaultEditor(Object.class, null);
-            jTable1.setModel(new DefaultTableModel(data,columnNames));
+          jTable2.setDefaultEditor(Object.class, null);
+            jTable2.setModel(new DefaultTableModel(data,columnNames));
+              
+         
          } catch (GestorBDEmpresaException ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage(),"Ups, ha hagut un error!", JOptionPane.ERROR_MESSAGE);
          }
@@ -244,10 +270,12 @@ public class Veure_Contingut extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField Durada_field;
     private javax.swing.JTextField Estil_field;
     private javax.swing.JTextField Titol_field;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -262,8 +290,21 @@ public class Veure_Contingut extends javax.swing.JDialog {
     }
 
     void setProducte(Producte get) {
-    rep.add(get);
+    p=get;
     }
 
+    
+     private void CalcularTemps(double durada) {
+            double calcul;
+            calcul= durada/60;
+            hores=(int)calcul;
+            calcul=calcul-hores;
+            calcul=calcul*60;
+            minuts=(int)calcul;
+            calcul=calcul-minuts;
+            calcul=calcul*60;
+            segons=(int)calcul;
+            
+    }
 
 }
