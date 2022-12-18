@@ -1274,14 +1274,20 @@ public void afegirContingutLlista(Long id, Long llc_cont) throws GestorBDEmpresa
        
        PreparedStatement q = null;
        PreparedStatement x = null;
+       
+       ResultSet rs = null;
        try{
+           
+           q=conn.prepareStatement("delete from llista_cont where llc_idllista=?");
+           q.setLong(1, id);
+           rs = q.executeQuery();
            
            
            q= conn.prepareStatement("select max(llc_pos)from llista_cont where llc_idllista like ?");
            
            q.setLong(1, id);
 
-            ResultSet rs = q.executeQuery();
+             rs = q.executeQuery();
             
             while(rs.next()){
               pos = rs.getInt("max(llc_pos)");
@@ -1299,18 +1305,139 @@ public void afegirContingutLlista(Long id, Long llc_cont) throws GestorBDEmpresa
             rs.close();
             
         }catch(SQLException ex){
-            throw new GestorBDEmpresaException("Error en intentar recuperar la llista de productes .\n" + ex.getMessage());
+            throw new GestorBDEmpresaException("Error en intentar afegir contingut a la llista .\n" + ex.getMessage());
         }finally {
             if (q != null) {
                 try {
                     q.close();
                 } catch (SQLException ex) {
-                    throw new GestorBDEmpresaException("Error en intentar tancar la sentència que ha recuperat la llista de productes.\n" + ex.getMessage());
+                    throw new GestorBDEmpresaException("Error en intentar tancar la sentència que ha afegit contignut a la llista.\n" + ex.getMessage());
                 }
             }
         }
 
    }
+
+
+
+//Actualitzem el producte
+
+public void updateProducte(String nom,Long id,Double durada,String tipus,String estat,Estil estil,int any) throws GestorBDEmpresaException{
+       
+    long pos=0;
+       
+       ResultSet rs =null;
+       PreparedStatement q = null;
+       
+       
+       try{
+           
+           switch(tipus){
+               case("C"):
+                   
+                       System.out.println("Hola");
+                   
+                     q= conn.prepareStatement("update canço set can_durada=?,can_any_creacio=? where can_id=?");
+                   q.setDouble(1, durada);
+                   q.setLong(2, any);
+                   q.setLong(3,id);
+                   rs = q.executeQuery();   
+                       
+                       
+                       
+                   q= conn.prepareStatement("update cataleg set cat_titol=?,cat_actiu=?,cat_estil=? where cat_id=?");
+                   q.setString(1, nom);
+                   q.setString(2, estat);
+                   q.setString(3, estil.getNom());
+                   q.setLong(4, id);
+                   rs = q.executeQuery();
+                    
+                   
+                   
+                  
+                   
+                   
+                   
+               break;
+               
+               case("A"):
+                   
+                  
+                   
+                   
+                   q= conn.prepareStatement("update cataleg set cat_titol=?,cat_actiu=?,cat_estil=? where cat_id=?");
+                   q.setString(1, nom);
+                   q.setString(2, estat);
+                   q.setString(3, estil.getNom());
+                   q.setLong(4, id);
+                   rs = q.executeQuery();
+                   
+                   q= conn.prepareStatement("update album set alb_durada=?,alb_anycreacio=? where alb_id=?");
+                   q.setDouble(1, durada);
+                   q.setLong(2, any);
+                   q.setLong(3,id);
+                   rs = q.executeQuery();
+                   
+               break;
+               
+               case("L"):
+                   
+                   q= conn.prepareStatement("update cataleg set cat_titol=?,cat_actiu=?,cat_estil=? where cat_id=?");
+                   q.setString(1, nom);
+                   q.setString(2, estat);
+                   q.setString(3, estil.getNom());
+                   q.setLong(4, id);
+                   rs = q.executeQuery();
+                   
+                   q= conn.prepareStatement("update llista set lli_durada=? where lli_id=?");
+                   q.setDouble(1, durada);
+                   q.setLong(2, id);
+                   rs = q.executeQuery();
+                   
+               break;
+               
+               
+               
+           }
+           
+
+            
+           rs= q.executeQuery("commit");
+           
+            rs.close();
+          
+            
+        }catch(SQLException ex){
+            throw new GestorBDEmpresaException("Error en intentar actualitzar el producte .\n" + ex.getMessage());
+        }finally {
+            if (q != null) {
+                try {
+                    q.close();
+                } catch (SQLException ex) {
+                    throw new GestorBDEmpresaException("Error en intentar tancar la sentència que ha actualitzat el producte.\n" + ex.getMessage());
+                }
+            }
+        }
+
+   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     //Actualitza la durada del album que li passem
    public void updateDuradaAlbum(Double durada,Long id) throws GestorBDEmpresaException{
@@ -1729,16 +1856,7 @@ public void afegirContingutLlista(Long id, Long llc_cont) throws GestorBDEmpresa
                 filtre.add(song);
                  break;
                  
-                 
-                 
-                 case ("A"):
-                     tp2=Tipus_Producte.C;
-                 alb = new Album(rs.getInt("can_any_creacio"),rs.getLong("can_durada"),rs.getInt("cat_id"),rs.getString("cat_titol"),estat,est,tp2);
-                filtre.add(song);
-                 break;
-                 
-             }
-              
+             } 
                 
             }
            
@@ -1760,10 +1878,10 @@ public void afegirContingutLlista(Long id, Long llc_cont) throws GestorBDEmpresa
    
    
    //Retorna el de una llista per editar
-   public List<Canso> ContingutLlista(Producte prod) throws GestorBDEmpresaException{
+   public List<Producte> ContingutLlista(Producte prod) throws GestorBDEmpresaException{
        
     
-    List<Canso> filtre = new ArrayList<Canso>();
+    List<Producte> cont = new ArrayList<Producte>();
     Canso song = null;
     Album alb = null;
     Llista list = null;
@@ -1779,7 +1897,7 @@ public void afegirContingutLlista(Long id, Long llc_cont) throws GestorBDEmpresa
            
            
           
-           q= conn.prepareStatement("select  cat_id, cat_titol, cat_actiu,cat_estil, cat_tipus,can_durada,can_any_creacio from cataleg join canço on can_id = cat_id join album_cont on can_id=abc_idcanço and abc_idalbum =?");
+           q= conn.prepareStatement("select cat_id,cat_titol,cat_actiu,cat_estil,cat_tipus,can_durada,alb_durada,can_any_creacio,alb_anycreacio from cataleg left join canço on can_id = cat_id left join album on alb_id = cat_id join llista_cont on llc_idcataleg = cat_id and llc_idllista=?");
 
            q.setLong(1,prod.getId());
            
@@ -1795,16 +1913,25 @@ public void afegirContingutLlista(Long id, Long llc_cont) throws GestorBDEmpresa
                 }
                 est = new Estil(rs.getString("cat_estil"));
               
-             switch(rs.getString("cat_tipus")){
+            switch(rs.getString("cat_tipus")){
                 
                   case ("C"):
                      tp2=Tipus_Producte.C;
                  song = new Canso(rs.getInt("can_any_creacio"),rs.getLong("can_durada"),rs.getInt("cat_id"),rs.getString("cat_titol"),estat,est,tp2);
-                filtre.add(song);
+                cont.add(song);
                  break;
                  
                  
+                 case ("A"):
+                     tp2=Tipus_Producte.A;
+                 alb = new Album(rs.getInt("alb_anycreacio"),rs.getLong("alb_durada"),rs.getInt("cat_id"),rs.getString("cat_titol"),estat,est,tp2);
+                cont.add(alb);
+                 break;
+                 
+                 
+                 
              }
+
               
                 
             }
@@ -1822,7 +1949,7 @@ public void afegirContingutLlista(Long id, Long llc_cont) throws GestorBDEmpresa
                 }
             }
         }
-        return filtre;
+        return cont;
    }
    
    

@@ -37,6 +37,8 @@ public class Editar_Producte extends javax.swing.JDialog {
     int hores=0;
     int minuts=0;
     int segons=0;
+    double durada =0;
+    int any=0;
     
     
     
@@ -137,6 +139,11 @@ public class Editar_Producte extends javax.swing.JDialog {
         );
 
         Desar_BT.setText("Desar Canvis");
+        Desar_BT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Desar_BTActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -243,7 +250,12 @@ public class Editar_Producte extends javax.swing.JDialog {
 
     private void Contingut_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Contingut_BTActionPerformed
        
-      Contingut_Album dialog = new Contingut_Album (new javax.swing.JFrame(), true);
+        
+        String tipus=prod.getTp().toString();
+        
+        switch(tipus){
+            case ("A"):
+                Contingut_Album dialog = new Contingut_Album (new javax.swing.JFrame(), true);
        dialog.setConnexio(cBD);
       
        
@@ -263,10 +275,68 @@ public class Editar_Producte extends javax.swing.JDialog {
            
            
        });
+                
+                
+            break;
+            
+            case("L"):
+                
+                Contingut_Llista dialog2 = new Contingut_Llista (new javax.swing.JFrame(), true);
+       dialog2.setConnexio(cBD);
+      
+       
+       dialog2.pasarProducte(prod);
+       dialog2.setVisible(true);
+     
+       
+        dialog2.addWindowListener(new WindowAdapter(){
+           @Override
+           public void windowClosed(WindowEvent e) {
+               
+               //Actualitzem la informació una vegada hem canviat el contingut 
+              double durada= dialog2.getDuarada();
+              ActulitzarDurada(durada);
+              
+           }
+                
+           });
+            break;
+        }
+        
+      
         
         
         
     }//GEN-LAST:event_Contingut_BTActionPerformed
+
+    private void Desar_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Desar_BTActionPerformed
+       String tipus = prod.getTp().toString();
+       String estat=null;
+       if(Actiu_RB.isSelected()){
+           estat="Actiu";
+       }else if(Inactiu_RB.isSelected()){
+           estat="Inactiu";
+       }
+       
+       Estil estil= new Estil(Estil_combo.getSelectedItem().toString());
+       
+       durada=ConvertirTemps(hores,minuts,segons);
+       
+       if(Nom_field.getText().length()<1){
+             JOptionPane.showMessageDialog(this, "El titol de la cançó ha de tenir com a mínim un caràcter");
+       }else{
+        try {
+            cBD.updateProducte(Nom_field.getText(),prod.getId(),durada,prod.getTp().toString(),estat,estil,any);
+            JOptionPane.showMessageDialog(this, "Canvis desats");
+            
+            
+            
+            
+        } catch (GestorBDEmpresaException ex) {
+            Logger.getLogger(Editar_Producte.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       } 
+    }//GEN-LAST:event_Desar_BTActionPerformed
 
     /**
      * @param args the command line arguments
@@ -370,7 +440,8 @@ public class Editar_Producte extends javax.swing.JDialog {
             }
    
         } catch (GestorBDEmpresaException ex) {
-           JOptionPane.showMessageDialog(null, ex.getMessage(),"Ups, ha hagut un error!", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, ex.getMessage(),"Ups, ha hagut un error!", JOptionPane.ERROR_MESSAGE);
+      
         }
     
     
@@ -382,13 +453,13 @@ public class Editar_Producte extends javax.swing.JDialog {
         Estil_combo.setSelectedItem(prod.getEstil().getNom());
         
         try {
-            double durada = cBD.getDurada(prod.getId());
+            durada= cBD.getDurada(prod.getId());
             CalcularTemps(durada);
             Hores_SP.setValue(hores);
             Minuts_SP.setValue(minuts);
             Segons_SP.setValue(segons);
             
-            int any=cBD.getAny(prod.getId());
+             any=cBD.getAny(prod.getId());
             
             Any_SP.setValue(any);
         } catch (GestorBDEmpresaException ex) {

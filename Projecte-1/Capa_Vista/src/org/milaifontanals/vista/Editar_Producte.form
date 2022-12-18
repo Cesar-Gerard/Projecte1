@@ -280,6 +280,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Desar Canvis"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="Desar_BTActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

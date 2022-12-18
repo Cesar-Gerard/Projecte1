@@ -517,7 +517,7 @@ public class Productes_Vista extends javax.swing.JDialog {
 
     private void Filtre_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Filtre_BTActionPerformed
        
-        List<Producte> filtre = new ArrayList<Producte> ();
+        
          String estil=null;
        
        try{
@@ -561,9 +561,9 @@ public class Productes_Vista extends javax.swing.JDialog {
                tp.add(Tipus_Producte.N);
            }
        }
-       
-            filtre=cBD.getProductes(titol,estat,estil,tp);
-            ContingutTaula(filtre);
+            rep.clear();
+            rep=cBD.getProductes(titol,estat,estil,tp);
+            ContingutTaula(rep);
            
        }catch (GestorBDEmpresaException ex) {
            JOptionPane.showMessageDialog(null, ex.getMessage(),"Ups, ha hagut un error!", JOptionPane.ERROR_MESSAGE);
@@ -572,14 +572,7 @@ public class Productes_Vista extends javax.swing.JDialog {
     }//GEN-LAST:event_Filtre_BTActionPerformed
 
     private void Netejar_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Netejar_BTActionPerformed
-        DadesTaula();
-        Titol_field.setText("");
-        Canso_CH.setSelected(true);
-        Album_CH.setSelected(true);
-        Llista_CH.setSelected(true);
-        
-         Actiu_RB.setSelected(true);
-         Estil_combo.setSelectedIndex(0);
+        Restaurar();
     }//GEN-LAST:event_Netejar_BTActionPerformed
 
     private void Afegir_BTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Afegir_BTActionPerformed
@@ -594,6 +587,7 @@ public class Productes_Vista extends javax.swing.JDialog {
            public void windowClosed(WindowEvent e) {
               //Actualitzem la taula
                DadesTaula();
+               Restaurar();
            }
            
            
@@ -635,6 +629,7 @@ public class Productes_Vista extends javax.swing.JDialog {
                
                 //Actualitzem la taula
                DadesTaula();
+               Restaurar();
            }
            
            
@@ -664,7 +659,7 @@ public class Productes_Vista extends javax.swing.JDialog {
            public void windowClosed(WindowEvent e) {
                
                 //Actualitzem la taula
-               DadesTaula();
+               Restaurar();
            }
            
            
@@ -831,6 +826,18 @@ public class Productes_Vista extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
+
+    private void Restaurar() {
+    
+    DadesTaula();
+        Titol_field.setText("");
+        Canso_CH.setSelected(true);
+        Album_CH.setSelected(true);
+        Llista_CH.setSelected(true);
+        
+         Actiu_RB.setSelected(true);
+         Estil_combo.setSelectedIndex(0);
+    }
 
    
 

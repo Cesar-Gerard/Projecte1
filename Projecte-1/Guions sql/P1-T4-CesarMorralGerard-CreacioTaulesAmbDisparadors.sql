@@ -438,8 +438,9 @@ begin
 
   end if;
 end;
-/
 
+
+/
 create or replace trigger TR_LLISTA_DURADA
 after insert or delete or update of llc_idcataleg
 on llista_cont for each row

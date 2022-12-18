@@ -451,7 +451,7 @@ public class Contingut_Album extends javax.swing.JDialog {
        cBD.updateDuradaAlbum(durada,id);
        CalcularTemps(durada);
        
-         JOptionPane.showMessageDialog(this, "Cançons afegides al contingut del àlbum sense cap problema");
+         JOptionPane.showMessageDialog(this, "Contingut del àlbum modificat sense cap problema");
          JOptionPane.showMessageDialog(this, "La durada del àlbum s'ha actualitzat amb la suma de la durada del seu contingut:"+hores+":"+minuts+":"+segons);
        
       } catch (GestorBDEmpresaException ex) {
@@ -484,7 +484,7 @@ public class Contingut_Album extends javax.swing.JDialog {
     private void ContingutTaulaCansons(List<Canso> cont) {
         jTable1.removeAll();
          String columnNames []={"ID","NOM","DURADA","ESTIL","ANY CREACIO"};
-            String data[][]= new String [cont.size()][5];
+            String data[][]= new String [cont.size()][6];
          
          
         for(int i =0; i<cont.size();i++){
